@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './LoginPage';
 import Signup from './SignUpPage';
 import UserProfile from './UserProfile';
-import Home from './HomePage';
+// import Home from './HomePage';
 import SignupNext from "./SignUpNextPage";
 import HeroComponent from './HeroComponent';
 import Chat from './Chat_';
