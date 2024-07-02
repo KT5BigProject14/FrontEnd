@@ -14,40 +14,61 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const hasValidEmail = () => {
-    return !validateEmail(email) && email.length >=1
-  }
-
   const validateEmail = (email) => {
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
+    return passwordRegex.test(password);
+  };
+
+  const validateConfirmPassword = () => {
+    return password === confirmPassword
+  }
+
+  const validateusername = () => {
+    if (username.length >=1){
+      return true
+    } else return false
+  }
+
   useEffect(() => {
-    // if(email.length >=1) {
-    if (hasValidEmail()){
-      setEmailError("유효한 이메일을 입력하세요.");
-      setIsTempValid(false);
-      // isTempValid = false;
-    } else {
-      setEmailError("");
-    } 
-
-    if (password.length < 8  && password.length >=1) {
-      setPasswordError("비밀번호는 최소 8자리여야 합니다.");
-      setIsTempValid(false);
-    } else {
-      setPasswordError("");
-    }
-
-    if (password !== confirmPassword && confirmPassword.length >=1) {
-      setConfirmPasswordError("비밀번호가 일치하지 않습니다.");
-      setIsTempValid(false);
-    } else {
-      setConfirmPasswordError("");
-    }
     
+    if (validateEmail(email)){
+      setEmailError("");
+    } else {
+        if (email.length >=1) {
+          setEmailError("유효한 이메일을 입력하세요.");
+        }
+        else{
+          setEmailError("");
+        }
+    }
+
+    if (validatePassword(password)){
+      setPasswordError("");
+    } else {
+        if (password.length >=1) {
+          setPasswordError("비밀번호는 영문, 숫자, 특수기호를 조합하여 8자 이상 입력해 주세요.");
+        }
+        else{
+          setPasswordError("");
+        }
+    }
+
+    if (validateConfirmPassword()){
+      setConfirmPasswordError("");
+    } else {
+        if (confirmPassword.length >=1) {
+          setConfirmPasswordError("비밀번호가 일치하지 않습니다.");
+        }
+        else{
+          setConfirmPasswordError("");
+        }
+    }
+
   }, [email, password, confirmPassword])
 
   const handleSignup = async (event) => {
@@ -58,9 +79,8 @@ const Signup = () => {
       username,
       password,
     };
-    if (!isTempValid) {
-    }
-    if (isTempValid) {
+
+    if (validateEmail(email) && validateusername() &&validatePassword(password) && validateConfirmPassword()) {
       navigate("/signup-next", { state: formData });
     }
   };
