@@ -1,0 +1,249 @@
+/* 공통 스타일 */
+.Home {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: #100425;
+  overflow: hidden;
+}
+
+.Rectangle1 {
+  position: absolute;
+  background: rgba(217, 217, 217, 0.10);
+  box-shadow: -75.83333587646484px 75.83333587646484px 75.83333587646484px rgba(255, 255, 255, 0.10) inset;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border: 1px rgba(248, 248, 248, 0.26) solid;
+  backdrop-filter: blur(151.67px);
+  width: 95%;
+  height: 95%;
+  left: 2.5%;
+  top: 2%;
+}
+
+.Ellipse1 {
+  position: absolute;
+  transform: rotate(-90deg);
+  transform-origin: 0 0;
+  background: linear-gradient(201deg, #DC00D3 0%, #0CFAF5 100%);
+  box-shadow: 350px 350px 350px;
+  border-radius: 9999px;
+  filter: blur(350px);
+  width: 40%;
+  height: 40%;
+  left: 55%;
+  top: 60%;
+}
+
+.Rectangle2 {
+  position: absolute;
+  background: #17072D;
+  box-shadow: 0px -1px 1px rgba(255, 255, 255, 0.44) inset;
+  width: 20%;
+  height: 5%;
+  left: 40%;
+  top: 2%;
+}
+
+.Menu {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  height: 22px;
+  left: 11%;
+  top: 5%;
+}
+
+.Menu div {
+  color: white;
+  font-size: 1.2rem;
+  font-family: Inter;
+  font-weight: 500;
+  word-wrap: break-word;
+  margin-right: 20%;
+}
+
+/* Community와 My Page 사이의 간격을 넓게 설정 */
+.Menu .Community {
+  margin-right: 40%; /* 원하는 간격으로 조정 */
+}
+
+.Menu .MyPage {
+  margin-left: 20%; /* 원하는 간격으로 조정 */
+}
+
+.Intro {
+  position: absolute;
+  width: 70%;
+  height: auto;
+  left: 5%;
+  top: 20%;
+}
+
+.ForYourSafeTrading {
+  color: white;
+  font-size: 5vw;
+  font-family: Inter;
+  font-weight: 700;
+  word-wrap: break-word;
+  font-size: 55px;
+}
+
+.AskAnything {
+  color: #00FFFA;
+  font-size: 2.5vw;
+  font-family: Inter;
+  font-weight: 600;
+  word-wrap: break-word;
+  font-size: 27px;
+}
+
+.Rectangle3 {
+  position: absolute;
+  background: linear-gradient(151deg, rgba(220, 0, 211, 0.90) 0%, rgba(242.67, 242.67, 242.67, 0.90) 61%, rgba(82.28, 159.63, 235.19, 0.90) 100%);
+  box-shadow: 7px 7px 7px;
+  border-radius: 50px;
+  filter: blur(4px);
+  width: 74%;
+  height: 8%;
+  left: 15%;
+  top: 60%;
+}
+
+.Rectangle5 {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.50);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  width: 74%;
+  height: 8%;
+  left: 15%;
+  top: 60%;
+}
+
+.Rectangle4 {
+  position: absolute;
+  background: #17072D;
+  box-shadow: 0px 4px 4px rgba(82, 87, 82, 0.25);
+  border-radius: 50px;
+  width: 8%;
+  height: 6%;
+  left: 80%;
+  top: 61%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.Rectangle4::before {
+  content: 'Go';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white; /* 텍스트 색상 */
+  font-size: 14px; /* 원하는 폰트 사이즈 */
+  font-weight: bold; /* 폰트 굵기 */
+}
+
+
+.WhatDoYouWantToKnow {
+  position: absolute;
+  color: #383838;
+  font-size: 2vw;
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 300;
+  word-wrap: break-word;
+  width: 70%;
+  left: 18%;
+  top: 62%;
+}
+
+.Group4 {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  height: 24px;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);
+}
+
+
+.Group4 div {
+  color: white;
+  font-size: 1rem;
+  font-family: Inter;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+  .Menu {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .Intro {
+    left: 10%;
+    top: 25%;
+  }
+
+  .ForYourSafeTrading {
+    font-size: 6vw;
+  }
+
+  .AskAnything {
+    font-size: 4vw;
+  }
+
+  .Rectangle3, .Rectangle5, .Rectangle4, .WhatDoYouWantToKnow {
+    width: 80%;
+    left: 10%;
+  }
+
+  .Rectangle4 {
+    left: 85%;
+  }
+
+  .Group4 {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .ForYourSafeTrading {
+    font-size: 8vw;
+  }
+
+  .AskAnything {
+    font-size: 5vw;
+  }
+
+  .Menu {
+    width: 80%;
+    left: 10%;
+    top: 10%;
+  }
+
+  .Rectangle3, .Rectangle5, .Rectangle4, .WhatDoYouWantToKnow {
+    width: 90%;
+    left: 5%;
+  }
+
+  .Rectangle4 {
+    left: 88%;
+  }
+
+  .Group4 {
+    width: 100%;
+    left: 0;
+  }
+}

@@ -1,0 +1,24 @@
+/* UserProfile.css */
+.user-profile {
+    padding: 20px;
+  }
+  
+  .user-logout-btn-container {
+    margin-top: 20px;
+  }
+  
+  .user-logout-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .move-page-icon {
+    margin-left: 10px;
+  }
+  
