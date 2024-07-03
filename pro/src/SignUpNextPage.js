@@ -1,5 +1,4 @@
-// SignupNext.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
 
@@ -17,16 +16,19 @@ const SignupNext = () => {
   const handleSignup = async (event) => {
     event.preventDefault();
 
+    // Remove hyphens from businessNumber
+    const cleanedBusinessNumber = businessNumber.replace(/-/g, '');
+
     const payload = {
       ...formData,
       companyName,
-      businessNumber,
+      businessNumber: cleanedBusinessNumber,
       position,
       extensionNumber,
     };
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/users/signup", {
+      const response = await fetch("http://localhost:8000/retriever/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -42,6 +44,27 @@ const SignupNext = () => {
       }
     } catch (error) {
       console.error("오류 발생:", error);
+    }
+  };
+
+  useEffect(() => {
+    const formatBusinessNumber = (number) => {
+      const cleaned = ('' + number).replace(/\D/g, '');
+      const match = cleaned.match(/^(\d{0,3})(\d{0,2})(\d{0,5})$/);
+      if (match) {
+        return [match[1], match[2], match[3]].filter(x => x).join('-');
+      }
+      return number;
+    };
+
+    setBusinessNumber((prev) => formatBusinessNumber(prev));
+  }, [businessNumber]);
+
+  const handleBusinessNumberChange = (e) => {
+    const { value } = e.target;
+    // Allow input only if the length is less than or equal to 12 characters (including hyphens)
+    if (value.replace(/\D/g, '').length <= 10) {
+      setBusinessNumber(value);
     }
   };
 
@@ -61,7 +84,7 @@ const SignupNext = () => {
           type="text"
           id="businessNumber"
           value={businessNumber}
-          onChange={(e) => setBusinessNumber(e.target.value)}
+          onChange={handleBusinessNumberChange}
         />
         <label htmlFor="position">직책</label>
         <input

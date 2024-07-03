@@ -76,8 +76,8 @@ const Signup = () => {
 
     const formData = {
       email,
-      username,
       password,
+      username
     };
 
     if (validateEmail(email) && validateusername() &&validatePassword(password) && validateConfirmPassword()) {

@@ -14,7 +14,7 @@ const Login = ({ setIsLoggedIn }) => {
     event.preventDefault();
     await new Promise((r) => setTimeout(r, 1000));
 
-    const response = await fetch("로그인 서버 주소", {
+    const response = await fetch("http://localhost:8000/retriever/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,8 +27,6 @@ const Login = ({ setIsLoggedIn }) => {
       setLoginCheck(false);
       sessionStorage.setItem("token", result.token);
       sessionStorage.setItem("email", result.email);
-      sessionStorage.setItem("role", result.role);
-      sessionStorage.setItem("storeid", result.storeId);
       console.log("로그인성공, 이메일주소:" + result.email);
       setIsLoggedIn(true);
       navigate("/");
