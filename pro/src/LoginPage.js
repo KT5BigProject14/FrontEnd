@@ -7,7 +7,6 @@ const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginCheck, setLoginCheck] = useState(false);
-
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
@@ -25,9 +24,8 @@ const Login = ({ setIsLoggedIn }) => {
 
     if (response.status === 200) {
       setLoginCheck(false);
-      sessionStorage.setItem("token", result.token);
-      sessionStorage.setItem("email", result.email);
-      console.log("로그인성공, 이메일주소:" + result.email);
+      sessionStorage.setItem("token", result.access_token);
+      console.log("로그인성공, token:" + result.access_token);
       setIsLoggedIn(true);
       navigate("/");
     } else if(response.status === 400) {
@@ -41,6 +39,7 @@ const Login = ({ setIsLoggedIn }) => {
 // 400 : data가 잘 못들어감
 // 500 : 서버문제
   return (
+    
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
         <h1>Let's start</h1>

@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import './HeroComponent.css'; // CSS 파일 임포트
 import { Link } from 'react-router-dom';
 
-
 const HeroComponent = ({ isLoggedIn, handleLogout }) => {
   const heroRef = useRef(null);
   const overlayRef = useRef(null);
@@ -64,54 +63,46 @@ const HeroComponent = ({ isLoggedIn, handleLogout }) => {
 
   return (
     <div className="wrapper">
-      {/* <div className="home-container">
-        {isLoggedIn ? (
-          <button className="btn" onClick={handleLogout}>로그아웃</button>
-        ) : (
-          <div className='start_btn'>
-            <Link to="/login">
-              <button className="btn">로그인</button>
-            </Link>
-            <Link to="/signup">
-              <button className="btn">회원가입</button>
-            </Link>
-          </div>
-        )}
-      </div> */}
       <div className="hero-container">
         <div className="hero">
           <h1 className="hero__heading">당신의 도전이 조금 더 쉬어지도록 </h1>
           <h3 className="hero__heading">리트리버가 당신의 도전을 보조할게요</h3>
-          <a className="btn" href="#" onClick={(e) => handleClick(e, "#")} title="채팅 시작하기">채팅 시작하기</a>
+
+          {isLoggedIn && (
+            <a className="btn" href="#" onClick={(e) => handleClick(e, "#")} title="채팅 시작하기">채팅 시작하기</a>
+          )}
 
           {isLoggedIn ? (
-          <button className="btn" onClick={handleLogout}>로그아웃</button>
+            <button className="btn" onClick={handleLogout}>로그아웃</button>
           ) : (
-          <div>
-            <Link to="/login">
-              <button className="btn">로그인</button>
-            </Link>
-            <Link to="/signup">
-              <button className="btn">회원가입</button>
-            </Link>
-          </div>
+            <div>
+              <Link to="/login">
+                <button className="btn">로그인</button>
+              </Link>
+              <Link to="/signup">
+                <button className="btn">회원가입</button>
+              </Link>
+            </div>
           )}
         </div>
         <div className="hero hero--secondary" aria-hidden="true" data-hero ref={heroRef}>
           <p className="hero__heading">Welcome to Retriver</p>
-          <a className="btn" href="/chatbot" onClick={(e) => handleClick(e, "/chat_")} title="채팅 시작하기">채팅 시작하기</a>
-            
+          
+          {isLoggedIn && (
+            <a className="btn" href="/chatbot" onClick={(e) => handleClick(e, "/chat_")} title="채팅 시작하기">채팅 시작하기</a>
+          )}
+          
           {isLoggedIn ? (
-          <button className="btn" onClick={handleLogout}>로그아웃</button>
+            <button className="btn" onClick={handleLogout}>로그아웃</button>
           ) : (
-          <div>
-            <Link to="/login">
-              <button className="btn">로그인</button>
-            </Link>
-            <Link to="/signup">
-              <button className="btn">회원가입</button>
-            </Link>
-          </div>
+            <div>
+              <Link to="/login">
+                <button className="btn">로그인</button>
+              </Link>
+              <Link to="/signup">
+                <button className="btn">회원가입</button>
+              </Link>
+            </div>
           )}
         </div>
       </div>

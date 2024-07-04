@@ -16,15 +16,15 @@ const SignupNext = () => {
   const handleSignup = async (event) => {
     event.preventDefault();
 
-    // Remove hyphens from businessNumber
-    const cleanedBusinessNumber = businessNumber.replace(/-/g, '');
+    // Remove hyphens from businessNumber and convert to number
+    const cleanedBusinessNumber = parseInt(businessNumber.replace(/-/g, ''), 10);
 
     const payload = {
       ...formData,
-      companyName,
-      businessNumber: cleanedBusinessNumber,
+      corporation: companyName,
+      business_number: cleanedBusinessNumber,
       position,
-      extensionNumber,
+      phone: extensionNumber,
     };
 
     try {
@@ -36,7 +36,7 @@ const SignupNext = () => {
 
       const data = await response.json();
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log("성공! 이메일주소: " + data.email);
         navigate("/login");
       } else if (response.status === 400) {
@@ -93,7 +93,7 @@ const SignupNext = () => {
           value={position}
           onChange={(e) => setPosition(e.target.value)}
         />
-        <label htmlFor="extensionNumber">내선 번호</label>
+        <label htmlFor="extensionNumber">전화번호</label>
         <input
           type="text"
           id="extensionNumber"
