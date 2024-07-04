@@ -1,10 +1,12 @@
 // Home.js
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import GlobeDemo from "./Aceternity_UI/backgroundGlobe";
 
 const Home = ({ isLoggedIn, handleLogout }) => {
   return (
     <div className="home-container">
+      {/* <GlobeDemo /> */}
       <h1>메인 화면</h1>
       {isLoggedIn ? (
         <button onClick={handleLogout}>로그아웃</button>
