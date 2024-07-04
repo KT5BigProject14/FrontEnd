@@ -8,7 +8,9 @@ import UserProfile from './UserProfile';
 import SignupNext from "./SignUpNextPage";
 import HeroComponent from './HeroComponent';
 import Chat from './Chat_';
-import TextRevealCardPreview from './test';
+import TextRevealCardPreview from './Aceternity_UI/TextRevealCard';
+import GlobeDemo from './Aceternity_UI/backgroundGlobe';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,7 +40,8 @@ function App() {
         <Route path="/profile" element={<UserProfile handleLogout={handleLogout} />} />
         <Route path="/HeroComponent" element={<HeroComponent />} />
         <Route path="/Chat_" element={<Chat />} />
-        <Route path="/test" element={<TextRevealCardPreview />} />
+        <Route path="/test1" element={<TextRevealCardPreview />} />
+        {/* <Route path="/test2" element={<GlobeDemo />} /> */}
 
       </Routes>
     </Router>
