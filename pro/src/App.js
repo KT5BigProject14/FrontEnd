@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './LoginPage';
 import Signup from './SignUpPage';
 import UserProfile from './UserProfile';
+import EditUserProfile from './Edit_UserProfile';
 // import Home from './HomePage';
 import SignupNext from "./SignUpNextPage";
 import HeroComponent from './HeroComponent';
 import Chat from './Chat_';
 import TextRevealCardPreview from './test';
+import PWFind from './PW_find';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,9 +38,11 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup-next" element={<SignupNext />} />
         <Route path="/profile" element={<UserProfile handleLogout={handleLogout} />} />
+        <Route path="/edit-profile" element={<EditUserProfile handleLogout={handleLogout} />} />
         <Route path="/HeroComponent" element={<HeroComponent />} />
         <Route path="/Chat_" element={<Chat />} />
         <Route path="/test" element={<TextRevealCardPreview />} />
+        <Route path="/pw-find" element={<PWFind />} />
 
       </Routes>
     </Router>

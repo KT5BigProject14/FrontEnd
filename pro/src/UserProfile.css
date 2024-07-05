@@ -1,24 +1,42 @@
-/* UserProfile.css */
 .user-profile {
-    padding: 20px;
-  }
-  
-  .user-logout-btn-container {
-    margin-top: 20px;
-  }
-  
-  .user-logout-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .move-page-icon {
-    margin-left: 10px;
-  }
-  
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #000000;
+}
+
+.user-info p {
+  margin: 10px 0;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-edit-btn,
+.user-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  margin: 10px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.user-edit-btn:hover,
+.user-logout-btn:hover {
+  background-color: #0056b3;
+}
+
+.move-page-icon {
+  margin-left: 10px;
+}

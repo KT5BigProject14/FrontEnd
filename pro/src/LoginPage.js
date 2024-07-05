@@ -61,6 +61,9 @@ const Login = ({ setIsLoggedIn }) => {
           <label style={{ color: "red" }}>이메일 혹은 비밀번호가 틀렸습니다.</label>
         )}
         <button type="submit">로그인</button>
+        <p className="pw-find">
+          비밀번호를 잊으셨나요? <Link to="/pw-find">PW찾기</Link>
+        </p>
         <p className="signup-link">
           아직 회원이 아니신가요? <Link to="/signup">회원가입</Link>
         </p>
