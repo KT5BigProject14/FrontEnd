@@ -1,6 +1,6 @@
 // App.js
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Login from './LoginPage';
 import Signup from './SignUpPage';
 import UserProfile from './UserProfile';
@@ -11,27 +11,31 @@ import HeroComponent from './HeroComponent';
 import Chat from './Chat_';
 import TextRevealCardPreview from './test';
 import PWFind from './PW_find';
+import Menu from './Menu';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const checkLoginStatus = () => {
+    const token = sessionStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  };
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-    }
+    checkLoginStatus();
+    const interval = setInterval(checkLoginStatus, 1000); // Check login status every second
+
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   const handleLogout = () => {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('email');
-    sessionStorage.removeItem('role');
-    sessionStorage.removeItem('storeid');
     setIsLoggedIn(false);
   };
 
   return (
     <Router>
+      <Menu isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<HeroComponent isLoggedIn={isLoggedIn} handleLogout={handleLogout} />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
@@ -43,7 +47,6 @@ function App() {
         <Route path="/Chat_" element={<Chat />} />
         <Route path="/test" element={<TextRevealCardPreview />} />
         <Route path="/pw-find" element={<PWFind />} />
-
       </Routes>
     </Router>
   );

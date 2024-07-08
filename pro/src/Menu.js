@@ -1,17 +1,32 @@
+// Menu.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Menu = ({ onLogout }) => {
+const Menu = ({ isLoggedIn, handleLogout }) => {
+  const navStyle = {
+    ...styles.nav,
+    gap: isLoggedIn ? '200px' : '100px',
+  };
+
   return (
     <header style={styles.header}>
       <div style={styles.logo}>LOGO</div>
-      <nav style={styles.nav}>
-        <Link to="/" style={styles.navItem}>Home</Link>
-        <Link to="/dashboard" style={styles.navItem}>Dashboard</Link>
-        <Link to="/profile" style={styles.navItem}>My Page</Link>
-        <Link to="/storage" style={styles.navItem}>Storage</Link>
+      <nav style={navStyle}>
+        {isLoggedIn ? (
+          <>
+            <Link to="/" style={styles.navItem}>Home</Link>
+            <Link to="/dashboard" style={styles.navItem}>Dashboard</Link>
+            <Link to="/profile" style={styles.navItem}>My Page</Link>
+            <Link to="/storage" style={styles.navItem}>Storage</Link>
+            <button className="out-btn" onClick={handleLogout} style={styles.logoutButton}>로그아웃</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" style={styles.navItem}>로그인</Link>
+            <Link to="/signup" style={styles.navItem}>회원가입</Link>
+          </>
+        )}
       </nav>
-      <button className="out-btn" onClick={onLogout} style={styles.logoutButton}>로그아웃</button>
     </header>
   );
 };
@@ -30,12 +45,11 @@ const styles = {
   },
   nav: {
     display: 'flex',
-    gap: '200px', // 여기서 각 항목 사이의 간격을 설정합니다.
   },
   navItem: {
     color: 'white',
     textDecoration: 'none',
-    margin: '0 15px', // 각 항목에 마진을 추가하여 간격을 설정합니다.
+    margin: '0 15px', // 각 항목에 마진 추가하여 간격 설정
   },
   logoutButton: {
     backgroundColor: '#61dafb',

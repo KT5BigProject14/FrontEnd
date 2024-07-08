@@ -25,6 +25,7 @@ const Login = ({ setIsLoggedIn }) => {
     if (response.status === 200) {
       setLoginCheck(false);
       sessionStorage.setItem("token", result.access_token);
+      sessionStorage.setItem("email", result.email);
       console.log("로그인성공, token:" + result.access_token);
       setIsLoggedIn(true);
       navigate("/");

@@ -71,38 +71,12 @@ const HeroComponent = ({ isLoggedIn, handleLogout }) => {
           {isLoggedIn && (
             <a className="btn" href="#" onClick={(e) => handleClick(e, "#")} title="채팅 시작하기">채팅 시작하기</a>
           )}
-
-          {isLoggedIn ? (
-            <button className="btn" onClick={handleLogout}>로그아웃</button>
-          ) : (
-            <div>
-              <Link to="/login">
-                <button className="btn">로그인</button>
-              </Link>
-              <Link to="/signup">
-                <button className="btn">회원가입</button>
-              </Link>
-            </div>
-          )}
         </div>
         <div className="hero hero--secondary" aria-hidden="true" data-hero ref={heroRef}>
           <p className="hero__heading">Welcome to Retriver</p>
           
           {isLoggedIn && (
             <a className="btn" href="/chatbot" onClick={(e) => handleClick(e, "/chat_")} title="채팅 시작하기">채팅 시작하기</a>
-          )}
-          
-          {isLoggedIn ? (
-            <button className="btn" onClick={handleLogout}>로그아웃</button>
-          ) : (
-            <div>
-              <Link to="/login">
-                <button className="btn">로그인</button>
-              </Link>
-              <Link to="/signup">
-                <button className="btn">회원가입</button>
-              </Link>
-            </div>
           )}
         </div>
       </div>

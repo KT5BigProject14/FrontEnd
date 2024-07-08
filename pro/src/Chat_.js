@@ -53,7 +53,6 @@ const Chat = () => {
 
   return (
     <div style={styles.container}>
-      <Menu onLogout={handleLogout} />
       <div style={styles.body}>
         <div style={styles.leftPane}>
           <div style={styles.searchArea}>
