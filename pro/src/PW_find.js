@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import "./PW_find.css";
 
 const PWFind =() => {
-
+    
 };
 
 export default PWFind;
