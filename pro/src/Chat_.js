@@ -5,12 +5,39 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [sessionId, setSessionId] = useState(null); // sessionId 상태 추가
+  const [email, setEmail] = useState('user@example.com'); // email 상태 추가
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (input.trim()) {
       setMessages([...messages, { sender: 'Me', text: input }]);
       setInput('');
-      // 여기서 챗봇 응답을 처리하는 로직을 추가할 수 있습니다.
+      
+      // Fetch 로직 추가
+      const response = await fetch('http://localhost:8000/retriever/rag_pipeline/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: input,
+          session_id: sessionId,
+          user_email: email,
+        }),
+      });
+
+      const data = await response.json();
+
+      // 응답 메시지를 채팅에 추가
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: 'Bot', text: data.response },
+      ]);
+
+      // 세션 ID를 응답에서 받은 값으로 설정
+      if (data.session_id) {
+        setSessionId(data.session_id);
+      }
     }
   };
 
