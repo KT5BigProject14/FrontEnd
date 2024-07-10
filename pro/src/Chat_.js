@@ -5,29 +5,30 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sessionId, setSessionId] = useState(null); // sessionId 상태 추가
-  const [email, setEmail] = useState('user@example.com'); // email 상태 추가
+  const [sessionId, setSessionId] = useState('session1'); // sessionId 상태 추가
+  const email = sessionStorage.getItem('email');
 
   const handleSendMessage = async () => {
     if (input.trim()) {
       setMessages([...messages, { sender: 'Me', text: input }]);
       setInput('');
-      
+      console.log(input,sessionId,email);
       // Fetch 로직 추가
-      const response = await fetch('http://localhost:8000/retriever/rag_pipeline/chat', {
+      const response = await fetch('http://localhost:8000/retriever/ai/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          question: input,
-          session_id: sessionId,
           user_email: email,
+          session_id: sessionId,
+          question: input,
         }),
+        
       });
 
       const data = await response.json();
-
+      console.log(data);
       // 응답 메시지를 채팅에 추가
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -152,6 +153,7 @@ const styles = {
     padding: '10px',
     backgroundColor: '#e1ffc7',
     borderRadius: '10px',
+    color:'#000000',
   },
   botMessage: {
     textAlign: 'left',
@@ -159,6 +161,7 @@ const styles = {
     padding: '10px',
     backgroundColor: '#f1f0f0',
     borderRadius: '10px',
+    color:'#000000',
   },
   inputArea: {
     display: 'flex',
