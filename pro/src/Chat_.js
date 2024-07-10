@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import Menu from './Menu';
+import Sessionbar from "./Sessionbar";
+import Storagebar from "./Storagebar";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -7,6 +9,18 @@ const Chat = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sessionId, setSessionId] = useState('session1'); // sessionId 상태 추가
   const email = sessionStorage.getItem('email');
+  const [sessions, setSessions] = useState([]);
+  const [stroages, setStorages] = useState([]);
+
+  useEffect(() => {
+    // 여기에 백엔드에서 대화 데이터를 가져오는 API 호출을 추가하세요.
+    // 예를 들어, fetch를 사용하여 데이터를 가져올 수 있습니다.
+    fetch("/api/sessions") // 적절한 API 엔드포인트로 변경하세요.
+      .then(response => response.json())
+      .then(data => setSessions(data))
+      .catch(error => console.error("Error fetching session data:", error));
+  }, []);
+
 
   const handleSendMessage = async () => {
     if (input.trim()) {
@@ -87,6 +101,10 @@ const Chat = () => {
             <button onClick={handleSendMessage} style={styles.sendButton}>Send</button>
           </div>
         </div>
+      </div>
+      <div>
+        <Sessionbar sessions={sessions} />
+        <Storagebar stroages={stroages} />
       </div>
     </div>
   );
