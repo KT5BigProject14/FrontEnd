@@ -17,15 +17,16 @@ const UserProfile = ({ handleLogout }) => {
   });
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
+    const token=sessionStorage.getItem('token');
+    const email = sessionStorage.getItem("email");
+    if (email) {
       // 토큰을 사용하여 서버에서 사용자 정보를 가져오는 함수 호출
-      fetchUserInfo(token).then(data => {
+      fetchUserInfo(email).then(data => {
         setUserInfo({
           email: data.email,
           user_name: data.user_name,
           corporation: data.corporation,
-          business_number: formatBusinessNumber(data.business_number),
+          // business_number: formatBusinessNumber(data.business_number),
           position: data.position,
           phone: data.phone
         });
@@ -33,12 +34,15 @@ const UserProfile = ({ handleLogout }) => {
     }
   }, []);
 
-  const fetchUserInfo = async (token) => {
+  const fetchUserInfo = async (email) => {
     try {
-      const response = await fetch('https://api.example.com/data', {
+      const email = sessionStorage.getItem("email");
+      console.log()
+      const address='http://localhost:8000/retriever/user_info/user_info/'+email
+      const response = await fetch(address, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          // 'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
@@ -60,9 +64,9 @@ const UserProfile = ({ handleLogout }) => {
     }
   };
 
-  const formatBusinessNumber = (number) => {
-    return `${number.slice(0, 3)}-${number.slice(3, 5)}-${number.slice(5)}`;
-  };
+  // const formatBusinessNumber = (number) => {
+  //   return `${number.slice(0, 3)}-${number.slice(3, 5)}-${number.slice(5)}`;
+  // };
 
   const handleLogoutClick = () => {
     handleLogout();

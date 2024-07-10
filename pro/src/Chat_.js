@@ -56,14 +56,32 @@ const Chat = () => {
     }
   };
 
-  const handleLogout = () => {
-    // 로그아웃 로직을 추가합니다.
-    console.log('Logged out');
-  };
-
-  const handleSearch = () => {
+  const handleSearch = async () => {
     // 검색 로직을 추가합니다.
     console.log('Search query:', searchQuery);
+    if (searchQuery.trim()) {
+      try {
+        const response = await fetch('http://localhost:8000/retriever/ai/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ question: searchQuery }),
+        });
+  
+        const data = await response.json();
+        console.log('Search data received:', data);
+  
+        // 여기서 응답 데이터를 적절한 상태에 저장하거나 사용하면 됩니다.
+        // 예: 검색 결과를 화면에 표시하려면 다음과 같이 할 수 있습니다.
+        setStorages(data.storages); // 가정: 서버 응답이 { storages: [...] } 형태일 경우
+  
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+      }
+    }
+
+
   };
 
   return (
@@ -146,6 +164,7 @@ const styles = {
     borderRadius: '5px',
     border: '1px solid #ccc',
     marginRight: '10px',
+    color : '#000000'
   },
   searchButton: {
     padding: '10px 20px',
@@ -191,6 +210,7 @@ const styles = {
     borderRadius: '5px',
     border: '1px solid #ccc',
     marginRight: '10px',
+    color : '#000000'
   },
   sendButton: {
     padding: '10px 20px',
