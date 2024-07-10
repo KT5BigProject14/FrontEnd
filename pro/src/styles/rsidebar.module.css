@@ -1,0 +1,44 @@
+.container {
+  background-color: #E3ECF1;
+}
+.sidebar {
+  background-color: #E3ECF1;
+  border-left: 4px solid #202020;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  transition: 0.4s ease;
+  color: #202020;
+  height: 100%;
+  z-index: 99;
+}
+.button {
+  position: relative;
+  top: 50%;
+  left : -20px;
+  transform: translateY(-50%);
+  width: 20px; /* 버튼 너비 */
+  height: 60px; /* 버튼 높이 */
+  z-index: 100; /* 사이드바보다 앞에 위치 */
+  cursor: pointer; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.8s ease;
+  border: 2px solid #202020;
+}
+.toggleIcon {
+  width: 12px; /* 아이콘 너비 */
+  height: 24px; /* 아이콘 높이 */
+  transform: rotate(180deg); /* 아이콘을 반대 방향으로 회전 */
+}
+.content {
+  padding: 40px 20px 0 40px; /* padding을 적절히 조정 */
+  position: relative;
+  width: 100%;
+}
+.icon {
+  margin: 0;
+  color: #202020;
+}
