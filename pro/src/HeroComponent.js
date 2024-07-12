@@ -65,9 +65,6 @@ const HeroComponent = ({ isLoggedIn, handleLogout }) => {
 
   return (
     <div className="wrapper">
-      {sessionStorage.getItem('token') && (
-      <Link to="/chat_" className="chat-button">Chat으로 가기</Link>
-      )}
       <GlobeDemo />
     </div>
   );

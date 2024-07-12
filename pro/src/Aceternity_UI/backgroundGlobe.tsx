@@ -1,17 +1,38 @@
 "use client";
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-// import dynamic from "next/dynamic";
 
 const World = lazy(() =>
   import("../ui/globe").then((m) => ({ default: m.World }))
 );
 
-// const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
-//   ssr: false,
-// });
-
 export default function GlobeDemo() {
+  const [hasToken, setHasToken] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      setHasToken(true);
+    } else {
+      setHasToken(false);
+    }
+  
+    const handleStorageChange = () => {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        setHasToken(true);
+      } else {
+        setHasToken(false);
+      }
+    };
+  
+    window.addEventListener("storage", handleStorageChange);
+  
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
   const globeConfig = {
     pointSize: 4,
     globeColor: "#062056",
@@ -34,6 +55,7 @@ export default function GlobeDemo() {
     autoRotate: true,
     autoRotateSpeed: 0.5,
   };
+
   const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
   const sampleArcs = [
     {
@@ -424,13 +446,23 @@ export default function GlobeDemo() {
           <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
             Just Do LoGO
           </p>
+          {hasToken && (
+            <div className="text-center mt-4">
+              <a
+                href="/chat_"
+                className="inline-block px-6 py-2 bg-blue-500 text-white font-bold rounded-full"
+                style={{ position: "relative", zIndex: 50 }}
+              >
+                Chat으로 가기
+              </a>
+            </div>
+          )}
         </motion.div>
         <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
         <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
           <Suspense fallback={<div>Loading...</div>}>
             <World data={sampleArcs} globeConfig={globeConfig} />
           </Suspense>
-          {/* <World data={sampleArcs} globeConfig={globeConfig} />; */}
         </div>
       </div>
     </div>

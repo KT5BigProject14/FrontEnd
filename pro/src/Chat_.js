@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react"; // useCallback 추가
+import Menu from './Menu';
 import Sessionbar from "./Sessionbar";
 import Storagebar from "./Storagebar";
 
@@ -8,8 +9,10 @@ const Chat = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sessionId, setSessionId] = useState('session2'); // sessionId 상태 추가
   const email = sessionStorage.getItem('email');
+  const [titles, setTitles] = useState([]);
+  const [titletext, setTitletext] = useState([]);
   const [sessions, setSessions] = useState([]);
-  const [stroages, setStorages] = useState([]);
+  const [storages, setStorages] = useState([]);
 
   // useEffect(() => {
   //   // 여기에 백엔드에서 대화 데이터를 가져오는 API 호출을 추가하세요.
@@ -60,7 +63,6 @@ const Chat = () => {
   useEffect(() => {
     fetchSessions(); // 초기 로딩 시 세션 데이터 가져오기
   }, [email, fetchSessions]);
-
   const fetchMessagesForSession = useCallback(async (sessionId) => {
     try {
       const response = await fetch(`http://localhost:8000/retriever/redis/messages/${email}/${sessionId}`);
@@ -85,8 +87,8 @@ const Chat = () => {
     if (input.trim()) {
       setMessages([...messages, { sender: 'Me', text: input }]);
       setInput('');
-      console.log(input,sessionId,email);
-      // Fetch 로직 추가
+      console.log(input, sessionId, email);
+
       const response = await fetch('http://localhost:8000/retriever/ai/chat', {
         method: 'POST',
         headers: {
@@ -97,18 +99,15 @@ const Chat = () => {
           session_id: sessionId,
           question: input,
         }),
-        
       });
 
       const data = await response.json();
       console.log(data);
-      // 응답 메시지를 채팅에 추가
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'Bot', text: data.response },
       ]);
 
-      // 세션 ID를 응답에서 받은 값으로 설정
       if (data.session_id) {
         setSessionId(data.session_id);
       }
@@ -116,27 +115,26 @@ const Chat = () => {
   };
 
   const handleSearch = async () => {
-    // 검색 로직을 추가합니다.
     console.log('Search query:', searchQuery);
     if (searchQuery.trim()) {
       try {
-        const response = await fetch('http://localhost:8000/retriever/ai/search', {
+        const response = await fetch('http://localhost:8000/retriever/ai/title', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ question: searchQuery }),
         });
-  
+
         const data = await response.json();
         console.log('Search data received:', data);
-  
-        // 여기서 응답 데이터를 적절한 상태에 저장하거나 사용하면 됩니다.
-        // 예: 검색 결과를 화면에 표시하려면 다음과 같이 할 수 있습니다.
-        setStorages(data.storages); // 가정: 서버 응답이 { storages: [...] } 형태일 경우
-  
+
+        // Update titles state with elements from index 1 to 5
+        setTitles(data.title.slice(1,6));
+
       } catch (error) {
         console.error('Error fetching search results:', error);
+        setTitles([]);
       }
     }
   };
@@ -146,6 +144,26 @@ const Chat = () => {
     console.log(`Selected session ID: ${sessionId}`);
     fetchMessagesForSession(sessionId); // Fetch messages for the selected session
   };
+
+  const handleTitleClick = async (title) => { // handleSessionClick 안에 중첩된 handleTitleClick을 밖으로 이동시킴
+    try {
+      const response = await fetch('http://localhost:8000/retriever/ai/text', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_email: email, title: title }),
+      });
+      const data = await response.json();
+      console.log('Document data received:', data.text);
+      setTitletext(data.text);
+
+    } catch (error) {
+      console.error('Error fetching document:', error);
+    }
+  };
+
+
 
   return (
     <div style={styles.container}>
@@ -161,7 +179,13 @@ const Chat = () => {
             />
             <button onClick={handleSearch} style={styles.searchButton}>Search</button>
           </div>
-          {/* 여기에 사이드바의 다른 내용 추가 */}
+          <div style={styles.storageList}>
+            {titles.map((title, index) => (
+              <button key={index} style={styles.storageItem} onClick={() => handleTitleClick(title)}>
+                {title}
+              </button>
+            ))}
+          </div>
         </div>
         <div style={styles.rightPane}>
           <div style={styles.chatArea}>
@@ -184,7 +208,7 @@ const Chat = () => {
         </div>
       </div>
       <div>
-      <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
+        <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
         <Storagebar stroages={stroages} />
       </div>
     </div>
@@ -216,6 +240,7 @@ const styles = {
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
+    overflowY: 'auto',
   },
   searchArea: {
     display: 'flex',
@@ -227,7 +252,7 @@ const styles = {
     borderRadius: '5px',
     border: '1px solid #ccc',
     marginRight: '10px',
-    color : '#000000'
+    color: '#000000',
   },
   searchButton: {
     padding: '10px 20px',
@@ -235,6 +260,18 @@ const styles = {
     border: 'none',
     backgroundColor: '#61dafb',
     cursor: 'pointer',
+  },
+  storageList: {
+    marginTop: '10px',
+    padding: '10px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    backgroundColor: '#f9f9f9',
+  },
+  storageItem: {
+    padding: '10px',
+    borderBottom: '1px solid #ccc',
+    color: '#000000',
   },
   rightPane: {
     flex: 3,
@@ -253,7 +290,7 @@ const styles = {
     padding: '10px',
     backgroundColor: '#e1ffc7',
     borderRadius: '10px',
-    color:'#000000',
+    color: '#000000',
   },
   botMessage: {
     textAlign: 'left',
@@ -261,7 +298,7 @@ const styles = {
     padding: '10px',
     backgroundColor: '#f1f0f0',
     borderRadius: '10px',
-    color:'#000000',
+    color: '#000000',
   },
   inputArea: {
     display: 'flex',
@@ -273,7 +310,7 @@ const styles = {
     borderRadius: '5px',
     border: '1px solid #ccc',
     marginRight: '10px',
-    color : '#000000'
+    color: '#000000',
   },
   sendButton: {
     padding: '10px 20px',
