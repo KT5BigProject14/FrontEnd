@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react"; // useCallback 추가
-import Menu from './Menu';
 import Sessionbar from "./Sessionbar";
 import Stroagebar from "./Stroagebar";
 
