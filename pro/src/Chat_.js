@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Menu from './Menu';
 import Sessionbar from "./Sessionbar";
 import Storagebar from "./Storagebar";
 
@@ -7,19 +6,19 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sessionId, setSessionId] = useState('session8'); // sessionId 상태 추가
+  const [sessionId, setSessionId] = useState('session2'); // sessionId 상태 추가
   const email = sessionStorage.getItem('email');
   const [sessions, setSessions] = useState([]);
   const [stroages, setStorages] = useState([]);
 
-  useEffect(() => {
-    // 여기에 백엔드에서 대화 데이터를 가져오는 API 호출을 추가하세요.
-    // 예를 들어, fetch를 사용하여 데이터를 가져올 수 있습니다.
-    fetch("/api/sessions") // 적절한 API 엔드포인트로 변경하세요.
-      .then(response => response.json())
-      .then(data => setSessions(data))
-      .catch(error => console.error("Error fetching session data:", error));
-  }, []);
+  // useEffect(() => {
+  //   // 여기에 백엔드에서 대화 데이터를 가져오는 API 호출을 추가하세요.
+  //   // 예를 들어, fetch를 사용하여 데이터를 가져올 수 있습니다.
+  //   fetch("/api/sessions") // 적절한 API 엔드포인트로 변경하세요.
+  //     .then(response => response.json())
+  //     .then(data => setSessions(data))
+  //     .catch(error => console.error("Error fetching session data:", error));
+  // }, []);
 
   // useEffect(() => {
   //   // 사용자 이메일을 기준으로 Redis에서 세션 데이터를 가져옴
@@ -62,6 +61,25 @@ const Chat = () => {
     fetchSessions(); // 초기 로딩 시 세션 데이터 가져오기
   }, [email, fetchSessions]);
 
+  const fetchMessagesForSession = useCallback(async (sessionId) => {
+    try {
+      const response = await fetch(`http://localhost:8000/retriever/redis/messages/${email}/${sessionId}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      const fetchedMessages = [];
+      const messages = data.messages;
+      for (let i = messages.length-1; i >=0; i -= 2) {
+        fetchedMessages.push({ sender: 'Me', text: messages[i] });
+        fetchedMessages.push({ sender: 'Bot', text: messages[i - 1] });
+      }
+      setMessages(fetchedMessages);
+      setSessionId(sessionId); // Update the sessionId state
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  }, [email]);
 
   const handleSendMessage = async () => {
     if (input.trim()) {
@@ -126,6 +144,7 @@ const Chat = () => {
   const handleSessionClick = (sessionId) => {
     setSessionId(sessionId);
     console.log(`Selected session ID: ${sessionId}`);
+    fetchMessagesForSession(sessionId); // Fetch messages for the selected session
   };
 
   return (
@@ -165,7 +184,7 @@ const Chat = () => {
         </div>
       </div>
       <div>
-        <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} />
+      <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
         <Storagebar stroages={stroages} />
       </div>
     </div>

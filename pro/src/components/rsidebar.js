@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styles from "../styles/rsidebar.module.css";
 
 const RSidebar = ({ width = 280, children, onRefresh }) => {
@@ -11,6 +11,7 @@ const RSidebar = ({ width = 280, children, onRefresh }) => {
     if (xPosition < 0) {
       setX(0);
       setOpen(true);
+      onRefresh(); // Call onRefresh when sidebar is opened
     } else {
       setX(-width);
       setOpen(false);
@@ -18,21 +19,21 @@ const RSidebar = ({ width = 280, children, onRefresh }) => {
   };
 
   // 사이드바 외부 클릭시 닫히는 함수
-  const handleClose = async (e) => {
+  const handleClose = useCallback(async (e) => {
     let sideArea = side.current;
     let sideChildren = side.current.contains(e.target);
     if (isOpen && (!sideArea || !sideChildren)) {
       await setX(-width);
       await setOpen(false);
     }
-  };
+  }, [isOpen, width]);
 
   useEffect(() => {
     window.addEventListener("click", handleClose);
     return () => {
       window.removeEventListener("click", handleClose);
     };
-  }, []);
+  }, [handleClose]);
 
   // 세션 클릭 이벤트 처리 함수
   const handleSessionItemClick = (e) => {

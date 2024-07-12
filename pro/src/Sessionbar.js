@@ -5,7 +5,7 @@ const Sessionbar = ({ sessions, onSessionClick, fetchSessions }) => {
   return (
     <RSidebar width={280} onRefresh={fetchSessions}>
       {sessions.length === 0 ? (
-        <p>No conversations available</p>
+        <p>과거 대화기록이 없습니다.</p>
       ) : (
         <ul style={styles.sessionList}>
           {sessions.map((session) => (
