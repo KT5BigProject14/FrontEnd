@@ -6,7 +6,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sessionId, setSessionId] = useState('session2'); // sessionId 상태 추가
+  const [sessionId, setSessionId] = useState(''); // sessionId 상태 추가
   const email = sessionStorage.getItem('email');
   const [titles, setTitles] = useState([]);
   const [titletext, setTitletext] = useState([]);
@@ -41,6 +41,7 @@ const Chat = () => {
   //     })
   //     .catch(error => console.error("Error fetching session data:", error));
   // }, [email]);
+
   const fetchSessions = useCallback(async () => {
     try {
       const response = await fetch(`http://localhost:8000/retriever/redis/all_messages?user_email=${email}`);
@@ -62,6 +63,7 @@ const Chat = () => {
   useEffect(() => {
     fetchSessions(); // 초기 로딩 시 세션 데이터 가져오기
   }, [email, fetchSessions]);
+
   const fetchMessagesForSession = useCallback(async (sessionId) => {
     try {
       const response = await fetch(`http://localhost:8000/retriever/redis/messages/${email}/${sessionId}`);
@@ -102,6 +104,7 @@ const Chat = () => {
 
       const data = await response.json();
       console.log(data);
+      console.log(data.session_id);
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'Bot', text: data.response },
@@ -110,6 +113,8 @@ const Chat = () => {
       if (data.session_id) {
         setSessionId(data.session_id);
       }
+
+
     }
   };
 
@@ -129,8 +134,11 @@ const Chat = () => {
         console.log('Search data received:', data);
 
         // Update titles state with elements from index 1 to 5
-        setTitles(data.title.slice(1,6));
-
+        if (data.title) {
+          setTitles(data.title.slice(0, 6));
+        } else {
+          console.error("Error: 'title' is undefined in the response data.");
+        }
       } catch (error) {
         console.error('Error fetching search results:', error);
         setTitles([]);
@@ -162,6 +170,23 @@ const Chat = () => {
     }
   };
 
+  // Handler to create a new session
+  const handleNewConversation = () => {
+    setSessionId(null);
+    setMessages([]);
+  };
+
+  const handleInputKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
 
   return (
@@ -173,6 +198,7 @@ const Chat = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
               style={styles.searchInput}
               placeholder="Search..."
             />
@@ -199,10 +225,12 @@ const Chat = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleInputKeyDown}
               style={styles.input}
               placeholder="Type your message here..."
             />
             <button onClick={handleSendMessage} style={styles.sendButton}>Send</button>
+            <button onClick={handleNewConversation} style={styles.newConversationButton}>New Conversation</button>
           </div>
         </div>
       </div>
@@ -219,15 +247,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
-  },
-  header: {
-    backgroundColor: '#282c34',
-    padding: '10px',
-    color: 'white',
-  },
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
   },
   body: {
     display: 'flex',
@@ -312,6 +331,14 @@ const styles = {
     color: '#000000',
   },
   sendButton: {
+    padding: '10px 20px',
+    borderRadius: '5px',
+    border: 'none',
+    backgroundColor: '#61dafb',
+    cursor: 'pointer',
+  },
+  newConversationButton: {
+    marginTop: '10px',
     padding: '10px 20px',
     borderRadius: '5px',
     border: 'none',
