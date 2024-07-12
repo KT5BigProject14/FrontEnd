@@ -2,7 +2,7 @@
 import React from "react";
 import LSidebar from "./components/lsidebar";
 
-const Storagebar = ({ stroages }) => {
+const Stroagebar = ({ stroages }) => {
   return (
     <LSidebar width={280}>
       {stroages.length === 0 ? (
@@ -18,4 +18,4 @@ const Storagebar = ({ stroages }) => {
   );
 };
 
-export default Storagebar;
+export default Stroagebar;

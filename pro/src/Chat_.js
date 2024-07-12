@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react"; // useCallback 추가
 import Menu from './Menu';
 import Sessionbar from "./Sessionbar";
-import Storagebar from "./Storagebar";
+import Stroagebar from "./Stroagebar";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -12,7 +12,7 @@ const Chat = () => {
   const [titles, setTitles] = useState([]);
   const [titletext, setTitletext] = useState([]);
   const [sessions, setSessions] = useState([]);
-  const [storages, setStorages] = useState([]);
+  const [stroages, setStroages] = useState([]);
 
   // useEffect(() => {
   //   // 여기에 백엔드에서 대화 데이터를 가져오는 API 호출을 추가하세요.
@@ -209,7 +209,7 @@ const Chat = () => {
       </div>
       <div>
         <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
-        <Storagebar stroages={stroages} />
+        <Stroagebar stroages={stroages} />
       </div>
     </div>
   );
