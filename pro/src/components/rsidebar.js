@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../styles/rsidebar.module.css";
 
-const RSidebar = ({ width = 280, children }) => {
+const RSidebar = ({ width = 280, children, onRefresh }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(-width);
   const side = useRef();
@@ -32,7 +32,15 @@ const RSidebar = ({ width = 280, children }) => {
     return () => {
       window.removeEventListener("click", handleClose);
     };
-  });
+  }, []);
+
+  // 세션 클릭 이벤트 처리 함수
+  const handleSessionItemClick = (e) => {
+    const sessionId = e.target.getAttribute('data-session-id');
+    if (sessionId) {
+      onRefresh();  // 부모 컴포넌트의 fetchSessions 함수를 호출
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -44,6 +52,7 @@ const RSidebar = ({ width = 280, children }) => {
           height: "100%",
           transform: `translatex(${-xPosition}px)`,
         }}
+        onClick={handleSessionItemClick} // 클릭 이벤트 추가
       >
         <button onClick={toggleMenu} className={styles.button}>
           <img
@@ -52,7 +61,7 @@ const RSidebar = ({ width = 280, children }) => {
             className={styles.toggleIcon}
           />
         </button>
-        <div className={styles.content}>{children}right</div>
+        <div className={styles.content}>{children}</div>
       </div>
     </div>
   );

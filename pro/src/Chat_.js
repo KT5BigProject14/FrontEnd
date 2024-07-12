@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Menu from './Menu';
 import Sessionbar from "./Sessionbar";
 import Storagebar from "./Storagebar";
@@ -7,7 +7,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sessionId, setSessionId] = useState('session1'); // sessionId 상태 추가
+  const [sessionId, setSessionId] = useState('session8'); // sessionId 상태 추가
   const email = sessionStorage.getItem('email');
   const [sessions, setSessions] = useState([]);
   const [stroages, setStorages] = useState([]);
@@ -20,6 +20,47 @@ const Chat = () => {
       .then(data => setSessions(data))
       .catch(error => console.error("Error fetching session data:", error));
   }, []);
+
+  // useEffect(() => {
+  //   // 사용자 이메일을 기준으로 Redis에서 세션 데이터를 가져옴
+  //   fetch(`http://localhost:8000/retriever/redis/all_messages?user_email=${email}`)
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       const fetchedSessions = [];
+  //       const messages = data.messages;
+  //       for (let i = 0; i < messages.length; i += 2) {
+  //         fetchedSessions.push({ id: messages[i], title: messages[i + 1] });
+  //       }
+  //       setSessions(fetchedSessions);
+  //     })
+  //     .catch(error => console.error("Error fetching session data:", error));
+  // }, [email]);
+  const fetchSessions = useCallback(async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/retriever/redis/all_messages?user_email=${email}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      const fetchedSessions = [];
+      const messages = data.messages;
+      for (let i = 0; i < messages.length; i += 2) {
+        fetchedSessions.push({ id: messages[i], title: messages[i + 1] });
+      }
+      setSessions(fetchedSessions);
+    } catch (error) {
+      console.error("Error fetching session data:", error);
+    }
+  }, [email]);
+
+  useEffect(() => {
+    fetchSessions(); // 초기 로딩 시 세션 데이터 가져오기
+  }, [email, fetchSessions]);
 
 
   const handleSendMessage = async () => {
@@ -80,8 +121,11 @@ const Chat = () => {
         console.error('Error fetching search results:', error);
       }
     }
+  };
 
-
+  const handleSessionClick = (sessionId) => {
+    setSessionId(sessionId);
+    console.log(`Selected session ID: ${sessionId}`);
   };
 
   return (
@@ -121,7 +165,7 @@ const Chat = () => {
         </div>
       </div>
       <div>
-        <Sessionbar sessions={sessions} />
+        <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} />
         <Storagebar stroages={stroages} />
       </div>
     </div>
