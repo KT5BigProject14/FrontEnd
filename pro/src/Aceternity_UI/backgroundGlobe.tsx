@@ -1,6 +1,7 @@
 "use client";
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const World = lazy(() =>
   import("../ui/globe").then((m) => ({ default: m.World }))
@@ -11,7 +12,8 @@ interface GlobeDemoProps {
   hasToken: boolean;
 }
 
-const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken })=> {
+const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken }) => {
+  const navigate = useNavigate();
 
   const globeConfig = {
     pointSize: 4,
@@ -400,6 +402,17 @@ const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken })=> {
     },
   ];
 
+  const handleChatClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const role = sessionStorage.getItem("role");
+    if (role === "정보저장안한 사람") {
+      e.preventDefault();
+      alert("정보를 입력해야 사용할 수 있습니다.");
+      navigate("/signup-next");
+    } else {
+      navigate("/chat_");
+    }
+  };
+
   return (
     <div
       style={{ position: "absolute", opacity: 1 }}
@@ -428,13 +441,13 @@ const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken })=> {
           </p>
           {hasToken && (
             <div className="text-center mt-4">
-              <a
-                href="/chat_"
+              <button
+                onClick={handleChatClick}
                 className="inline-block px-6 py-2 bg-blue-500 text-white font-bold rounded-full"
                 style={{ position: "relative", zIndex: 50 }}
               >
                 Chat으로 가기
-              </a>
+              </button>
             </div>
           )}
         </motion.div>
@@ -447,5 +460,6 @@ const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken })=> {
       </div>
     </div>
   );
-}
+};
+
 export default GlobeDemo;

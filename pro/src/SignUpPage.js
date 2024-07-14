@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
-  // const [username, setUsername] = useState("");
-  const [isTempValid, setIsTempValid] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -16,6 +14,31 @@ const Signup = () => {
   const [isCodeVerified, setIsCodeVerified] = useState(false);
 
   const navigate = useNavigate();
+
+  const handleSignup = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8000/retriever/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        console.log("성공! 이메일주소: " + data.email);
+        navigate("/login");
+      } else if (response.status === 400) {
+        alert(`회원가입 실패: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+  };
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,10 +53,6 @@ const Signup = () => {
   const validateConfirmPassword = () => {
     return password === confirmPassword;
   };
-
-  // const validateusername = () => {
-  //   return username.length >= 1;
-  // };
 
   useEffect(() => {
     if (validateEmail(email)) {
@@ -74,7 +93,7 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({email}),
+        body: JSON.stringify({ email }),
       });
 
       if (response.ok) {
@@ -101,7 +120,7 @@ const Signup = () => {
 
       const result = await response.json();
 
-      if (result.success) {
+      if (response.status === 200) {
         setIsCodeVerified(true);
         alert("인증이 성공하였습니다.");
       } else {
@@ -111,26 +130,6 @@ const Signup = () => {
     } catch (error) {
       console.error("Error verifying code:", error);
       alert("서버 오류로 인해 인증에 실패했습니다.");
-    }
-  };
-
-  const handleSignup = async (event) => {
-    event.preventDefault();
-
-    const formData = {
-      email,
-      password,
-      // user_name: username,
-    };
-
-    if (
-      validateEmail(email) &&
-      // validateusername() &&
-      validatePassword(password) &&
-      validateConfirmPassword() &&
-      isCodeVerified
-    ) {
-      navigate("/signup-next", { state: formData });
     }
   };
 
@@ -163,14 +162,6 @@ const Signup = () => {
             인증
           </button>
         </div>
-        {/* <label htmlFor="username">이름</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          disabled={!isCodeVerified}
-        /> */}
         <label htmlFor="password">비밀번호</label>
         <input
           type="password"
@@ -190,7 +181,7 @@ const Signup = () => {
         />
         {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
         <button type="submit" disabled={!isCodeVerified}>
-          Next Page
+          회원가입
         </button>
         <p className="login-link">
           이미 회원이신가요? <Link to="/login">로그인</Link>
