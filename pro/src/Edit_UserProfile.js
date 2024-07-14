@@ -16,8 +16,9 @@ const EditUserProfile = () => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
+    const email =sessionStorage.getItem("email");
     if (token) {
-      fetchUserInfo(token).then(data => {
+      fetchUserInfo(token,email).then(data => {
         setUserInfo({
           email: data.email,
           user_name: data.user_name,
@@ -30,9 +31,10 @@ const EditUserProfile = () => {
     }
   }, []);
 
-  const fetchUserInfo = async (token) => {
+  const fetchUserInfo = async (token,email) => {
     try {
-      const response = await fetch('https://api.example.com/data', {
+      const address = 'http://localhost:8000/retriever/user_info/user_info/' + email
+      const response = await fetch(address, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -67,8 +69,8 @@ const EditUserProfile = () => {
     const token = sessionStorage.getItem("token");
 
     try {
-      const response = await fetch('https://api.example.com/update', {
-        method: 'POST',
+      const response = await fetch('http://localhost:8000/retriever/user_info/user_info/', {
+        method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
@@ -29,18 +28,19 @@ const Login = ({ setIsLoggedIn }) => {
       console.log("로그인성공, token:" + result.access_token);
       setIsLoggedIn(true);
       navigate("/");
-    } else if(response.status === 400) {
-      setLoginCheck(false);
-      console.log('data가 잘못들어감')
-    } else if(response.status === 500) {
+    } else {
       setLoginCheck(true);
-      console.log('서버문제')
-    } 
+      if (response.status === 400) {
+        alert("이메일 혹은 비밀번호가 틀렸습니다."); 
+        console.log('data가 잘못들어감');
+      } else if (response.status === 500) {
+        alert("서버 문제로 인해 로그인에 실패했습니다."); 
+        console.log('서버문제');
+      }
+    }
   };
-// 400 : data가 잘 못들어감
-// 500 : 서버문제
+
   return (
-    
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
         <h1>Let's start</h1>
@@ -59,7 +59,7 @@ const Login = ({ setIsLoggedIn }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         {loginCheck && (
-          <label style={{ color: "red" }}>이메일 혹은 비밀번호가 틀렸습니다.</label>
+          <label style={{ color: "red" }}>올바른 이메일 혹은 비밀번호를 입력하세요.</label>
         )}
         <button type="submit">로그인</button>
         <p className="pw-find">

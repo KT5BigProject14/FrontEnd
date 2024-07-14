@@ -17,7 +17,7 @@ const UserProfile = ({ handleLogout }) => {
   });
 
   useEffect(() => {
-    const token=sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const email = sessionStorage.getItem("email");
     if (email) {
       // 토큰을 사용하여 서버에서 사용자 정보를 가져오는 함수 호출
@@ -26,9 +26,9 @@ const UserProfile = ({ handleLogout }) => {
           email: data.email,
           user_name: data.user_name,
           corporation: data.corporation,
-          // business_number: formatBusinessNumber(data.business_number),
+          business_number: formatBusinessNumber(data.business_number),
           position: data.position,
-          phone: data.phone
+          phone: formatPhoneNumber(data.phone)
         });
       });
     }
@@ -38,7 +38,7 @@ const UserProfile = ({ handleLogout }) => {
     try {
       const email = sessionStorage.getItem("email");
       console.log()
-      const address='http://localhost:8000/retriever/user_info/user_info/'+email
+      const address = 'http://localhost:8000/retriever/user_info/user_info/' + email
       const response = await fetch(address, {
         method: 'GET',
         headers: {
@@ -64,13 +64,14 @@ const UserProfile = ({ handleLogout }) => {
     }
   };
 
-  // const formatBusinessNumber = (number) => {
-  //   return `${number.slice(0, 3)}-${number.slice(3, 5)}-${number.slice(5)}`;
-  // };
+  const formatBusinessNumber = (number) => {
+    const numStr = String(number);  // number를 문자열로 변환
+    return `${numStr.slice(0, 3)}-${numStr.slice(3, 5)}-${numStr.slice(5)}`;
+  };
 
-  const handleLogoutClick = () => {
-    handleLogout();
-    navigate("/");
+  const formatPhoneNumber = (number) => {
+    const numStr = String(number);  // number를 문자열로 변환
+    return `${numStr.slice(0, 3)}-${numStr.slice(3, 7)}-${numStr.slice(7)}`;
   };
 
   const handleEditProfile = () => {
@@ -90,12 +91,6 @@ const UserProfile = ({ handleLogout }) => {
       <div className="user-actions">
         <button className="user-edit-btn" onClick={handleEditProfile}>
           내 정보 수정하기
-          <div className="move-page-icon">
-            <FontAwesomeIcon icon={faChevronRight} />
-          </div>
-        </button>
-        <button className="user-logout-btn" onClick={handleLogoutClick}>
-          로그아웃
           <div className="move-page-icon">
             <FontAwesomeIcon icon={faChevronRight} />
           </div>

@@ -6,6 +6,7 @@ const SignupNext = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [username, setUsername] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [businessNumber, setBusinessNumber] = useState("");
   const [position, setPosition] = useState("");
@@ -21,6 +22,7 @@ const SignupNext = () => {
 
     const payload = {
       ...formData,
+      user_name:username,
       corporation: companyName,
       business_number: cleanedBusinessNumber,
       position,
@@ -85,6 +87,13 @@ const SignupNext = () => {
           id="businessNumber"
           value={businessNumber}
           onChange={handleBusinessNumberChange}
+        />
+        <label htmlFor="username">이름</label>
+        <input
+          type="text"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <label htmlFor="position">직책</label>
         <input
