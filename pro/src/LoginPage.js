@@ -25,6 +25,9 @@ const Login = ({ setIsLoggedIn }) => {
       setLoginCheck(false);
       sessionStorage.setItem("token", result.access_token);
       sessionStorage.setItem("email", result.email);
+      if (result.role){
+        sessionStorage.setItem("role",result.role)
+      } 
       console.log("로그인성공, token:" + result.access_token);
       setIsLoggedIn(true);
       navigate("/");
