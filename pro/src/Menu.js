@@ -25,7 +25,7 @@ const Menu = ({ isLoggedIn, handleLogout }) => {
             <Link to="/" style={styles.navItem}>Home</Link>
             <Link to="/dashboard" style={styles.navItem}>Dashboard</Link>
             <Link to="/profile" style={styles.navItem}>My Page</Link>
-            <Link to="/storage" style={styles.navItem}>Storage</Link>
+            <Link to="/stroage" style={styles.navItem}>Stroage</Link>
             <button className="out-btn" onClick={handleLogoutAndRedirect} style={styles.logoutButton}>로그아웃</button>
           </>
         ) : (
