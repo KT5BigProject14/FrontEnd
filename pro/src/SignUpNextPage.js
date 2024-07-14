@@ -14,14 +14,13 @@ const SignupNext = () => {
 
   const formData = location.state || {};
 
-  const handleSignup = async (event) => {
+  const handleInfo = async (event) => {
     event.preventDefault();
 
     // Remove hyphens from businessNumber and convert to number
     const cleanedBusinessNumber = parseInt(businessNumber.replace(/-/g, ''), 10);
 
     const payload = {
-      ...formData,
       user_name:username,
       corporation: companyName,
       business_number: cleanedBusinessNumber,
@@ -30,7 +29,7 @@ const SignupNext = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/retriever/users/signup", {
+      const response = await fetch("http://localhost:8000/retriever/user_info/user_info/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -39,8 +38,8 @@ const SignupNext = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        console.log("성공! 이메일주소: " + data.email);
-        navigate("/login");
+        console.log("성공! 정보기입" );
+        navigate("/");
       } else if (response.status === 400) {
         alert(`회원가입 실패: ${data.message}`);
       }
@@ -72,7 +71,7 @@ const SignupNext = () => {
 
   return (
     <div className="signup-container">
-      <form className="signup-form" onSubmit={handleSignup}>
+      <form className="signup-form" onSubmit={handleInfo}>
         <h1>More Infomation</h1>
         <label htmlFor="companyName">회사명</label>
         <input
@@ -109,7 +108,7 @@ const SignupNext = () => {
           value={extensionNumber}
           onChange={(e) => setExtensionNumber(e.target.value)}
         />
-        <button type="submit">회원가입</button>
+        <button type="submit">확인</button>
       </form>
     </div>
   );

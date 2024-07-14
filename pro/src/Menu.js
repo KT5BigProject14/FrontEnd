@@ -1,9 +1,8 @@
-// Menu.js
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';  // useNavigate 추가
+import { Link, useNavigate } from 'react-router-dom';
 
 const Menu = ({ isLoggedIn, handleLogout }) => {
-  const navigate = useNavigate();  // useNavigate 훅 사용
+  const navigate = useNavigate();
 
   const navStyle = {
     ...styles.nav,
@@ -16,6 +15,18 @@ const Menu = ({ isLoggedIn, handleLogout }) => {
     navigate('/');  // 홈 페이지로 리디렉션
   };
 
+  // 버튼 클릭 시 역할 확인 및 리디렉션 로직
+  const handleButtonClick = (e, path) => {
+    const role = sessionStorage.getItem("role");
+    if (role === "guest") {
+      e.preventDefault();
+      alert("정보를 입력해야 사용할 수 있습니다.");
+      navigate("/signup-next");
+    } else {
+      navigate(path);
+    }
+  };
+
   return (
     <header style={styles.header}>
       <div style={styles.logo}>LOGO</div>
@@ -23,9 +34,9 @@ const Menu = ({ isLoggedIn, handleLogout }) => {
         {isLoggedIn ? (
           <>
             <Link to="/" style={styles.navItem}>Home</Link>
-            <Link to="/dashboard" style={styles.navItem}>Dashboard</Link>
-            <Link to="/profile" style={styles.navItem}>My Page</Link>
-            <Link to="/storage" style={styles.navItem}>Storage</Link>
+            <a href="/" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/dashboard")}>Dashboard</a>
+            <a href="/" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/profile")}>My Page</a>
+            <a href="/" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/storage")}>Storage</a>
             <button className="out-btn" onClick={handleLogoutAndRedirect} style={styles.logoutButton}>로그아웃</button>
           </>
         ) : (

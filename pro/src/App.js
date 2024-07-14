@@ -31,6 +31,7 @@ function App() {
   const handleLogout = () => {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('email');
+    sessionStorage.removeItem('role');
     setIsLoggedIn(false);
     setHasToken(false); // 로그아웃 시 hasToken 상태 업데이트
   };
