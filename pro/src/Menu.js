@@ -17,7 +17,7 @@ const Menu = ({ isLoggedIn, handleLogout }) => {
 
   // 버튼 클릭 시 역할 확인 및 리디렉션 로직
   const handleButtonClick = (e, path) => {
-    const role = sessionStorage.getItem("role")
+    const role =sessionStorage.getItem("role")
     console.log(role);
     if (role === "guest") {
       e.preventDefault();
@@ -35,9 +35,9 @@ const Menu = ({ isLoggedIn, handleLogout }) => {
         {isLoggedIn ? (
           <>
             <Link to="/" style={styles.navItem}>Home</Link>
-            <a href="/" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/dashboard")}>Dashboard</a>
-            <a href="/" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/profile")}>My Page</a>
-            <a href="/" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/storage")}>Storage</a>
+            <Link to="/dashboard" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/dashboard")}>Dashboard</Link>
+            <Link to="/profile" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/profile")}>My Page</Link>
+            <Link to="/storage" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/storage")}>Storage</Link>
             <button className="out-btn" onClick={handleLogoutAndRedirect} style={styles.logoutButton}>로그아웃</button>
           </>
         ) : (
