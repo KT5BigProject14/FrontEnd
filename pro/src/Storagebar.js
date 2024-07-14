@@ -2,14 +2,14 @@
 import React from "react";
 import LSidebar from "./components/lsidebar";
 
-const Stroagebar = ({ stroages, onItemClick }) => {
+const Storagebar = ({ storages, onItemClick }) => {
   return (
     <LSidebar width={280}>
-      {stroages.length === 0 ? (
+      {storages.length === 0 ? (
         <p>과거 검색기록이 없습니다.</p>
       ) : (
         <ul>
-          {stroages.map((session, index) => (
+          {storages.map((session, index) => (
             <li key={index} style={styles.storageItem} onClick={() => onItemClick(session.docs_id)}>
             {session.title}
             </li>
@@ -37,4 +37,4 @@ const styles = {
   },
 };
 
-export default Stroagebar;
+export default Storagebar;

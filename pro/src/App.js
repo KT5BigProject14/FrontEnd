@@ -10,7 +10,7 @@ import Chat from './Chat_';
 import TextRevealCardPreview from './test';
 import PWFind from './PW_find';
 import Menu from './Menu';
-import Stroage from './Stroage';
+import Storage from './Storage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,7 +54,7 @@ function App() {
         <Route path="/Chat_" element={<Chat />} />
         <Route path="/test" element={<TextRevealCardPreview />} />
         <Route path="/pw-find" element={<PWFind />} />
-        <Route path="/stroage" element={<Stroage />} />
+        <Route path="/storage" element={<Storage />} />
 
       </Routes>
     </Router>

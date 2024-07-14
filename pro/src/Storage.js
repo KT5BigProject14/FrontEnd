@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './styles/Stroage.css'; // CSS 파일을 임포트합니다.
+import './styles/Storage.css'; // CSS 파일을 임포트합니다.
 
-const Stroage = () => {
+const Storage = () => {
     const [likedDocs, setLikedDocs] = useState([]);
     const [selectedDoc, setSelectedDoc] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -72,4 +72,4 @@ const Stroage = () => {
     );
   };
   
-  export default Stroage;
+  export default Storage;

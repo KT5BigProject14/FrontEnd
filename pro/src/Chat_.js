@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react"; // useCallback 추가
 import Sessionbar from "./Sessionbar";
-import Stroagebar from "./Stroagebar";
+import Storagebar from "./Storagebar";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sessionId, setSessionId] = useState(''); // sessionId 상태 추가
+  const [sessionId, setSessionId] = useState(null); // sessionId 상태 추가
   const email = sessionStorage.getItem('email');
   const [titles, setTitles] = useState([]);
   const [titletext, setTitletext] = useState('');
   const [sessions, setSessions] = useState([]);
-  const [stroages, setStroages] = useState([]);
+  const [storages, setStorages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState(null);
 
@@ -34,7 +34,7 @@ const Chat = () => {
     }
   }, [email]);
 
-  const fetchStroages = useCallback(async () => {
+  const fetchStorages = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:8000/retriever/ai/get_all_title', {
         method: 'POST',
@@ -47,7 +47,7 @@ const Chat = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setStroages(data.documents);
+      setStorages(data.documents);
     } catch (error) {
       console.error("Error fetching storages data:", error);
     }
@@ -55,8 +55,8 @@ const Chat = () => {
 
   useEffect(() => {
     fetchSessions(); // 초기 로딩 시 세션 데이터 가져오기
-    fetchStroages(); // 초기 로딩 시 저장 데이터 가져오기
-  }, [email, fetchSessions, fetchStroages]);
+    fetchStorages(); // 초기 로딩 시 저장 데이터 가져오기
+  }, [email, fetchSessions, fetchStorages]);
 
   const fetchMessagesForSession = useCallback(async (sessionId) => {
     try {
@@ -157,7 +157,7 @@ const Chat = () => {
       console.log('Document data received:', data.text);
       setTitletext(data.text);
 
-      fetchStroages();
+      fetchStorages();
 
     } catch (error) {
       console.error('Error fetching document:', error);
@@ -305,8 +305,7 @@ const Chat = () => {
       </div>
       <div>
         <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
-        {/* <Stroagebar stroages={stroages} onDocClick={handleDocClick} /> */}
-        <Stroagebar stroages={stroages} onItemClick={handleStorageItemClick} />
+        <Storagebar storages={storages} onItemClick={handleStorageItemClick} />
       </div>
       {showModal && (
         <div style={styles.modalOverlay} onClick={handleCloseModal}>
@@ -444,7 +443,7 @@ const styles = {
     left: '280px', // storageBar를 포함하지 않도록 설정
     width: 'calc(100% - 280px)', // storageBar를 제외한 너비
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0)', // 불투명한 검정색 배경
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // 불투명한 검정색 배경
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -459,7 +458,7 @@ const styles = {
     maxHeight: '80%',
     overflowY: 'auto',
     color: 'white', // 텍스트 색상 흰색으로 변경
-    // marginLeft: '300px', // 왼쪽 stroagebar와 겹치지 않도록 오른쪽으로 이동
+    // marginLeft: '300px', // 왼쪽 storagebar와 겹치지 않도록 오른쪽으로 이동
   },
   closeButton: {
     position: 'absolute',
@@ -511,87 +510,3 @@ const getLikeButtonStyle = (isLiked) => {
 export default Chat;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// return (
-//   <div style={styles.container}>
-//     <div style={styles.body}>
-//       <div style={styles.leftPane}>
-//         <div style={styles.searchArea}>
-//           <input
-//             type="text"
-//             value={searchQuery}
-//             onChange={(e) => setSearchQuery(e.target.value)}
-//             onKeyDown={handleSearchKeyDown}
-//             style={styles.searchInput}
-//             placeholder="Search..."
-//           />
-//           <button onClick={handleSearch} style={styles.searchButton}>Search</button>
-//         </div>
-//         {titles.length > 0 && (
-//           <div style={styles.storageList}>
-//             {titles.map((title, index) => (
-//               <button key={index} style={styles.storageItem} onClick={() => handleTitleClick(title)}>
-//                 {title}
-//               </button>
-//             ))}
-//           </div>
-//         )}
-//         {titletext && (
-//           <div style={styles.titleTextArea}>
-//             {formatTitleText(titletext)}
-//           </div>
-//         )}
-//       </div>
-//       <div style={styles.rightPane}>
-//         <div style={styles.chatArea}>
-//           {messages.map((message, index) => (
-//             <div key={index} style={message.sender === 'Me' ? styles.myMessage : styles.botMessage}>
-//               {message.text}
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//     <div className="storage-bar">
-//       <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
-//       <Stroagebar stroages={stroages} onItemClick={handleStorageItemClick} />
-//     </div>
-//     {showModal && (
-//       <div style={styles.modalOverlay} onClick={handleCloseModal}>
-//         <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-//           <button style={styles.closeButton} onClick={handleCloseModal}>X</button>
-//           <div style={styles.modalTextContent}>
-//             {formatTitleText(selectedDoc?.text)}
-//           </div>
-//           <button style={getLikeButtonStyle(selectedDoc?.is_like)} onClick={handleLikeClick}>
-//             ❤
-//           </button>
-//         </div>
-//       </div>
-//     )}
-//   </div>
-// );

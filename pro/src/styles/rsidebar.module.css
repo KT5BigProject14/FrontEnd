@@ -37,6 +37,8 @@
   padding: 40px 20px 0 40px; /* padding을 적절히 조정 */
   position: relative;
   width: 100%;
+  height: calc(100vh - 40px); /* 전체 높이에서 패딩 값을 뺀 높이 */
+  overflow-y: auto; /* 스크롤바 추가 */
 }
 .icon {
   margin: 0;

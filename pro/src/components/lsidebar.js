@@ -1,3 +1,4 @@
+// src/components/LSidebar.js
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../styles/lsidebar.module.css";
 
@@ -17,7 +18,7 @@ const LSidebar = ({ width = 280, children }) => {
     }
   };
 
-  // 사이드바 외부 클릭시 닫히는 함수
+  // 사이드바 외부 클릭 시 닫히는 함수
   const handleClose = async (e) => {
     let sideArea = side.current;
     let sideChildren = side.current.contains(e.target);
@@ -52,7 +53,7 @@ const LSidebar = ({ width = 280, children }) => {
             className={styles.toggleIcon}
           />
         </button>
-        <div className={styles.content}>{children}</div>
+        <div className={styles.content}>{children}Left : Storage</div>
       </div>
     </div>
   );
