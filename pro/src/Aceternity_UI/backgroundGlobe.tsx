@@ -404,7 +404,7 @@ const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken }) => {
 
   const handleChatClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const role = sessionStorage.getItem("role");
-    if (role === "정보저장안한 사람") {
+    if (role === "guest") {
       e.preventDefault();
       alert("정보를 입력해야 사용할 수 있습니다.");
       navigate("/signup-next");

@@ -17,7 +17,8 @@ const Menu = ({ isLoggedIn, handleLogout }) => {
 
   // 버튼 클릭 시 역할 확인 및 리디렉션 로직
   const handleButtonClick = (e, path) => {
-    const role = sessionStorage.getItem("role");
+    const role = sessionStorage.getItem("role")
+    console.log(role);
     if (role === "guest") {
       e.preventDefault();
       alert("정보를 입력해야 사용할 수 있습니다.");
