@@ -1,12 +1,9 @@
-// src/HeroComponent.js
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import './HeroComponent.css'; // CSS 파일 임포트
-import { Link } from 'react-router-dom';
-import GlobeDemo from "./Aceternity_UI/backgroundGlobe";
+import './HeroComponent.css';
+import GlobeDemo from './Aceternity_UI/backgroundGlobe';
 
-
-const HeroComponent = ({ isLoggedIn, handleLogout }) => {
+const HeroComponent = ({ isLoggedIn, hasToken, handleLogout }) => {
   const heroRef = useRef(null);
   const overlayRef = useRef(null);
 
@@ -64,8 +61,9 @@ const HeroComponent = ({ isLoggedIn, handleLogout }) => {
   };
 
   return (
-    <div className="wrapper">
-      <GlobeDemo />
+    <div className="wrapper" ref={heroRef}>
+      <GlobeDemo hasToken={hasToken} />
+      <div className="overlay" ref={overlayRef}></div>
     </div>
   );
 };

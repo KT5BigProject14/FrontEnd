@@ -6,32 +6,12 @@ const World = lazy(() =>
   import("../ui/globe").then((m) => ({ default: m.World }))
 );
 
-export default function GlobeDemo() {
-  const [hasToken, setHasToken] = useState(false);
+// prop 타입 정의
+interface GlobeDemoProps {
+  hasToken: boolean;
+}
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      setHasToken(true);
-    } else {
-      setHasToken(false);
-    }
-  
-    const handleStorageChange = () => {
-      const token = sessionStorage.getItem("token");
-      if (token) {
-        setHasToken(true);
-      } else {
-        setHasToken(false);
-      }
-    };
-  
-    window.addEventListener("storage", handleStorageChange);
-  
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
+const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken })=> {
 
   const globeConfig = {
     pointSize: 4,
@@ -468,3 +448,4 @@ export default function GlobeDemo() {
     </div>
   );
 }
+export default GlobeDemo;
