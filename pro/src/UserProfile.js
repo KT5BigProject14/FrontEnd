@@ -36,13 +36,14 @@ const UserProfile = ({ handleLogout }) => {
 
   const fetchUserInfo = async (email) => {
     try {
+      const token=sessionStorage.getItem("token");
       const email = sessionStorage.getItem("email");
       console.log()
-      const address = 'http://localhost:8000/retriever/user_info/user_info/' + email
+      const address = 'http://localhost:8000/retriever/user_info/user_info/'+email
       const response = await fetch(address, {
         method: 'GET',
         headers: {
-          // 'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });

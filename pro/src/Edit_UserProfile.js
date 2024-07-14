@@ -83,7 +83,7 @@ const EditUserProfile = () => {
       }
 
       // Navigate back to user profile or show success message
-      navigate("/user-profile");
+      navigate("/profile");
     } catch (error) {
       console.error('Error:', error);
     }
