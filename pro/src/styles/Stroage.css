@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.body {
+  width: 60%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+.header {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.docList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.docItem {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: space-between; /* 제목과 시간을 양쪽 끝에 배치 */
+  align-items: center;
+  color: black; /* 글씨 색상 검정색으로 변경 */
+}
+
+.docItem:hover {
+  background-color: #f1f1f1;
+}
+
+.docTitle {
+  flex: 1;
+}
+
+.docTime {
+  color: grey; /* 시간 글씨 색상 회색으로 변경 */
+  margin-left: 20px;
+  white-space: nowrap;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  color: white;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+.modalTextContent {
+  margin-top: 20px;
+  color: white;
+}
