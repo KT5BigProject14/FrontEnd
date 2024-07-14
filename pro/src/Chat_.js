@@ -9,38 +9,9 @@ const Chat = () => {
   const [sessionId, setSessionId] = useState(''); // sessionId 상태 추가
   const email = sessionStorage.getItem('email');
   const [titles, setTitles] = useState([]);
-  const [titletext, setTitletext] = useState([]);
+  const [titletext, setTitletext] = useState('');
   const [sessions, setSessions] = useState([]);
   const [stroages, setStroages] = useState([]);
-
-  // useEffect(() => {
-  //   // 여기에 백엔드에서 대화 데이터를 가져오는 API 호출을 추가하세요.
-  //   // 예를 들어, fetch를 사용하여 데이터를 가져올 수 있습니다.
-  //   fetch("/api/sessions") // 적절한 API 엔드포인트로 변경하세요.
-  //     .then(response => response.json())
-  //     .then(data => setSessions(data))
-  //     .catch(error => console.error("Error fetching session data:", error));
-  // }, []);
-
-  // useEffect(() => {
-  //   // 사용자 이메일을 기준으로 Redis에서 세션 데이터를 가져옴
-  //   fetch(`http://localhost:8000/retriever/redis/all_messages?user_email=${email}`)
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => {
-  //       const fetchedSessions = [];
-  //       const messages = data.messages;
-  //       for (let i = 0; i < messages.length; i += 2) {
-  //         fetchedSessions.push({ id: messages[i], title: messages[i + 1] });
-  //       }
-  //       setSessions(fetchedSessions);
-  //     })
-  //     .catch(error => console.error("Error fetching session data:", error));
-  // }, [email]);
 
   const fetchSessions = useCallback(async () => {
     try {
@@ -188,6 +159,15 @@ const Chat = () => {
     }
   };
 
+  const formatTitleText = (text) => {
+    // HTML 형식으로 텍스트를 변환하는 함수
+    return text.split('\n').map((line, index) => (
+      <p key={index} style={{ margin: '0 0 10px' }}>
+        {line}
+      </p>
+    ));
+  };
+
 
   return (
     <div style={styles.container}>
@@ -204,13 +184,20 @@ const Chat = () => {
             />
             <button onClick={handleSearch} style={styles.searchButton}>Search</button>
           </div>
-          <div style={styles.storageList}>
-            {titles.map((title, index) => (
-              <button key={index} style={styles.storageItem} onClick={() => handleTitleClick(title)}>
-                {title}
-              </button>
-            ))}
-          </div>
+          {titles.length > 0 && (
+            <div style={styles.storageList}>
+              {titles.map((title, index) => (
+                <button key={index} style={styles.storageItem} onClick={() => handleTitleClick(title)}>
+                  {title}
+                </button>
+              ))}
+            </div>
+          )}
+          {titletext && (
+            <div style={styles.titleTextArea}>
+              {formatTitleText(titletext)}
+            </div>
+          )}
         </div>
         <div style={styles.rightPane}>
           <div style={styles.chatArea}>
@@ -253,7 +240,7 @@ const styles = {
     flex: 1,
   },
   leftPane: {
-    flex: 2,
+    flex: 2, // 2:1 비율로 조정
     borderRight: '1px solid #ccc',
     padding: '10px',
     display: 'flex',
@@ -291,8 +278,16 @@ const styles = {
     borderBottom: '1px solid #ccc',
     color: '#000000',
   },
+  titleTextArea: {
+    marginTop: '10px',
+    padding: '10px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    backgroundColor: '#f9f9f9',
+    color: '#000000',
+  },
   rightPane: {
-    flex: 3,
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
   },
@@ -348,3 +343,4 @@ const styles = {
 };
 
 export default Chat;
+
