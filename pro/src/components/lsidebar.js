@@ -53,7 +53,7 @@ const LSidebar = ({ width = 280, children }) => {
             className={styles.toggleIcon}
           />
         </button>
-        <div className={styles.content}>{children}Left : Storage</div>
+        <div className={styles.content}>{children}</div>
       </div>
     </div>
   );

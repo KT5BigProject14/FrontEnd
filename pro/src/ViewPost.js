@@ -18,7 +18,7 @@ const ViewPost = () => {
             .then(data => {
                 console.log('Fetched post data:', data);
                 setPost(data.result.qna);
-                setQnaImages(data.result.qna_images);
+                setQnaImages(data.result.qna_images || []);
                 setComments(data.comment || []); // 댓글이 없을 경우 빈 배열로 초기화
             })
             .catch(error => console.error('Error fetching post data:', error));
