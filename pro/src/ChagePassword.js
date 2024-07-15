@@ -29,7 +29,7 @@ const ChangePassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmNewPassword) {
-      setError('새 비밀번호를 올바르게 입력하시오');
+      setError('새 비밀번호와 일치하지 않습니다.');
       return;
     }
     if (!validatePassword(newPassword)) {
@@ -40,12 +40,12 @@ const ChangePassword = () => {
     const email = sessionStorage.getItem('email');
     const requestData = {
       email: email,
-      currentPassword: currentPassword,
-      newPassword: newPassword
+      password: currentPassword,
+      new_password: newPassword
     };
 
     try {
-      const response = await fetch('http://localhost:8000/retriever/user_info/change_password', {
+      const response = await fetch('http://localhost:8000/retriever/user_info/change/password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ const ChangePassword = () => {
 
       navigate('/profile'); // 비밀번호 변경 후 프로필 페이지로 이동
     } catch (error) {
-      setError('비밀번호 변경 중 오류가 발생했습니다.');
+      setError('기존 비밀번호와 일치하지 않거나 비밀번호 변경 중 오류가 발생했습니다.');
     }
   };
 
