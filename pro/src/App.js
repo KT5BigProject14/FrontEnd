@@ -11,6 +11,10 @@ import TextRevealCardPreview from './test';
 import PWFind from './PW_find';
 import Menu from './Menu';
 import Storage from './Storage';
+import Dashboard from './Dashborad';
+import NewPost from './NewPost';
+import ViewPost from './ViewPost';
+import EditPost from './EditPost';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,13 +52,17 @@ function App() {
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup-next" element={<SignupNext />} />
-        <Route path="/profile" element={<UserProfile handleLogout={handleLogout} />} />
-        <Route path="/edit-profile" element={<EditUserProfile handleLogout={handleLogout} />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/edit-profile" element={<EditUserProfile />} />
         <Route path="/HeroComponent" element={<HeroComponent />} />
         <Route path="/Chat_" element={<Chat />} />
         <Route path="/test" element={<TextRevealCardPreview />} />
         <Route path="/pw-find" element={<PWFind />} />
         <Route path="/storage" element={<Storage />} />
+        <Route path="/QnA" element={<Dashboard />} />
+        <Route path="/new-post" element={<NewPost />} />
+        <Route path="/qna/:qna_id" element={<ViewPost />} />
+        <Route path="/edit-post/:qna_id" element={<EditPost />} /> 
 
       </Routes>
     </Router>

@@ -81,13 +81,14 @@ const UserProfile = ({ handleLogout }) => {
 
   return (
     <div className="user-profile">
+      <h2>MY Infomation</h2>
       <div className="user-info">
-        <p>이메일: {userInfo.email}</p>
-        <p>이름: {userInfo.user_name}</p>
-        <p>회사: {userInfo.corporation}</p>
-        <p>사업자번호: {userInfo.business_number}</p>
-        <p>직책: {userInfo.position}</p>
-        <p>전화번호: {userInfo.phone}</p>
+        <p>Email: {userInfo.email}</p>
+        <p>Name: {userInfo.user_name}</p>
+        <p>Corporation: {userInfo.corporation}</p>
+        <p>Business Number: {userInfo.business_number}</p>
+        <p>Position: {userInfo.position}</p>
+        <p>Phone: {userInfo.phone}</p>
       </div>
       <div className="user-actions">
         <button className="user-edit-btn" onClick={handleEditProfile}>
