@@ -1,4 +1,3 @@
-// UserProfile.js
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -38,7 +37,6 @@ const UserProfile = ({ handleLogout }) => {
     try {
       const token=sessionStorage.getItem("token");
       const email = sessionStorage.getItem("email");
-      console.log()
       const address = 'http://localhost:8000/retriever/user_info/user_info/'+email
       const response = await fetch(address, {
         method: 'GET',
@@ -79,6 +77,10 @@ const UserProfile = ({ handleLogout }) => {
     navigate("/edit-profile");
   };
 
+  const handleChangePassword = () => {
+    navigate("/change-password");
+  };
+
   return (
     <div className="user-profile">
       <h2>MY Infomation</h2>
@@ -93,6 +95,12 @@ const UserProfile = ({ handleLogout }) => {
       <div className="user-actions">
         <button className="user-edit-btn" onClick={handleEditProfile}>
           내 정보 수정하기
+          <div className="move-page-icon">
+            <FontAwesomeIcon icon={faChevronRight} />
+          </div>
+        </button>
+        <button className="user-edit-btn" onClick={handleChangePassword}>
+          비밀번호 변경하기
           <div className="move-page-icon">
             <FontAwesomeIcon icon={faChevronRight} />
           </div>

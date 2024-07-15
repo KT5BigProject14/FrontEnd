@@ -15,6 +15,7 @@ import Dashboard from './Dashborad';
 import NewPost from './NewPost';
 import ViewPost from './ViewPost';
 import EditPost from './EditPost';
+import ChangePassword from './ChagePassword';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,6 +55,7 @@ function App() {
         <Route path="/signup-next" element={<SignupNext />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/edit-profile" element={<EditUserProfile />} />
+        <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/HeroComponent" element={<HeroComponent />} />
         <Route path="/Chat_" element={<Chat />} />
         <Route path="/test" element={<TextRevealCardPreview />} />

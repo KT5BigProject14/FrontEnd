@@ -5,19 +5,27 @@ import './ViewPost.css';
 const ViewPost = () => {
     const { qna_id } = useParams();
     const [post, setPost] = useState(null);
-    const [qna_images, setQnaImages] = useState([]);
+    const [qnaImages, setQnaImages] = useState([]);
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState('');
+    const [editingCommentId, setEditingCommentId] = useState(null);
+    const [editingCommentContent, setEditingCommentContent] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const fetchPostData = () => {
         fetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`)
             .then(response => response.json())
             .then(data => {
-                console.log('Fetched post data:', data); // 데이터 확인용 로그
+                console.log('Fetched post data:', data);
                 setPost(data.result.qna);
-                console.log('Fetched images:', data.result.qna_images); // 이미지 데이터 확인용 로그
-                setQnaImages(data.result.qna_images); // 이미지 설정
+                setQnaImages(data.result.qna_images);
+                setComments(data.comment || []); // 댓글이 없을 경우 빈 배열로 초기화
             })
             .catch(error => console.error('Error fetching post data:', error));
+    };
+
+    useEffect(() => {
+        fetchPostData();
     }, [qna_id]);
 
     const handleEdit = () => {
@@ -26,7 +34,7 @@ const ViewPost = () => {
 
     const handleDelete = () => {
         const email = sessionStorage.getItem('email');
-        const encodedEmail = encodeURIComponent(email); // email 인코딩
+        const encodedEmail = encodeURIComponent(email);
         const requestData = {
             email: post.email,
             title: post.title,
@@ -49,6 +57,99 @@ const ViewPost = () => {
         navigate('/QnA');
     };
 
+    const handleNewCommentChange = (e) => {
+        setNewComment(e.target.value);
+    };
+
+    const handleAddComment = () => {
+        const email = sessionStorage.getItem('email');
+        const requestData = {
+            email: email,
+            qna_id: qna_id,
+            content: newComment,
+        };
+    
+        fetch(`http://localhost:8000/retriever/qna/upload/comment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => response.json())
+        .then(() => {
+            setNewComment('');
+            fetchPostData(); // 새로운 댓글 추가 후 데이터 다시 가져오기
+        })
+        .catch(error => console.error('Error adding comment:', error));
+    };
+
+    const handleDeleteComment = (commentId) => {
+        const email = sessionStorage.getItem('email');
+        const encodedEmail = encodeURIComponent(email);
+        const commentToDelete = comments.find(comment => comment.comment_id === commentId);
+        if (!commentToDelete) {
+            console.error('Comment to delete not found');
+            return;
+        }
+        const requestData = {
+            email: email,
+            qna_id: qna_id,
+            content: commentToDelete.content,
+            comment_id: commentId,
+        };
+
+        fetch(`http://localhost:8000/retriever/qna/delete/comment?email=${encodedEmail}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(() => {
+            fetchPostData(); // 댓글 삭제 후 데이터 다시 가져오기
+        })
+        .catch(error => console.error('Error deleting comment:', error));
+    };
+
+    const handleEditComment = (commentId) => {
+        const commentToEdit = comments.find(comment => comment.comment_id === commentId);
+        if (commentToEdit) {
+            setEditingCommentId(commentId);
+            setEditingCommentContent(commentToEdit.content);
+        }
+    };
+
+    const handleEditCommentChange = (e) => {
+        setEditingCommentContent(e.target.value);
+    };
+
+    const handleSaveEditedComment = () => {
+        const email = sessionStorage.getItem('email');
+        const encodedEmail = encodeURIComponent(email);
+        const requestData = {
+            email: email,
+            qna_id: qna_id,
+            content: editingCommentContent,
+            comment_id: editingCommentId,
+        };
+
+        fetch(`http://localhost:8000/retriever/qna/update/comment?email=${encodedEmail}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => response.json())
+        .then(() => {
+            setEditingCommentId(null);
+            setEditingCommentContent('');
+            fetchPostData(); // 댓글 수정 후 데이터 다시 가져오기
+        })
+        .catch(error => console.error('Error editing comment:', error));
+    };
+
     if (!post) return <div>Loading...</div>;
 
     return (
@@ -59,13 +160,44 @@ const ViewPost = () => {
                 <p><strong>작성일:</strong> {new Date(post.created_at).toLocaleString()}</p>
                 <p><strong>내용:</strong></p>
                 <p>{post.content}</p>
-                {qna_images && qna_images.length > 0 && (
+                {qnaImages.length > 0 && (
                     <div className="post-images">
-                        {qna_images.map((image, index) => (
+                        {qnaImages.map((image, index) => (
                             <img key={index} src={`data:image/jpeg;base64,${Object.values(image)[0]}`} alt={`Post image ${index + 1}`} className="post-image" />
                         ))}
                     </div>
                 )}
+                <div className="post-comments">
+                    <h2>댓글</h2>
+                    {comments.map((comment) => (
+                        comment && comment.comment_id && ( // 댓글과 comment_id가 정의되어 있는지 확인
+                            <div key={comment.comment_id} className="comment">
+                                <p><strong>{comment.email}</strong> ({new Date(comment.created_at).toLocaleString()})</p>
+                                {editingCommentId === comment.comment_id ? (
+                                    <div className="edit-comment">
+                                        <textarea value={editingCommentContent} onChange={handleEditCommentChange} />
+                                        <button onClick={handleSaveEditedComment}>확인</button>
+                                        <button onClick={() => setEditingCommentId(null)}>취소</button>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <p>{comment.content}</p>
+                                        {comment.email === sessionStorage.getItem('email') && (
+                                            <div className="comment-actions">
+                                                <button onClick={() => handleEditComment(comment.comment_id)}>수정</button>
+                                                <button onClick={() => handleDeleteComment(comment.comment_id)}>삭제</button>
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                        )
+                    ))}
+                    <div className="new-comment">
+                        <textarea value={newComment} onChange={handleNewCommentChange} placeholder="댓글을 입력하세요" />
+                        <button onClick={handleAddComment}>댓글 추가</button>
+                    </div>
+                </div>
             </div>
             <button className="edit-button" onClick={handleEdit}>수정하기</button>
             <button className="delete-button" onClick={handleDelete}>삭제하기</button>
