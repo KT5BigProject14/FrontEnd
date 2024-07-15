@@ -6,12 +6,16 @@ const NewPost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isSecret, setIsSecret] = useState(false);
-    const [files, setFiles] = useState([]);  // 단일 파일 대신 배열로 상태 저장
+    const [files, setFiles] = useState([]);
     const navigate = useNavigate();
 
     const handleFileChange = (e) => {
-        setFiles(Array.from(e.target.files));  // 파일을 배열로 변환하여 상태 저장
-        console.log('Selected files:', e.target.files);
+        const selectedFiles = Array.from(e.target.files);
+        setFiles([...files, ...selectedFiles]);
+    };
+
+    const handleFileRemove = (fileToRemove) => {
+        setFiles(files.filter(file => file !== fileToRemove));
     };
 
     const handleSubmit = (e) => {
@@ -22,7 +26,7 @@ const NewPost = () => {
         formData.append('title', title);
         formData.append('content', content);
         formData.append('isSecret', isSecret);
-        files.forEach(file => {  // 반복문을 통해 FormData에 파일 추가
+        files.forEach((file) => {
             formData.append('images', file);
         });
 
@@ -68,9 +72,17 @@ const NewPost = () => {
                     <label>이미지 업로드:</label>
                     <input 
                         type="file" 
-                        multiple  // 여러 파일 선택 가능
+                        multiple 
                         onChange={handleFileChange} 
                     />
+                    <div className="image-preview">
+                        {files.map((file, index) => (
+                            <div key={index} className="image-item">
+                                <img src={URL.createObjectURL(file)} alt={`미리보기 ${index + 1}`} />
+                                <button type="button" onClick={() => handleFileRemove(file)}>삭제</button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className="form-group">
                     <label>
