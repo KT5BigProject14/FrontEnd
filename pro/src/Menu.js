@@ -34,7 +34,7 @@ const Menu = ({ isLoggedIn, handleLogout }) => {
       <nav style={navStyle}>
         {isLoggedIn ? (
           <>
-            <Link to="/" style={styles.navItem}>Home</Link>
+            <Link to="" style={styles.navItem}>Home</Link>
             <Link to="/chat_" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/chat_")}>Chat</Link>
             <Link to="/QnA" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/QnA")}>QnA</Link>
             <Link to="/profile" style={styles.navItem} onClick={(e) => handleButtonClick(e, "/profile")}>My Page</Link>

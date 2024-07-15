@@ -434,7 +434,7 @@ const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken }) => {
           className="div"
         >
           <h2 className="text-center text-xl md:text-4xl font-bold text-black dark:text-white">
-            해외로 진출하고 싶을땐?
+            해외로 진출하고 싶을 땐?
           </h2>
           <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
             Just Do LoGO

@@ -1,7 +1,6 @@
-// Edit_UserProfile.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import "./Edit_UserProfile.css";
+import './styles/EditUserProfile.css'; // CSS 파일 임포트
 
 const EditUserProfile = () => {
   const navigate = useNavigate();
@@ -16,9 +15,9 @@ const EditUserProfile = () => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    const email =sessionStorage.getItem("email");
+    const email = sessionStorage.getItem("email");
     if (token) {
-      fetchUserInfo(token,email).then(data => {
+      fetchUserInfo(token, email).then(data => {
         setUserInfo({
           email: data.email,
           user_name: data.user_name,
@@ -31,9 +30,9 @@ const EditUserProfile = () => {
     }
   }, []);
 
-  const fetchUserInfo = async (token,email) => {
+  const fetchUserInfo = async (token, email) => {
     try {
-      const address = 'http://localhost:8000/retriever/user_info/user_info/' + email
+      const address = 'http://localhost:8000/retriever/user_info/user_info/' + email;
       const response = await fetch(address, {
         method: 'GET',
         headers: {
@@ -90,54 +89,66 @@ const EditUserProfile = () => {
   };
 
   return (
-    <div className="edit-user-profile">
-      <h2>Edit User Profile</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email: {userInfo.email}</label>
+    <>
+      <div className="navbar">
+        <a href="/home">Home</a>
+        <a href="/chat">Chat</a>
+        <a href="/qna">QnA</a>
+        <a href="/my-page">My Page</a>
+        <a href="/storage">Storage</a>
+        <a href="/logout">로그아웃</a>
+      </div>
+      <div className="edit-user-profile-container">
+        <div className="edit-user-profile">
+          <h2>Edit User Profile</h2>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Email: {userInfo.email}</label>
+            </div>
+            <div>
+              <label>Name: {userInfo.user_name}</label>
+            </div>
+            <div>
+              <label>Corporation:</label>
+              <input
+                type="text"
+                name="corporation"
+                value={userInfo.corporation}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label>Business Number:</label>
+              <input
+                type="text"
+                name="business_number"
+                value={userInfo.business_number}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label>Position:</label>
+              <input
+                type="text"
+                name="position"
+                value={userInfo.position}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label>Phone:</label>
+              <input
+                type="text"
+                name="phone"
+                value={userInfo.phone}
+                onChange={handleInputChange}
+              />
+            </div>
+            <button type="submit">Save Changes</button>
+          </form>
         </div>
-        <div>
-          <label>Name: {userInfo.user_name}</label>
-        </div>
-        <div>
-          <label>Corporation:</label>
-          <input
-            type="text"
-            name="corporation"
-            value={userInfo.corporation}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Business Number:</label>
-          <input
-            type="text"
-            name="business_number"
-            value={userInfo.business_number}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Position:</label>
-          <input
-            type="text"
-            name="position"
-            value={userInfo.position}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Phone:</label>
-          <input
-            type="text"
-            name="phone"
-            value={userInfo.phone}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button type="submit">Save Changes</button>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };
 

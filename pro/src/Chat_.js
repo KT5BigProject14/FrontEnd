@@ -25,8 +25,8 @@ const Chat = () => {
       const data = await response.json();
       const fetchedSessions = [];
       const messages = data.messages;
-      for (let i = 0; i < messages.length; i += 2) {
-        fetchedSessions.push({ id: messages[i], title: messages[i + 1] });
+      for (let i = 0; i < messages.length; i += 3) {
+        fetchedSessions.push({ id: messages[i], title: messages[i + 1], time: messages[i + 2] });
       }
       setSessions(fetchedSessions);
     } catch (error) {
