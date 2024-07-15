@@ -19,17 +19,19 @@ const SignupNext = () => {
 
     // Remove hyphens from businessNumber and convert to number
     const cleanedBusinessNumber = parseInt(businessNumber.replace(/-/g, ''), 10);
+    const email=sessionStorage.getItem('email');
 
     const payload = {
-      user_name:username,
+      email,
       corporation: companyName,
       business_number: cleanedBusinessNumber,
       position,
       phone: extensionNumber,
+      user_name:username,
     };
 
     try {
-      const response = await fetch("http://localhost:8000/retriever/user_info/user_info/", {
+      const response = await fetch("http://localhost:8000/retriever/user_info/create/user_info/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

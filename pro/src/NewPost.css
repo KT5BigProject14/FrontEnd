@@ -1,0 +1,43 @@
+.newpost-container {
+    padding: 20px;
+}
+
+.newpost-title {
+    text-align: center;
+    color: white; /* 다른 텍스트는 흰색으로 유지 */
+}
+
+.newpost-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: white; /* 다른 텍스트는 흰색으로 유지 */
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    color: black; /* 입력 박스 안의 글씨만 검게 변경 */
+}
+
+.form-group textarea {
+    height: 200px;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

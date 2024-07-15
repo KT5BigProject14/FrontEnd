@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import './styles/EditUserProfile.css'; // CSS 파일 임포트
+// import "./Edit_UserProfile.css";
 
 const EditUserProfile = () => {
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ const EditUserProfile = () => {
       }
 
       // Navigate back to user profile or show success message
-      navigate("/user-profile");
+      navigate("/profile");
     } catch (error) {
       console.error('Error:', error);
     }
