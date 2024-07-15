@@ -36,13 +36,13 @@ const ViewPost = () => {
         const email = sessionStorage.getItem('email');
         const encodedEmail = encodeURIComponent(email);
         const requestData = {
-            qna_email : post.qna_email,
+            email : post.email,
             title: post.title,
             content: post.content,
             qna_id: post.qna_id,
         };
     
-        fetch(`http://localhost:8000/retriever/qna/delete_qna?email=${encodedEmail}`, {
+        fetch(`http://localhost:8000/retriever/qna/delete_qna?user_email=${encodedEmail}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

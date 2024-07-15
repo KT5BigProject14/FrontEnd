@@ -41,6 +41,11 @@ const SignupNext = () => {
 
       if (response.status === 200) {
         console.log("성공! 정보기입" );
+        sessionStorage.setItem("token", data.access_token);
+        sessionStorage.setItem("email", data.email);
+      if (data.role){
+        sessionStorage.setItem("role",data.role)
+      } 
         navigate("/");
       } else if (response.status === 400) {
         alert(`회원가입 실패: ${data.message}`);
