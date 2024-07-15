@@ -9,7 +9,11 @@ const Dashboard = () => {
     useEffect(() => {
         fetch('http://localhost:8000/retriever/qna/load_all_qna')
             .then(response => response.json())
-            .then(data => setQnaList(data))
+            .then(data => {
+                // Sort data by created_at in descending order
+                const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                setQnaList(sortedData);
+            })
             .catch(error => console.error('Error fetching QnA data:', error));
     }, []);
 
@@ -19,16 +23,16 @@ const Dashboard = () => {
             <table className="dashboard-table">
                 <thead>
                     <tr>
-                        <th>QnA ID</th>
+                        <th>No</th>
                         <th>Title</th>
                         <th>Email</th>
                         <th>Created At</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {qnaList.map(qna => (
+                    {qnaList.map((qna, index) => (
                         <tr key={qna.qna_id}>
-                            <td>{qna.qna_id}</td>
+                            <td>{index + 1}</td>
                             <td>
                                 <Link to={`/qna/${qna.qna_id}`}>{qna.title}</Link>
                             </td>
