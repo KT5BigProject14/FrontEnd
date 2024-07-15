@@ -36,10 +36,10 @@ const ViewPost = () => {
         const email = sessionStorage.getItem('email');
         const encodedEmail = encodeURIComponent(email);
         const requestData = {
-            email: post.email,
+            qna_email : post.qna_email,
             title: post.title,
             content: post.content,
-            qna_id: qna_id,
+            qna_id: post.qna_id,
         };
     
         fetch(`http://localhost:8000/retriever/qna/delete_qna?email=${encodedEmail}`, {
