@@ -51,8 +51,7 @@ const EditPost = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const email = sessionStorage.getItem('email');
-        const encodedEmail = encodeURIComponent(email);
+        const token = sessionStorage.getItem('token');
         const formData = new FormData();
         formData.append('qna_id', qna_id);
         formData.append('email', qnaEmail);
@@ -79,8 +78,11 @@ const EditPost = () => {
             console.log(`${pair[0]}: ${pair[1]}`);
         }
 
-        fetch(`http://localhost:8000/retriever/qna/update_qna?user_email=${encodedEmail}`, {
+        fetch(`http://localhost:8000/retriever/qna/update_qna`, {
             method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
             body: formData
         })
         .then(response => response.json())

@@ -20,9 +20,8 @@ const NewPost = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const email = sessionStorage.getItem('email');
+        const token = sessionStorage.getItem('token');
         const formData = new FormData();
-        formData.append('email', email);
         formData.append('title', title);
         formData.append('content', content);
         formData.append('isSecret', isSecret);
@@ -37,6 +36,9 @@ const NewPost = () => {
 
         fetch('http://localhost:8000/retriever/qna/upload', {
             method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
             body: formData
         })
         .then(response => response.json())

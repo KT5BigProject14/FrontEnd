@@ -6,7 +6,7 @@ const Storage = () => {
     const [selectedDoc, setSelectedDoc] = useState(null);
     const [showModal, setShowModal] = useState(false);
   
-    const email = sessionStorage.getItem('email');
+    const token = sessionStorage.getItem('token');
   
     // 좋아요 누른 문서 목록 가져오기
     const fetchLikedDocs = useCallback(async () => {
@@ -15,8 +15,8 @@ const Storage = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email }),
+            'Authorization': `Bearer ${token}`
+          }
         });
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -26,7 +26,7 @@ const Storage = () => {
       } catch (error) {
         console.error('Error fetching liked documents:', error);
       }
-    }, [email]);
+    }, [token]);
   
     // 특정 문서 내용 가져오기
     const handleDocClick = (doc) => {

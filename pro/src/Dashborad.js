@@ -7,7 +7,14 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:8000/retriever/qna/load_all_qna')
+        const token = sessionStorage.getItem('token');
+        fetch('http://localhost:8000/retriever/qna/load_all_qna', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
             .then(response => response.json())
             .then(data => {
                 // Sort data by created_at in descending order

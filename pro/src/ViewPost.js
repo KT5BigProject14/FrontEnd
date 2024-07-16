@@ -33,19 +33,18 @@ const ViewPost = () => {
     };
 
     const handleDelete = () => {
-        const email = sessionStorage.getItem('email');
-        const encodedEmail = encodeURIComponent(email);
+        const token = sessionStorage.getItem('token');
         const requestData = {
-            email : post.email,
             title: post.title,
             content: post.content,
             qna_id: post.qna_id,
         };
-    
-        fetch(`http://localhost:8000/retriever/qna/delete_qna?user_email=${encodedEmail}`, {
+
+        fetch(`http://localhost:8000/retriever/qna/delete_qna`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(requestData),
         })
@@ -62,17 +61,17 @@ const ViewPost = () => {
     };
 
     const handleAddComment = () => {
-        const email = sessionStorage.getItem('email');
+        const token = sessionStorage.getItem('token');
         const requestData = {
-            email: email,
             qna_id: qna_id,
             content: newComment,
         };
-    
+
         fetch(`http://localhost:8000/retriever/qna/upload/comment`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(requestData),
         })
@@ -85,24 +84,23 @@ const ViewPost = () => {
     };
 
     const handleDeleteComment = (commentId) => {
-        const email = sessionStorage.getItem('email');
-        const encodedEmail = encodeURIComponent(email);
+        const token = sessionStorage.getItem('token');
         const commentToDelete = comments.find(comment => comment.comment_id === commentId);
         if (!commentToDelete) {
             console.error('Comment to delete not found');
             return;
         }
         const requestData = {
-            email: email,
             qna_id: qna_id,
             content: commentToDelete.content,
             comment_id: commentId,
         };
 
-        fetch(`http://localhost:8000/retriever/qna/delete/comment?email=${encodedEmail}`, {
+        fetch(`http://localhost:8000/retriever/qna/delete/comment`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(requestData),
         })
@@ -125,19 +123,18 @@ const ViewPost = () => {
     };
 
     const handleSaveEditedComment = () => {
-        const email = sessionStorage.getItem('email');
-        const encodedEmail = encodeURIComponent(email);
+        const token = sessionStorage.getItem('token');
         const requestData = {
-            email: email,
             qna_id: qna_id,
             content: editingCommentContent,
             comment_id: editingCommentId,
         };
 
-        fetch(`http://localhost:8000/retriever/qna/update/comment?email=${encodedEmail}`, {
+        fetch(`http://localhost:8000/retriever/qna/update/comment`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(requestData),
         })

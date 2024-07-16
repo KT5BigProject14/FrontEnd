@@ -7,18 +7,23 @@ const Chat = () => {
   const [input, setInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [sessionId, setSessionId] = useState(null); // sessionId 상태 추가
-  const email = sessionStorage.getItem('email');
   const [titles, setTitles] = useState([]);
   const [titletext, setTitletext] = useState('');
   const [sessions, setSessions] = useState([]);
   const [storages, setStorages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState(null);
-
+  const token = sessionStorage.getItem('token');
 
   const fetchSessions = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:8000/retriever/redis/all_messages?user_email=${email}`);
+      const response = await fetch('http://localhost:8000/retriever/redis/all_messages', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -32,16 +37,17 @@ const Chat = () => {
     } catch (error) {
       console.error("Error fetching session data:", error);
     }
-  }, [email]);
+  }, [token]);
 
   const fetchStorages = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:8000/retriever/ai/get_all_title', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: token }),
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -51,23 +57,29 @@ const Chat = () => {
     } catch (error) {
       console.error("Error fetching storages data:", error);
     }
-  }, [email]);
+  }, [token]);
 
   useEffect(() => {
     fetchSessions(); // 초기 로딩 시 세션 데이터 가져오기
     fetchStorages(); // 초기 로딩 시 저장 데이터 가져오기
-  }, [email, fetchSessions, fetchStorages]);
+  }, [fetchSessions, fetchStorages]);
 
   const fetchMessagesForSession = useCallback(async (sessionId) => {
     try {
-      const response = await fetch(`http://localhost:8000/retriever/redis/messages/${email}/${sessionId}`);
+      const response = await fetch(`http://localhost:8000/retriever/redis/messages/${sessionId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
       const fetchedMessages = [];
       const messages = data.messages;
-      for (let i = messages.length-1; i >=0; i -= 2) {
+      for (let i = messages.length - 1; i >= 0; i -= 2) {
         fetchedMessages.push({ sender: 'Me', text: messages[i] });
         fetchedMessages.push({ sender: 'Bot', text: messages[i - 1] });
       }
@@ -76,21 +88,21 @@ const Chat = () => {
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
-  }, [email]);
+  }, [token]);
 
   const handleSendMessage = async () => {
     if (input.trim()) {
       setMessages([...messages, { sender: 'Me', text: input }]);
       setInput('');
-      console.log(input, sessionId, email);
+      console.log(input, sessionId);
 
       const response = await fetch('http://localhost:8000/retriever/ai/chat', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_email: email,
           session_id: sessionId,
           question: input,
         }),
@@ -117,6 +129,7 @@ const Chat = () => {
         const response = await fetch('http://localhost:8000/retriever/ai/title', {
           method: 'POST',
           headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ question: searchQuery }),
@@ -144,14 +157,15 @@ const Chat = () => {
     fetchMessagesForSession(sessionId); // Fetch messages for the selected session
   };
 
- const handleTitleClick = async (title) => { // handleSessionClick 안에 중첩된 handleTitleClick을 밖으로 이동시킴
+  const handleTitleClick = async (title) => { // handleSessionClick 안에 중첩된 handleTitleClick을 밖으로 이동시킴
     try {
       const response = await fetch('http://localhost:8000/retriever/ai/text', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_email: email, title: title }),
+        body: JSON.stringify({ title: title }),
       });
       const data = await response.json();
       console.log('Document data received:', data.text);
@@ -169,19 +183,20 @@ const Chat = () => {
       const response = await fetch('http://localhost:8000/retriever/ai/get_text', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ docs_id }),
       });
 
       const data = await response.json();
-      console.log( typeof data.text)
-      setSelectedDoc({ docs_id, text: data.text || ""});
+      console.log(typeof data.text)
+      setSelectedDoc({ docs_id, text: data.text || "" });
       setShowModal(true);
     } catch (error) {
       console.error('Error fetching document text:', error);
     }
-  }; 
+  };
 
   const handleCloseModal = (e) => {
     // Storagebar를 클릭한 경우에는 패널을 닫지 않음
@@ -202,14 +217,15 @@ const Chat = () => {
         const response = await fetch('http://localhost:8000/retriever/ai/like', {
           method: 'POST',
           headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ docs_id: selectedDoc.docs_id }),
         });
-  
+
         const data = await response.json();
         console.log('Like status:', data.is_like);
-        
+
         // 하트 색상 업데이트
         setSelectedDoc(prevDoc => ({
           ...prevDoc,
@@ -220,7 +236,6 @@ const Chat = () => {
       }
     }
   };
-
 
   // Handler to create a new session
   const handleNewConversation = () => {
@@ -249,7 +264,6 @@ const Chat = () => {
       </p>
     ));
   };
-
 
   return (
     <div style={styles.container}>
@@ -323,7 +337,6 @@ const Chat = () => {
     </div>
   );
 };
-
 
 const styles = {
   container: {
@@ -506,7 +519,4 @@ const getLikeButtonStyle = (isLiked) => {
   return baseStyle;
 };
 
-
 export default Chat;
-
-

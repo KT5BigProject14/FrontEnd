@@ -15,9 +15,8 @@ const EditUserProfile = () => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    const email = sessionStorage.getItem("email");
     if (token) {
-      fetchUserInfo(token, email).then(data => {
+      fetchUserInfo(token).then(data => {
         setUserInfo({
           email: data.email,
           user_name: data.user_name,
@@ -30,9 +29,9 @@ const EditUserProfile = () => {
     }
   }, []);
 
-  const fetchUserInfo = async (token, email) => {
+  const fetchUserInfo = async (token) => {
     try {
-      const address = 'http://localhost:8000/retriever/user_info/user_info/' + email;
+      const address = 'http://localhost:8000/retriever/user_info/user_info';
       const response = await fetch(address, {
         method: 'GET',
         headers: {
@@ -68,7 +67,7 @@ const EditUserProfile = () => {
     const token = sessionStorage.getItem("token");
 
     try {
-      const response = await fetch('http://localhost:8000/retriever/user_info/user_info/', {
+      const response = await fetch('http://localhost:8000/retriever/user_info/user_info', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

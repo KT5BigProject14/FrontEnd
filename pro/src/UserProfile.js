@@ -17,10 +17,9 @@ const UserProfile = ({ handleLogout }) => {
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
-    const email = sessionStorage.getItem("email");
-    if (email) {
+    if (token) {
       // 토큰을 사용하여 서버에서 사용자 정보를 가져오는 함수 호출
-      fetchUserInfo(email).then(data => {
+      fetchUserInfo(token).then(data => {
         setUserInfo({
           email: data.email,
           user_name: data.user_name,
@@ -33,11 +32,9 @@ const UserProfile = ({ handleLogout }) => {
     }
   }, []);
 
-  const fetchUserInfo = async (email) => {
+  const fetchUserInfo = async (token) => {
     try {
-      const token=sessionStorage.getItem("token");
-      const email = sessionStorage.getItem("email");
-      const address = 'http://localhost:8000/retriever/user_info/user_info/'+email
+      const address = 'http://localhost:8000/retriever/user_info/user_info';
       const response = await fetch(address, {
         method: 'GET',
         headers: {
@@ -83,7 +80,7 @@ const UserProfile = ({ handleLogout }) => {
 
   return (
     <div className="user-profile">
-      <h2>MY Infomation</h2>
+      <h2>MY Information</h2>
       <div className="user-info">
         <p>Email: {userInfo.email}</p>
         <p>Name: {userInfo.user_name}</p>

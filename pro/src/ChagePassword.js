@@ -37,9 +37,8 @@ const ChangePassword = () => {
       return;
     }
 
-    const email = sessionStorage.getItem('email');
+    const token = sessionStorage.getItem('token');
     const requestData = {
-      email: email,
       password: currentPassword,
       new_password: newPassword
     };
@@ -48,7 +47,8 @@ const ChangePassword = () => {
       const response = await fetch('http://localhost:8000/retriever/user_info/change/password', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(requestData)
       });

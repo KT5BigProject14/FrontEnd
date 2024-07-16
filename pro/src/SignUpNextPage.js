@@ -19,36 +19,37 @@ const SignupNext = () => {
 
     // Remove hyphens from businessNumber and convert to number
     const cleanedBusinessNumber = parseInt(businessNumber.replace(/-/g, ''), 10);
-    const email=sessionStorage.getItem('email');
+    const token = sessionStorage.getItem('token');
 
     const payload = {
-      email,
       corporation: companyName,
       business_number: cleanedBusinessNumber,
       position,
       phone: extensionNumber,
-      user_name:username,
+      user_name: username,
     };
 
     try {
       const response = await fetch("http://localhost:8000/retriever/user_info/create/user_info/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
       if (response.status === 200) {
-        console.log("성공! 정보기입" );
+        console.log("성공! 정보기입");
         sessionStorage.setItem("token", data.access_token);
-        sessionStorage.setItem("email", data.email);
-      if (data.role){
-        sessionStorage.setItem("role",data.role)
-      } 
+        if (data.role) {
+          sessionStorage.setItem("role", data.role);
+        }
         navigate("/");
       } else if (response.status === 400) {
-        alert(`회원가입 실패: ${data.message}`);
+        alert(`정보기입 실패: ${data.message}`);
       }
     } catch (error) {
       console.error("오류 발생:", error);
@@ -79,7 +80,7 @@ const SignupNext = () => {
   return (
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleInfo}>
-        <h1>More Infomation</h1>
+        <h1>More Information</h1>
         <label htmlFor="companyName">회사명</label>
         <input
           type="text"
