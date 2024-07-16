@@ -16,6 +16,7 @@ import NewPost from './NewPost';
 import ViewPost from './ViewPost';
 import EditPost from './EditPost';
 import ChangePassword from './ChagePassword';
+import GoogleLoginRedirect from "./GoogleLoginRedirect";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,6 +52,7 @@ function App() {
           element={<HeroComponent isLoggedIn={isLoggedIn} hasToken={hasToken} handleLogout={handleLogout} />} 
         />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/google/login" element={<GoogleLoginRedirect setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup-next" element={<SignupNext />} />
         <Route path="/profile" element={<UserProfile />} />

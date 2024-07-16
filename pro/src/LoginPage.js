@@ -25,21 +25,37 @@ const Login = ({ setIsLoggedIn }) => {
       setLoginCheck(false);
       sessionStorage.setItem("token", result.access_token);
       sessionStorage.setItem("email", result.email);
-      if (result.role){
-        sessionStorage.setItem("role",result.role)
-      } 
+      if (result.role) {
+        sessionStorage.setItem("role", result.role);
+      }
       console.log("로그인성공, token:" + result.access_token);
       setIsLoggedIn(true);
       navigate("/");
     } else {
       setLoginCheck(true);
       if (response.status === 400) {
-        alert("이메일 혹은 비밀번호가 틀렸습니다."); 
+        alert("이메일 혹은 비밀번호가 틀렸습니다.");
         console.log('data가 잘못들어감');
       } else if (response.status === 500) {
-        alert("서버 문제로 인해 로그인에 실패했습니다."); 
+        alert("서버 문제로 인해 로그인에 실패했습니다.");
         console.log('서버문제');
       }
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const response = await fetch("http://localhost:8000/retriever/login/google", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+
+    if (response.status === 200) {
+      window.location.href = result.url;
+    } else {
+      alert("구글 로그인에 실패했습니다.");
     }
   };
 
@@ -65,6 +81,7 @@ const Login = ({ setIsLoggedIn }) => {
           <label style={{ color: "red" }}>올바른 이메일 혹은 비밀번호를 입력하세요.</label>
         )}
         <button type="submit">로그인</button>
+        <button type="button" onClick={handleGoogleLogin}>구글 로그인</button>
         <p className="pw-find">
           비밀번호를 잊으셨나요? <Link to="/pw-find">PW찾기</Link>
         </p>
