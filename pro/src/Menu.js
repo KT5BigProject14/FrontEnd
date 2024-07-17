@@ -57,7 +57,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#282c34',
+    backgroundColor: '#0077B6',
     padding: '10px',
     color: 'white',
   },
