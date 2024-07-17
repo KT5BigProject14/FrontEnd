@@ -11,8 +11,8 @@ const Storage = () => {
     // 좋아요 누른 문서 목록 가져오기
     const fetchLikedDocs = useCallback(async () => {
       try {
-        const response = await fetch('http://localhost:8000/retriever/ai/get_all_text', {
-          method: 'POST',
+        const response = await fetch('http://localhost:8000/retriever/ai/get/like/text', {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

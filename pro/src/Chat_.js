@@ -17,7 +17,7 @@ const Chat = () => {
 
   const fetchSessions = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8000/retriever/redis/all_messages', {
+      const response = await fetch('http://localhost:8000/retriever/redis/all/messages', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -41,13 +41,12 @@ const Chat = () => {
 
   const fetchStorages = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8000/retriever/ai/get_all_title', {
-        method: 'POST',
+      const response = await fetch('http://localhost:8000/retriever/ai/view/all/title', {
+        method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: token }),
+        }
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -63,7 +62,6 @@ const Chat = () => {
     fetchSessions(); // 초기 로딩 시 세션 데이터 가져오기
     fetchStorages(); // 초기 로딩 시 저장 데이터 가져오기
   }, [fetchSessions, fetchStorages]);
-
   const fetchMessagesForSession = useCallback(async (sessionId) => {
     try {
       const response = await fetch(`http://localhost:8000/retriever/redis/messages/${sessionId}`, {
@@ -180,13 +178,12 @@ const Chat = () => {
 
   const handleDocClick = async (docs_id) => {
     try {
-      const response = await fetch('http://localhost:8000/retriever/ai/get_text', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:8000/retriever/ai/view/text/${docs_id}`, {
+        method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ docs_id }),
       });
 
       const data = await response.json();
