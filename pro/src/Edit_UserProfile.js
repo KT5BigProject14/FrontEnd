@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import "./Edit_UserProfile.css";
+import "./Edit_UserProfile.css";
 
 const EditUserProfile = () => {
   const navigate = useNavigate();
@@ -90,14 +90,6 @@ const EditUserProfile = () => {
 
   return (
     <>
-      <div className="navbar">
-        <a href="/home">Home</a>
-        <a href="/chat">Chat</a>
-        <a href="/qna">QnA</a>
-        <a href="/my-page">My Page</a>
-        <a href="/storage">Storage</a>
-        <a href="/logout">로그아웃</a>
-      </div>
       <div className="edit-user-profile-container">
         <div className="edit-user-profile">
           <h2>Edit User Profile</h2>

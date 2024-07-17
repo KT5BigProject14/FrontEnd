@@ -41,7 +41,7 @@ const ViewPost = () => {
             content: post.content,
             qna_id: post.qna_id,
         };
-    
+        console.log("qna_id",post.qna_id);
         fetch(`http://localhost:8000/retriever/qna/delete_qna?user_email=${encodedEmail}`, {
             method: 'DELETE',
             headers: {
