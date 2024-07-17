@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './ViewPost.css';
+import './styles/ViewPost.css';
 
 const ViewPost = () => {
     const { qna_id } = useParams();

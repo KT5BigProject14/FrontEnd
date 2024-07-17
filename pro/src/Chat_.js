@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react"; // useCallback 추가
 import Sessionbar from "./Sessionbar";
 import Storagebar from "./Storagebar";
+import './styles/Chat_.css'
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
