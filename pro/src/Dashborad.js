@@ -8,7 +8,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        fetch('http://localhost:8000/retriever/qna/load_all_qna', {
+        fetch('http://localhost:8000/retriever/qna/load/all/qna', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -17,8 +17,15 @@ const Dashboard = () => {
         })
             .then(response => response.json())
             .then(data => {
-                // Sort data by created_at in descending order
-                const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                console.log(data);
+
+                // Extract user_qna array from the data object
+                const userQnaList = data.user_qna || [];
+
+                // Sort the user_qna array by created_at in descending order
+                const sortedData = userQnaList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+                // Update the state with the sorted data
                 setQnaList(sortedData);
             })
             .catch(error => console.error('Error fetching QnA data:', error));

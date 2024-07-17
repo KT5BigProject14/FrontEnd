@@ -34,13 +34,23 @@ function App() {
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
-
-  const handleLogout = () => {
+  const handleLogout = async() => {
+    const response = await fetch("http://localhost:8000/retriever/user/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    if(response.status === 200){
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('role');
     setIsLoggedIn(false);
     setHasToken(false); // 로그아웃 시 hasToken 상태 업데이트
+    }else{
+      console.log("리프레쉬 토큰 삭제 실패")
+    }
   };
 
   return (

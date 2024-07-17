@@ -34,7 +34,7 @@ const UserProfile = ({ handleLogout }) => {
 
   const fetchUserInfo = async (token) => {
     try {
-      const address = 'http://localhost:8000/retriever/user_info/user_info';
+      const address = 'http://localhost:8000/retriever/info/user';
       const response = await fetch(address, {
         method: 'GET',
         headers: {

@@ -30,7 +30,7 @@ const SignupNext = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/retriever/user_info/create/user_info/", {
+      const response = await fetch("http://localhost:8000/retriever/info/create/user", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

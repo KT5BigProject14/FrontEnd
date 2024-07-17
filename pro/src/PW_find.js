@@ -31,7 +31,7 @@ const Signup = () => {
 
   const sendVerificationCode = async () => {
     try {
-      const response = await fetch("http://localhost:8000/retriever/find/password/send_by_gmail", {
+      const response = await fetch("http://localhost:8000/retriever/user/find/password/send/email/code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const Signup = () => {
 
   const verifyCode = async () => {
     try {
-      const response = await fetch("http://localhost:8000/retriever/email/check_code", {
+      const response = await fetch("http://localhost:8000/retriever/user/check/code", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const Signup = () => {
 
   const handleGetNewPassword = async () => {
     try {
-      const response = await fetch("http://localhost:8000/retriever/send/new/password", {
+      const response = await fetch("http://localhost:8000/retriever/user/send/new/password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

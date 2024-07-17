@@ -44,7 +44,7 @@ const ChangePassword = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/retriever/user_info/change/password', {
+      const response = await fetch('http://localhost:8000/retriever/info/change/password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

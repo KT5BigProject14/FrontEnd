@@ -31,7 +31,7 @@ const EditUserProfile = () => {
 
   const fetchUserInfo = async (token) => {
     try {
-      const address = 'http://localhost:8000/retriever/user_info/user_info';
+      const address = 'http://localhost:8000/retriever/info/user';
       const response = await fetch(address, {
         method: 'GET',
         headers: {
@@ -67,7 +67,7 @@ const EditUserProfile = () => {
     const token = sessionStorage.getItem("token");
 
     try {
-      const response = await fetch('http://localhost:8000/retriever/user_info/user_info', {
+      const response = await fetch('http://localhost:8000/retriever/info/change/user', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -13,7 +13,16 @@ const EditPost = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`)
+        const token = sessionStorage.getItem('token');
+        fetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
             .then(response => response.json())
             .then(data => {
                 const qna = data.result.qna;
@@ -78,7 +87,7 @@ const EditPost = () => {
             console.log(`${pair[0]}: ${pair[1]}`);
         }
 
-        fetch(`http://localhost:8000/retriever/qna/update_qna`, {
+        fetch(`http://localhost:8000/retriever/qna/edit`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`

@@ -12,7 +12,7 @@ const Login = ({ setIsLoggedIn }) => {
     event.preventDefault();
     await new Promise((r) => setTimeout(r, 1000));
 
-    const response = await fetch("http://localhost:8000/retriever/users/login", {
+    const response = await fetch("http://localhost:8000/retriever/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const Login = ({ setIsLoggedIn }) => {
     if (response.status === 200) {
       setLoginCheck(false);
       sessionStorage.setItem("token", result.access_token);
-      sessionStorage.setItem("email", result.email);
+      sessionStorage.setItem("type", result.type);
       if (result.role) {
         sessionStorage.setItem("role", result.role);
       }
@@ -44,7 +44,7 @@ const Login = ({ setIsLoggedIn }) => {
   };
 
   const handleGoogleLogin = async () => {
-    const response = await fetch("http://localhost:8000/retriever/login/google", {
+    const response = await fetch("http://localhost:8000/retriever/user/login/google", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

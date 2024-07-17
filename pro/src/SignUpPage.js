@@ -18,7 +18,7 @@ const Signup = () => {
   const handleSignup = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/retriever/users/signup", {
+      const response = await fetch("http://localhost:8000/retriever/user/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -88,7 +88,7 @@ const Signup = () => {
 
   const sendVerificationCode = async () => {
     try {
-      const response = await fetch("http://localhost:8000/retriever/email/send_by_gmail", {
+      const response = await fetch("http://localhost:8000/retriever/user/send/eamil/code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const Signup = () => {
 
   const verifyCode = async () => {
     try {
-      const response = await fetch("http://localhost:8000/retriever/email/check_code", {
+      const response = await fetch("http://localhost:8000/retriever/user/check/code", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

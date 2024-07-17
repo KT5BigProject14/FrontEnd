@@ -13,7 +13,16 @@ const ViewPost = () => {
     const navigate = useNavigate();
 
     const fetchPostData = () => {
-        fetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`)
+        const token = sessionStorage.getItem('token');
+        fetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
             .then(response => response.json())
             .then(data => {
                 console.log('Fetched post data:', data);
@@ -35,12 +44,13 @@ const ViewPost = () => {
     const handleDelete = () => {
         const token = sessionStorage.getItem('token');
         const requestData = {
+            email: post.email,
             title: post.title,
             content: post.content,
             qna_id: post.qna_id,
         };
 
-        fetch(`http://localhost:8000/retriever/qna/delete_qna`, {
+        fetch(`http://localhost:8000/retriever/qna/delete`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -96,7 +106,7 @@ const ViewPost = () => {
             comment_id: commentId,
         };
 
-        fetch(`http://localhost:8000/retriever/qna/delete/comment`, {
+        fetch(`http://localhost:8000/retriever/qna/comment`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
