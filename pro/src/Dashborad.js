@@ -1,35 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Dashboard.css';
-
+import apiFetch from './api'; // Fetch 함수 가져오기
 const Dashboard = () => {
     const [qnaList, setQnaList] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        fetch('http://localhost:8000/retriever/qna/load/all/qna', {
+        apiFetch('http://localhost:8000/retriever/qna/load/all/qna', {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
+            // headers: {
+            //     'Authorization': `Bearer ${token}`,
+            //     'Content-Type': 'application/json'
+            // }
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
+        .then(res => {
+            console.log(res);
 
-                // Extract user_qna array from the data object
-                const userQnaList = data.user_qna || [];
+            // Extract user_qna array from the data object
+            const userQnaList = res.data.user_qna || [];
 
-                // Sort the user_qna array by created_at in descending order
-                const sortedData = userQnaList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            // Sort the user_qna array by created_at in descending order
+            const sortedData = userQnaList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-                // Update the state with the sorted data
-                setQnaList(sortedData);
-            })
-            .catch(error => console.error('Error fetching QnA data:', error));
-    }, []);
+            // Update the state with the sorted data
+            setQnaList(sortedData);
+        })
+        .catch(error => console.error('Error fetching QnA data:', error));
+}, []);
 
     return (
         <div className="dashboard-container">

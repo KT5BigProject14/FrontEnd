@@ -17,6 +17,7 @@ const Login = ({ setIsLoggedIn }) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     });
     const result = await response.json();

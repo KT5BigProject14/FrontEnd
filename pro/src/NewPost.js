@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NewPost.css';
+import apiFetch from './api';
 
 const NewPost = () => {
     const [title, setTitle] = useState('');
@@ -34,16 +35,15 @@ const NewPost = () => {
             console.log(pair[0] + ': ' + pair[1]);
         }
 
-        fetch('http://localhost:8000/retriever/qna/upload', {
+        apiFetch('http://localhost:8000/retriever/qna/upload', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`
             },
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
+        .then(response => {
+            console.log('Success:', response.data);
             navigate('/QnA');
         })
         .catch(error => console.error('Error:', error));

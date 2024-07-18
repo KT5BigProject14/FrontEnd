@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import apiFetch from "./api";
 // import "./Edit_UserProfile.css";
 
 const EditUserProfile = () => {
@@ -32,17 +33,17 @@ const EditUserProfile = () => {
   const fetchUserInfo = async (token) => {
     try {
       const address = 'http://localhost:8000/retriever/info/user';
-      const response = await fetch(address, {
+      const response = await apiFetch(address, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      if (!response.ok) {
+      if (!response.status ===200) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
+      const data = response.data
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -67,7 +68,7 @@ const EditUserProfile = () => {
     const token = sessionStorage.getItem("token");
 
     try {
-      const response = await fetch('http://localhost:8000/retriever/info/change/user', {
+      const response = await apiFetch('http://localhost:8000/retriever/info/change/user', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -76,7 +77,7 @@ const EditUserProfile = () => {
         body: JSON.stringify(userInfo)
       });
 
-      if (!response.ok) {
+      if (!response.status ===200) {
         throw new Error('Network response was not ok');
       }
 

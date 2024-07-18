@@ -40,6 +40,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include',
     });
     const result = await response.json();
     if(response.status === 200){

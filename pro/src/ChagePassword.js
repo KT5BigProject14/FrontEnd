@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ChangePassword.css';
-
+import apiFetch from './api';
 const ChangePassword = () => {
   const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState('');
@@ -44,16 +44,16 @@ const ChangePassword = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/retriever/info/change/password', {
+      const response = await apiFetch('http://localhost:8000/retriever/info/change/password', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        //   'Authorization': `Bearer ${token}`
+        // },
         body: JSON.stringify(requestData)
       });
 
-      if (!response.ok) {
+      if (!response.status === 200) {
         throw new Error('Network response was not ok');
       }
 
