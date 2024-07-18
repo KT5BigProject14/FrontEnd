@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserProfile.css";
+import apiFetch from "./api";
 
 const UserProfile = ({ handleLogout }) => {
   const navigate = useNavigate();
@@ -35,17 +36,17 @@ const UserProfile = ({ handleLogout }) => {
   const fetchUserInfo = async (token) => {
     try {
       const address = 'http://localhost:8000/retriever/info/user';
-      const response = await fetch(address, {
+      const response = await apiFetch(address, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      if (!response.ok) {
+      if (!response.status ===200) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
+      const data = response.data
       return data;
     } catch (error) {
       console.error('Error:', error);

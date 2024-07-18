@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
+import apiFetch from "./api";
 
 const SignupNext = () => {
   const location = useLocation();
@@ -31,7 +32,7 @@ const SignupNext = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/retriever/info/create/user", {
+      const response = await apiFetch("http://localhost:8000/retriever/info/create/user", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -40,7 +41,7 @@ const SignupNext = () => {
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = response.data
 
       if (response.status === 200) {
         console.log("성공! 정보기입");

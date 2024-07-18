@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './EditPost.css';
+import apiFetch from './api';
 
 const EditPost = () => {
     const { qna_id } = useParams();
@@ -14,7 +15,7 @@ const EditPost = () => {
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        fetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`,
+        apiFetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`,
             {
                 method: 'GET',
                 headers: {
@@ -23,13 +24,13 @@ const EditPost = () => {
                 }
             }
         )
-            .then(response => response.json())
-            .then(data => {
-                const qna = data.result.qna;
+            .then(response => {
+                console.log(response.data)
+                const qna = response.data.result.qna;
                 setTitle(qna.title);
                 setContent(qna.content);
                 setQnaEmail(qna.email);
-                setExistingImages(data.result.qna_images || []);
+                setExistingImages(response.data.result.qna_images || []);
             })
             .catch(error => console.error('Error fetching post data:', error));
     }, [qna_id]);
@@ -87,16 +88,15 @@ const EditPost = () => {
             console.log(`${pair[0]}: ${pair[1]}`);
         }
 
-        fetch(`http://localhost:8000/retriever/qna/edit`, {
+        apiFetch(`http://localhost:8000/retriever/qna/edit`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`
             },
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
+        .then(response => {
+            console.log('Success:', response.data);
             navigate('/QnA');
         })
         .catch(error => console.error('Error updating post:', error));

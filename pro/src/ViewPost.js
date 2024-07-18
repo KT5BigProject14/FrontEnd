@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ViewPost.css';
+import apiFetch from './api';
 
 const ViewPost = () => {
     const { qna_id } = useParams();
@@ -14,7 +15,7 @@ const ViewPost = () => {
 
     const fetchPostData = () => {
         const token = sessionStorage.getItem('token');
-        fetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`,
+        apiFetch(`http://localhost:8000/retriever/qna/load_qna/${qna_id}`,
             {
                 method: 'GET',
                 headers: {
@@ -23,9 +24,9 @@ const ViewPost = () => {
                 }
             }
         )
-            .then(response => response.json())
-            .then(data => {
-                console.log('Fetched post data:', data);
+            .then(response => {
+                console.log('Fetched post data:', response.data);
+                const data = response.data
                 setPost(data.result.qna);
                 setQnaImages(data.result.qna_images || []);
                 setComments(data.comment || []); // 댓글이 없을 경우 빈 배열로 초기화
@@ -50,7 +51,7 @@ const ViewPost = () => {
             qna_id: post.qna_id,
         };
 
-        fetch(`http://localhost:8000/retriever/qna/delete`, {
+        apiFetch(`http://localhost:8000/retriever/qna/delete`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +59,7 @@ const ViewPost = () => {
             },
             body: JSON.stringify(requestData),
         })
-        .then(() => navigate('/QnA'))
+        .then((res) => navigate('/QnA'))
         .catch(error => console.error('Error deleting post:', error));
     };
 
@@ -77,7 +78,7 @@ const ViewPost = () => {
             content: newComment,
         };
 
-        fetch(`http://localhost:8000/retriever/qna/upload/comment`, {
+        apiFetch(`http://localhost:8000/retriever/qna/upload/comment`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -85,7 +86,6 @@ const ViewPost = () => {
             },
             body: JSON.stringify(requestData),
         })
-        .then(response => response.json())
         .then(() => {
             setNewComment('');
             fetchPostData(); // 새로운 댓글 추가 후 데이터 다시 가져오기
@@ -106,7 +106,7 @@ const ViewPost = () => {
             comment_id: commentId,
         };
 
-        fetch(`http://localhost:8000/retriever/qna/comment`, {
+        apiFetch(`http://localhost:8000/retriever/qna/comment`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const ViewPost = () => {
             comment_id: editingCommentId,
         };
 
-        fetch(`http://localhost:8000/retriever/qna/update/comment`, {
+        apiFetch(`http://localhost:8000/retriever/qna/update/comment`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -148,7 +148,6 @@ const ViewPost = () => {
             },
             body: JSON.stringify(requestData),
         })
-        .then(response => response.json())
         .then(() => {
             setEditingCommentId(null);
             setEditingCommentContent('');
