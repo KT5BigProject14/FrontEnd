@@ -1,7 +1,9 @@
 "use client";
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense, useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 
 const World = lazy(() =>
   import("../ui/globe").then((m) => ({ default: m.World }))
@@ -14,10 +16,11 @@ interface GlobeDemoProps {
 
 const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken }) => {
   const navigate = useNavigate();
+  const globeRef = useRef(null);
 
   const globeConfig = {
     pointSize: 4,
-    globeColor: "#062056",
+    globeColor: "#5c89ce", //062056
     showAtmosphere: true,
     atmosphereColor: "#FFFFFF",
     atmosphereAltitude: 0.1,
@@ -37,6 +40,12 @@ const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken }) => {
     autoRotate: true,
     autoRotateSpeed: 0.5,
   };
+
+  useEffect(() => {
+    if (globeRef.current) {
+      // globeRef.current.scale.set(0.7, 0.7, 0.7); // 지구 크기 조정
+    }
+  }, [globeRef.current]);
 
   const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
   const sampleArcs = [
@@ -450,11 +459,13 @@ const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken }) => {
             <p className="text-base md:text-lg font-normal max-w-md mt-2 mx-auto">
                 Launch With LoGO
             </p>
+              <div className="mt-4">
+              </div>
             {hasToken && (
                 <div className="mt-4">
                     <button
                         onClick={handleChatClick}
-                        className="inline-block px-6 py-2 bg-blue-500 text-white font-bold rounded-full"
+                        className="inline-block px-6 py-2 bg-blue-900 hover text-white font-bold rounded-full"
                         style={{ position: "relative", zIndex: 50 }}
                     >
                         Chat으로 가기

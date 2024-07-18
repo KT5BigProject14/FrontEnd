@@ -1,79 +1,134 @@
-/* chat_.css
+/* Chat_.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f4f8;
+  overflow: hidden; /* 전체 스크롤을 없앰 */
+}
+
 .container {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
+  padding: 0;
+  align-items: center;  /* 수직 중앙 정렬 */
+  justify-content: center;  /* 수평 중앙 정렬 */
 }
 
 .body {
-  display: flex;
   flex: 1;
+  width: 80%;
+  max-width: 1200px; /* 최대 너비 설정 */
+  margin: 0;
+  display: flex;
+  height: calc(100vh - 80px); /* 전체 화면에서 상단 메뉴바 높이만큼 뺀 높이 설정 */
 }
 
 .leftPane {
   flex: 2;
   border-right: 1px solid #ccc;
-  padding: 10px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  background-color: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 15px; /* 모서리를 둥글게 설정 */
+  margin-right: 20px; /* 오른쪽으로 간격 추가 */
+  padding: 20px;       /* 패널 내부에 패딩 추가 */
+  height: 100%;        /* 부모 요소의 전체 높이를 채움 */
 }
 
 .searchArea {
   display: flex;
-  margin-bottom: 10px;
+  margin: 20px;
 }
 
 .searchInput {
   flex: 1;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 25px;
   border: 1px solid #ccc;
   margin-right: 10px;
   color: #000000;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .searchButton {
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 10px;
+  border-radius: 50%;
   border: none;
-  background-color: #61dafb;
+  background-color: #0077b6;
+  color: white;
   cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* 아이콘 크기 */
+  width: 40px; /* 원형 버튼의 너비 */
+  height: 40px; /* 원형 버튼의 높이 */
+}
+
+.searchButton:hover {
+  background-color: #005f8d;
 }
 
 .storageList {
+  /* margin: 10px 20px; */
   margin-top: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .storageItem {
   padding: 10px;
   border-bottom: 1px solid #ccc;
   color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.storageItem:hover {
+  background-color: #e0f7fa;
 }
 
 .titleTextArea {
-  margin-top: 10px;
+  margin: 10px 20px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
   color: #000000;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .rightPane {
   flex: 1;
+  border-right: 1px solid #ccc;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  background-color: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 15px; /* 모서리를 둥글게 설정 */
+  /* margin-right: 20px; */
+  padding: 10px;       /*패널 내부에 패딩 추가*/
+  height: 100%;        /* 부모 요소의 전체 높이를 채움 */
 }
 
 .chatArea {
   flex: 1;
-  padding: 10px;
-  overflow-y: scroll;
+  padding: 20px;
+  overflow-y: auto;
   border-bottom: 1px solid #ccc;
 }
 
@@ -81,7 +136,7 @@
   text-align: right;
   margin: 5px 0;
   padding: 10px;
-  background-color: #e1ffc7;
+  background-color: #d1e7ff;
   border-radius: 10px;
   color: #000000;
 }
@@ -98,32 +153,47 @@
 .inputArea {
   display: flex;
   padding: 10px;
+  border-top: 1px solid #ccc;
 }
 
 .input {
   flex: 1;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 25px;
   border: 1px solid #ccc;
   margin-right: 10px;
   color: #000000;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .sendButton,
 .newConversationButton {
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 10px;
+  border-radius: 50%;
   border: none;
-  background-color: #61dafb;
+  background-color: #0077b6;
+  color: white;
   cursor: pointer;
-  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* 아이콘 크기 */
+  width: 40px; /* 원형 버튼의 너비 */
+  height: 40px; /* 원형 버튼의 높이 */
+}
+
+.sendButton:hover,
+.newConversationButton:hover {
+  background-color: #005f8d;
 }
 
 .modalOverlay {
   position: fixed;
   top: 0;
-  left: 280px;
-  width: calc(100% - 280px);
+  left: 0;
+  width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -133,14 +203,14 @@
 }
 
 .modalContent {
-  background-color: rgba(1, 0, 0, 0.9);
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   position: relative;
   max-width: 80%;
   max-height: 80%;
   overflow-y: auto;
-  color: white;
+  color: #000000;
 }
 
 .closeButton {
@@ -151,12 +221,12 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: white;
+  color: #000000;
 }
 
 .modalTextContent {
   margin-top: 20px;
-  color: white;
+  color: #000000;
 }
 
 .likeButton {
@@ -164,7 +234,7 @@
   bottom: 10px;
   right: 10px;
   background: transparent;
-  border: 2px solid white;
+  border: 2px solid #0077b6;
   font-size: 30px;
   cursor: pointer;
   border-radius: 50%;
@@ -174,11 +244,12 @@
   width: 50px;
   height: 50px;
   transition: color 0.3s ease, background-color 0.3s ease;
-  color: white;
+  color: #0077b6;
 }
 
 .likeButtonLiked {
   color: red;
-  background-color: white;
+  background-color: #ffffff;
+  border-color: red;
   transition: color 0.3s ease, background-color 0.3s ease;
-} */
+}
