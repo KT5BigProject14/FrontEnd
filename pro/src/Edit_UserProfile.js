@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import "./Edit_UserProfile.css";
+import "./Edit_UserProfile.css";
 
 const EditUserProfile = () => {
   const navigate = useNavigate();
@@ -21,9 +21,9 @@ const EditUserProfile = () => {
           email: data.email,
           user_name: data.user_name,
           corporation: data.corporation,
-          business_number: data.business_number,
+          business_number: formatBusinessNumber(data.business_number),
           position: data.position,
-          phone: data.phone
+          phone: formatPhoneNumber(data.phone)
         });
       });
     }
@@ -57,14 +57,42 @@ const EditUserProfile = () => {
     }
   };
 
+  const formatBusinessNumber = (value) => {
+    const rawValue = String(value).replace(/[^0-9]/g, '');
+    if (rawValue.length <= 3) return rawValue;
+    if (rawValue.length <= 5) return `${rawValue.slice(0, 3)}-${rawValue.slice(3)}`;
+    return `${rawValue.slice(0, 3)}-${rawValue.slice(3, 5)}-${rawValue.slice(5, 10)}`;
+  };
+
+  const formatPhoneNumber = (value) => {
+    const rawValue = String(value).replace(/[^0-9]/g, '');
+    if (rawValue.length <= 3) return rawValue;
+    if (rawValue.length <= 7) return `${rawValue.slice(0, 3)}-${rawValue.slice(3)}`;
+    return `${rawValue.slice(0, 3)}-${rawValue.slice(3, 7)}-${rawValue.slice(7, 11)}`;
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
+    let formattedValue = value;
+
+    if (name === "business_number") {
+      formattedValue = formatBusinessNumber(value);
+    } else if (name === "phone") {
+      formattedValue = formatPhoneNumber(value);
+    }
+
+    setUserInfo({ ...userInfo, [name]: formattedValue });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = sessionStorage.getItem("token");
+
+    const formattedUserInfo = {
+      ...userInfo,
+      business_number: userInfo.business_number.replace(/-/g, ''),
+      phone: userInfo.phone.replace(/-/g, '')
+    };
 
     try {
       const response = await fetch('http://localhost:8000/retriever/info/change/user', {
@@ -73,7 +101,7 @@ const EditUserProfile = () => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userInfo)
+        body: JSON.stringify(formattedUserInfo)
       });
 
       if (!response.ok) {
@@ -88,26 +116,20 @@ const EditUserProfile = () => {
   };
 
   return (
-    <>
-      <div className="navbar">
-        <a href="/home">Home</a>
-        <a href="/chat">Chat</a>
-        <a href="/qna">QnA</a>
-        <a href="/my-page">My Page</a>
-        <a href="/storage">Storage</a>
-        <a href="/logout">로그아웃</a>
-      </div>
+    <div>
       <div className="edit-user-profile-container">
+        <h2>Edit User Profile</h2>
         <div className="edit-user-profile">
-          <h2>Edit User Profile</h2>
           <form onSubmit={handleSubmit}>
-            <div>
-              <label>Email: {userInfo.email}</label>
+            <div className="info-group">
+              <label>Email:</label>
+              <span className="no-underline">{userInfo.email}</span> {/* no-underline 클래스 추가 */}
             </div>
-            <div>
-              <label>Name: {userInfo.user_name}</label>
+            <div className="info-group">
+              <label>Name:</label>
+              <span className="no-underline">{userInfo.user_name}</span> {/* no-underline 클래스 추가 */}
             </div>
-            <div>
+            <div className="info-group">
               <label>Corporation:</label>
               <input
                 type="text"
@@ -116,7 +138,7 @@ const EditUserProfile = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            <div className="info-group">
               <label>Business Number:</label>
               <input
                 type="text"
@@ -125,7 +147,7 @@ const EditUserProfile = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            <div className="info-group">
               <label>Position:</label>
               <input
                 type="text"
@@ -134,7 +156,7 @@ const EditUserProfile = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            <div className="info-group">
               <label>Phone:</label>
               <input
                 type="text"
@@ -147,7 +169,7 @@ const EditUserProfile = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

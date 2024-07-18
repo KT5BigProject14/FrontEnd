@@ -9,7 +9,7 @@ import HeroComponent from './HeroComponent';
 import Chat from './Chat_';
 import TextRevealCardPreview from './test';
 import PWFind from './PW_find';
-import Menu from './Menu';
+import { GoogleFontsLink, Menu } from './components/Menu';
 import Storage from './Storage';
 import Dashboard from './Dashborad';
 import NewPost from './NewPost';
@@ -55,6 +55,7 @@ function App() {
 
   return (
     <Router>
+      <GoogleFontsLink />
       <Menu isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Routes>
         <Route 

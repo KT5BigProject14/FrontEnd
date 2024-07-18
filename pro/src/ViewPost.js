@@ -202,7 +202,7 @@ const ViewPost = () => {
                     ))}
                     <div className="new-comment">
                         <textarea value={newComment} onChange={handleNewCommentChange} placeholder="댓글을 입력하세요" />
-                        <button onClick={handleAddComment}>댓글 추가</button>
+                        <button onClick={handleAddComment}>입력 </button>
                     </div>
                 </div>
             </div>

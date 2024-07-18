@@ -1,0 +1,31 @@
+.nav-item {
+    color: #06438B;
+    text-decoration: none;
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item:hover {
+    color: #2900e2; /* 마우스 오버 시 황금색으로 변경 */
+  }
+  
+  .logout-button {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    color: #2900e2; /* 마우스 오버 시 배경색 변경 */
+  }
+  

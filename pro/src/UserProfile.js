@@ -82,12 +82,12 @@ const UserProfile = ({ handleLogout }) => {
     <div className="user-profile">
       <h2>MY Information</h2>
       <div className="user-info">
-        <p>Email: {userInfo.email}</p>
-        <p>Name: {userInfo.user_name}</p>
-        <p>Corporation: {userInfo.corporation}</p>
-        <p>Business Number: {userInfo.business_number}</p>
-        <p>Position: {userInfo.position}</p>
-        <p>Phone: {userInfo.phone}</p>
+        <p><span className="label">Email:</span> <span className="value">{userInfo.email}</span></p>
+        <p><span className="label">Name:</span> <span className="value">{userInfo.user_name}</span></p>
+        <p><span className="label">Corporation:</span> <span className="value">{userInfo.corporation}</span></p>
+        <p><span className="label">Business Number:</span> <span className="value">{userInfo.business_number}</span></p>
+        <p><span className="label">Position:</span> <span className="value">{userInfo.position}</span></p>
+        <p><span className="label">Phone:</span> <span className="value">{userInfo.phone}</span></p>
       </div>
       <div className="user-actions">
         <button className="user-edit-btn" onClick={handleEditProfile}>

@@ -19,13 +19,14 @@ const SignupNext = () => {
 
     // Remove hyphens from businessNumber and convert to number
     const cleanedBusinessNumber = parseInt(businessNumber.replace(/-/g, ''), 10);
+    const cleanedExtensionNumber = extensionNumber.replace(/-/g, '');
     const token = sessionStorage.getItem('token');
 
     const payload = {
       corporation: companyName,
       business_number: cleanedBusinessNumber,
       position,
-      phone: extensionNumber,
+      phone: cleanedExtensionNumber,
       user_name: username,
     };
 
@@ -66,14 +67,30 @@ const SignupNext = () => {
       return number;
     };
 
+    const formatExtensionNumber = (number) => {
+      const cleaned = ('' + number).replace(/\D/g, '');
+      const match = cleaned.match(/^(\d{0,3})(\d{0,4})(\d{0,4})$/);
+      if (match) {
+        return [match[1], match[2], match[3]].filter(x => x).join('-');
+      }
+      return number;
+    };
+
     setBusinessNumber((prev) => formatBusinessNumber(prev));
-  }, [businessNumber]);
+    setExtensionNumber((prev) => formatExtensionNumber(prev));
+  }, [businessNumber, extensionNumber]);
 
   const handleBusinessNumberChange = (e) => {
     const { value } = e.target;
-    // Allow input only if the length is less than or equal to 12 characters (including hyphens)
     if (value.replace(/\D/g, '').length <= 10) {
       setBusinessNumber(value);
+    }
+  };
+
+  const handleExtensionNumberChange = (e) => {
+    const { value } = e.target;
+    if (value.replace(/\D/g, '').length <= 11) {
+      setExtensionNumber(value);
     }
   };
 
@@ -114,7 +131,7 @@ const SignupNext = () => {
           type="text"
           id="extensionNumber"
           value={extensionNumber}
-          onChange={(e) => setExtensionNumber(e.target.value)}
+          onChange={handleExtensionNumberChange}
         />
         <button type="submit">확인</button>
       </form>

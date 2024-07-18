@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./LoginPage.css";
 
 const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loginCheck, setLoginCheck] = useState(false);
   const navigate = useNavigate();
 
@@ -60,9 +63,9 @@ const Login = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container" onDragStart={(e) => e.preventDefault()}>
       <form className="login-form" onSubmit={handleLogin}>
-        <h1>Let's start</h1>
+        <h1>Let's Start</h1>
         <label htmlFor="username">이메일</label>
         <input
           type="text"
@@ -71,17 +74,27 @@ const Login = ({ setIsLoggedIn }) => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="password">비밀번호</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="password-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <FontAwesomeIcon
+            icon={showPassword ? faEye: faEyeSlash}
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="password-toggle-icon"
+          />
+        </div>
         {loginCheck && (
           <label style={{ color: "red" }}>올바른 이메일 혹은 비밀번호를 입력하세요.</label>
         )}
-        <button type="submit">로그인</button>
-        <button type="button" onClick={handleGoogleLogin}>구글 로그인</button>
+        <button type="submit">Login</button>
+        <button type="button" className="google-login-button" onClick={handleGoogleLogin}>
+          <img src={`${process.env.PUBLIC_URL}/g.png`} alt="Google Logo" />
+          Login with Google
+        </button>
         <p className="pw-find">
           비밀번호를 잊으셨나요? <Link to="/pw-find">PW찾기</Link>
         </p>

@@ -1,9 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./SignUpPage.css";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
+  const [domain, setDomain] = useState("naver.com");
+  const [customDomain, setCustomDomain] = useState("");
+  const [isCustomDomain, setIsCustomDomain] = useState(false);
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,6 +20,10 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
+  const getEmailAddress = () => {
+    return `${email}@${isCustomDomain ? customDomain : domain}`;
+  };
+
   const handleSignup = async (event) => {
     event.preventDefault();
     try {
@@ -22,7 +31,7 @@ const Signup = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email,
+          email: getEmailAddress(),
           password,
         }),
       });
@@ -41,7 +50,7 @@ const Signup = () => {
   };
 
   const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+$/;
     return emailRegex.test(email);
   };
 
@@ -88,14 +97,13 @@ const Signup = () => {
 
   const sendVerificationCode = async () => {
     try {
-      const response = await fetch("http://localhost:8000/retriever/user/send/eamil/code", {
+      const response = await fetch("http://localhost:8000/retriever/user/send/email/code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: getEmailAddress() }),
       });
-
       if (response.ok) {
         setIsCodeSent(true);
         alert("인증코드가 발송되었습니다.");
@@ -115,7 +123,7 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, verify_code: code }),
+        body: JSON.stringify({ email: getEmailAddress(), verify_code: code }),
       });
 
       const result = await response.json();
@@ -133,6 +141,17 @@ const Signup = () => {
     }
   };
 
+  const handleDomainChange = (e) => {
+    const selectedDomain = e.target.value;
+    if (selectedDomain === "custom") {
+      setIsCustomDomain(true);
+      setDomain("");
+    } else {
+      setIsCustomDomain(false);
+      setDomain(selectedDomain);
+    }
+  };
+
   return (
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleSignup}>
@@ -140,13 +159,29 @@ const Signup = () => {
         <label htmlFor="email">이메일</label>
         <div className="email-container">
           <input
-            type="email"
+            type="text"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <span className="at-symbol">@</span>
+          {!isCustomDomain ? (
+            <select id="domain" value={domain} onChange={handleDomainChange}>
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
+              <option value="custom">직접 입력</option>
+            </select>
+          ) : (
+            <input
+              type="text"
+              id="custom-domain"
+              value={customDomain}
+              onChange={(e) => setCustomDomain(e.target.value)}
+              placeholder="도메인 입력"
+            />
+          )}
           <button type="button" onClick={sendVerificationCode} disabled={isCodeSent}>
-            인증코드 발송
+            <FontAwesomeIcon icon={faPaperPlane} />
           </button>
         </div>
         {emailError && <p className="error-message">{emailError}</p>}

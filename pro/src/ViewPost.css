@@ -77,6 +77,10 @@
 
 .new-comment {
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 필요한 경우 아이템 간의 간격을 조절 */
+    
 }
 
 .new-comment textarea {
@@ -84,11 +88,13 @@
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    margin-top: 10px;
     margin-bottom: 10px;
+    margin-right:10px;
 }
 
 .new-comment button {
-    padding: 10px 20px;
+    padding: 10px ;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -97,7 +103,7 @@
 }
 
 .new-comment button:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 .edit-button,

@@ -5,7 +5,6 @@ import './NewPost.css';
 const NewPost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [isSecret, setIsSecret] = useState(false);
     const [files, setFiles] = useState([]);
     const navigate = useNavigate();
 
@@ -24,7 +23,6 @@ const NewPost = () => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
-        formData.append('isSecret', isSecret);
         files.forEach((file) => {
             formData.append('images', file);
         });
@@ -81,19 +79,10 @@ const NewPost = () => {
                         {files.map((file, index) => (
                             <div key={index} className="image-item">
                                 <img src={URL.createObjectURL(file)} alt={`미리보기 ${index + 1}`} />
-                                <button type="button" onClick={() => handleFileRemove(file)}>삭제</button>
+                                <button type="button" onClick={() => handleFileRemove(file)}>X</button>
                             </div>
                         ))}
                     </div>
-                </div>
-                <div className="form-group">
-                    <label>
-                        <input 
-                            type="checkbox" 
-                            checked={isSecret} 
-                            onChange={(e) => setIsSecret(e.target.checked)} 
-                        /> 비밀글
-                    </label>
                 </div>
                 <button type="submit" className="submit-button">작성하기</button>
             </form>
