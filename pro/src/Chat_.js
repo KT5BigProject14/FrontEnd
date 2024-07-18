@@ -628,7 +628,6 @@ const Chat = () => {
               )}
             </div>
           <div className="searchArea">
-            
             <input
               type="text"
               value={searchQuery}

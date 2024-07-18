@@ -3,7 +3,7 @@ import styles from "../styles/rsidebar.module.css";
 
 const RSidebar = ({ width = 280, children, onRefresh }) => {
   const [isOpen, setOpen] = useState(false);
-  const [xPosition, setX] = useState(-width);
+  const [xPosition, setX] = useState(-width + 16);
   const side = useRef();
 
   // button 클릭 시 토글
@@ -13,7 +13,7 @@ const RSidebar = ({ width = 280, children, onRefresh }) => {
       setOpen(true);
       onRefresh(); // Call onRefresh when sidebar is opened
     } else {
-      setX(-width);
+      setX(-width + 16);
       setOpen(false);
     }
   };
@@ -23,7 +23,7 @@ const RSidebar = ({ width = 280, children, onRefresh }) => {
     let sideArea = side.current;
     let sideChildren = side.current.contains(e.target);
     if (isOpen && (!sideArea || !sideChildren)) {
-      await setX(-width);
+      await setX(-width + 16);
       await setOpen(false);
     }
   }, [isOpen, width]);
@@ -43,6 +43,12 @@ const RSidebar = ({ width = 280, children, onRefresh }) => {
     }
   };
 
+  // 여러 함수를 호출하는 핸들러
+  const handleClick = (e) => {
+    toggleMenu();
+    handleSessionItemClick(e);
+  };
+
   return (
     <div className={styles.container}>
       <div
@@ -53,13 +59,14 @@ const RSidebar = ({ width = 280, children, onRefresh }) => {
           height: "100%",
           transform: `translatex(${-xPosition}px)`,
         }}
-        onClick={handleSessionItemClick} // 클릭 이벤트 추가
+        onClick={handleClick} // 클릭 이벤트 추가
       >
-      <button onClick={toggleMenu} className={styles.button}></button>
-      <div className={styles.content}>{children}</div>
+        <div className={styles.line}></div>
+        <div className={styles.content}>{children}</div>
       </div>
     </div>
   );
 };
+
 
 export default RSidebar;

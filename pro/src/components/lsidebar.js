@@ -4,7 +4,7 @@ import styles from "../styles/lsidebar.module.css";
 
 const LSidebar = ({ width = 280, children }) => {
   const [isOpen, setOpen] = useState(false);
-  const [xPosition, setX] = useState(width);
+  const [xPosition, setX] = useState(width - 16);
   const side = useRef();
 
   // button 클릭 시 토글
@@ -13,7 +13,7 @@ const LSidebar = ({ width = 280, children }) => {
       setX(0);
       setOpen(true);
     } else {
-      setX(width);
+      setX(width - 16);
       setOpen(false);
     }
   };
@@ -23,7 +23,7 @@ const LSidebar = ({ width = 280, children }) => {
     let sideArea = side.current;
     let sideChildren = side.current.contains(e.target);
     if (isOpen && (!sideArea || !sideChildren)) {
-      await setX(width);
+      await setX(width - 16);
       await setOpen(false);
     }
   };
@@ -45,9 +45,9 @@ const LSidebar = ({ width = 280, children }) => {
           height: "100%",
           transform: `translatex(${-xPosition}px)`,
         }}
+        onClick={toggleMenu} // 클릭 이벤트 추가
       >
-        <button onClick={toggleMenu} className={styles.button}>
-        </button>
+        <div className={styles.line}></div>
         <div className={styles.content}>{children}</div>
       </div>
     </div>

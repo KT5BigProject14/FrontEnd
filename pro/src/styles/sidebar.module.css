@@ -15,6 +15,7 @@
     color: #202020;
     height: 100%;
     z-index: 99;
+    contain: hidden;
   }
   
   .button {
