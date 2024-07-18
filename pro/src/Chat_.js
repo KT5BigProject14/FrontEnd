@@ -1,13 +1,13 @@
-// import React, { useState, useEffect, useCallback } from "react"; // useCallback 추가
+// import React, { useState, useEffect, useCallback } from "react";
 // import Sessionbar from "./Sessionbar";
 // import Storagebar from "./Storagebar";
-// import './styles/Chat_.css'
+// import './styles/Chat_.css';
 
 // const Chat = () => {
 //   const [messages, setMessages] = useState([]);
 //   const [input, setInput] = useState('');
 //   const [searchQuery, setSearchQuery] = useState('');
-//   const [sessionId, setSessionId] = useState(null); // sessionId 상태 추가
+//   const [sessionId, setSessionId] = useState(null);
 //   const [titles, setTitles] = useState([]);
 //   const [titletext, setTitletext] = useState('');
 //   const [sessions, setSessions] = useState([]);
@@ -158,7 +158,7 @@
 //     fetchMessagesForSession(sessionId); // Fetch messages for the selected session
 //   };
 
-//   const handleTitleClick = async (title) => { // handleSessionClick 안에 중첩된 handleTitleClick을 밖으로 이동시킴
+//   const handleTitleClick = async (title) => {
 //     try {
 //       const response = await fetch('http://localhost:8000/retriever/ai/text', {
 //         method: 'POST',
@@ -191,7 +191,7 @@
 //       });
 
 //       const data = await response.json();
-//       console.log(typeof data.text)
+//       console.log(typeof data.text);
 //       setSelectedDoc({ docs_id, text: data.text || "" });
 //       setShowModal(true);
 //     } catch (error) {
@@ -267,69 +267,74 @@
 //   };
 
 //   return (
-//     <div style={styles.container}>
-//       <div style={styles.body}>
-//         <div style={styles.leftPane}>
-//           <div style={styles.searchArea}>
+//     <div className="container">
+//       <div className="body">
+//         <div className="leftPane">
+//           <div className="searchArea">
 //             <input
 //               type="text"
 //               value={searchQuery}
 //               onChange={(e) => setSearchQuery(e.target.value)}
 //               onKeyDown={handleSearchKeyDown}
-//               style={styles.searchInput}
-//               placeholder="Search..."
+//               className="searchInput"
+//               placeholder="검색할 내용을 넣어주세요"
 //             />
-//             <button onClick={handleSearch} style={styles.searchButton}>Search</button>
+//             <button onClick={handleSearch} className="searchButton">
+//               <i className="fa fa-search"></i>
+//             </button>
 //           </div>
+
 //           {titles.length > 0 && (
-//             <div style={styles.storageList}>
+//             <div className="storageList">
 //               {titles.map((title, index) => (
-//                 <button key={index} style={styles.storageItem} onClick={() => handleTitleClick(title)}>
+//                 <button key={index} className="storageItem" onClick={() => handleTitleClick(title)}>
 //                   {title}
 //                 </button>
 //               ))}
 //             </div>
 //           )}
 //           {titletext && (
-//             <div style={styles.titleTextArea}>
+//             <div className="titleTextArea">
 //               {formatTitleText(titletext)}
 //             </div>
 //           )}
 //         </div>
-//         <div style={styles.rightPane}>
-//           <div style={styles.chatArea}>
+//         <div className="rightPane">
+//           <div className="chatArea">
 //             {messages.map((message, index) => (
-//               <div key={index} style={message.sender === 'Me' ? styles.myMessage : styles.botMessage}>
+//               <div key={index} className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
 //                 {message.text}
 //               </div>
 //             ))}
 //           </div>
-//           <div style={styles.inputArea}>
+//           <div className="inputArea">
 //             <input
 //               type="text"
 //               value={input}
 //               onChange={(e) => setInput(e.target.value)}
 //               onKeyDown={handleInputKeyDown}
-//               style={styles.input}
-//               placeholder="Type your message here..."
+//               className="input"
+//               placeholder="질문할 내용을 작성해주세요"
 //             />
-//             <button onClick={handleSendMessage} style={styles.sendButton}>Send</button>
-//             <button onClick={handleNewConversation} style={styles.newConversationButton}>New Conversation</button>
+//             <button onClick={handleSendMessage} className="sendButton">
+//               <i className="fas fa-paper-plane"></i>
+//             </button>
+//             <button onClick={handleNewConversation} className="newConversationButton">
+//               <i className="fas fa-plus"></i>
+//             </button>
 //           </div>
 //         </div>
 //       </div>
-//       <div>
-//         <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
-//         <Storagebar storages={storages} onItemClick={handleStorageItemClick} />
-//       </div>
+//       <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
+//       <Storagebar storages={storages} onItemClick={handleStorageItemClick} />
 //       {showModal && (
-//         <div style={styles.modalOverlay} onClick={handleCloseModal}>
-//           <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-//             <button style={styles.closeButton} onClick={handleCloseModal}>X</button>
-//             <div style={styles.modalTextContent}>
+//         <div className="modalOverlay" onClick={handleCloseModal}>
+//           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+//             <button className="closeButton" onClick={handleCloseModal}>X</button>
+//             <div className="modalTextContent">
 //               {formatTitleText(selectedDoc?.text)}
 //             </div>
-//             <button style={getLikeButtonStyle(selectedDoc?.is_like)} onClick={handleLikeClick}>
+//             <button className={selectedDoc?.is_like ? 'likeButton likeButtonLiked' : 'likeButton'} onClick={handleLikeClick}>
 //               ❤
 //             </button>
 //           </div>
@@ -339,197 +344,13 @@
 //   );
 // };
 
-// const styles = {
-//   container: {
-//     display: 'flex',
-//     flexDirection: 'column',
-//     height: '100vh',
-//   },
-//   body: {
-//     display: 'flex',
-//     flex: 1,
-//   },
-//   leftPane: {
-//     flex: 2, // 2:1 비율로 조정
-//     borderRight: '1px solid #ccc',
-//     padding: '10px',
-//     display: 'flex',
-//     flexDirection: 'column',
-//     overflowY: 'auto',
-//   },
-//   searchArea: {
-//     display: 'flex',
-//     marginBottom: '10px',
-//   },
-//   searchInput: {
-//     flex: 1,
-//     padding: '10px',
-//     borderRadius: '5px',
-//     border: '1px solid #ccc',
-//     marginRight: '10px',
-//     color: '#000000',
-//   },
-//   searchButton: {
-//     padding: '10px 20px',
-//     borderRadius: '5px',
-//     border: 'none',
-//     backgroundColor: '#61dafb',
-//     cursor: 'pointer',
-//   },
-//   storageList: {
-//     marginTop: '10px',
-//     padding: '10px',
-//     border: '1px solid #ccc',
-//     borderRadius: '5px',
-//     backgroundColor: '#f9f9f9',
-//   },
-//   storageItem: {
-//     padding: '10px',
-//     borderBottom: '1px solid #ccc',
-//     color: '#000000',
-//   },
-//   titleTextArea: {
-//     marginTop: '10px',
-//     padding: '10px',
-//     border: '1px solid #ccc',
-//     borderRadius: '5px',
-//     backgroundColor: '#f9f9f9',
-//     color: '#000000',
-//   },
-//   rightPane: {
-//     flex: 1,
-//     display: 'flex',
-//     flexDirection: 'column',
-//   },
-//   chatArea: {
-//     flex: 1,
-//     padding: '10px',
-//     overflowY: 'scroll',
-//     borderBottom: '1px solid #ccc',
-//   },
-//   myMessage: {
-//     textAlign: 'right',
-//     margin: '5px 0',
-//     padding: '10px',
-//     backgroundColor: '#e1ffc7',
-//     borderRadius: '10px',
-//     color: '#000000',
-//   },
-//   botMessage: {
-//     textAlign: 'left',
-//     margin: '5px 0',
-//     padding: '10px',
-//     backgroundColor: '#f1f0f0',
-//     borderRadius: '10px',
-//     color: '#000000',
-//   },
-//   inputArea: {
-//     display: 'flex',
-//     padding: '10px',
-//   },
-//   input: {
-//     flex: 1,
-//     padding: '10px',
-//     borderRadius: '5px',
-//     border: '1px solid #ccc',
-//     marginRight: '10px',
-//     color: '#000000',
-//   },
-//   sendButton: {
-//     padding: '10px 20px',
-//     borderRadius: '5px',
-//     border: 'none',
-//     backgroundColor: '#61dafb',
-//     cursor: 'pointer',
-//   },
-//   newConversationButton: {
-//     marginTop: '10px',
-//     padding: '10px 20px',
-//     borderRadius: '5px',
-//     border: 'none',
-//     backgroundColor: '#61dafb',
-//     cursor: 'pointer',
-//   },
-
-//   modalOverlay: {
-//     position: 'fixed',
-//     top: 0,
-//     left: '280px', // storageBar를 포함하지 않도록 설정
-//     width: 'calc(100% - 280px)', // storageBar를 제외한 너비
-//     height: '100%',
-//     backgroundColor: 'rgba(0, 0, 0, 0.5)', // 불투명한 검정색 배경
-//     display: 'flex',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     zIndex: 1000,
-//   },
-//   modalContent: {
-//     backgroundColor: 'rgba(1, 0, 0, 0.9)', // 불투명한 검정색 배경
-//     padding: '20px',
-//     borderRadius: '10px',
-//     position: 'relative',
-//     maxWidth: '80%',
-//     maxHeight: '80%',
-//     overflowY: 'auto',
-//     color: 'white', // 텍스트 색상 흰색으로 변경
-//     // marginLeft: '300px', // 왼쪽 storagebar와 겹치지 않도록 오른쪽으로 이동
-//   },
-//   closeButton: {
-//     position: 'absolute',
-//     top: '10px',
-//     right: '10px',
-//     background: 'transparent',
-//     border: 'none',
-//     fontSize: '20px',
-//     cursor: 'pointer',
-//     color: 'white', // 닫기 버튼 색상 흰색으로 변경
-//   },
-//   modalTextContent: {
-//     marginTop: '20px',
-//     color: 'white', // 텍스트 색상 흰색으로 변경
-//   },
-//   likeButton: {
-//     position: 'absolute',
-//     bottom: '10px',
-//     right: '10px',
-//     background: 'transparent',
-//     border: '2px solid white', // 흰색 실선 테두리
-//     fontSize: '30px',
-//     cursor: 'pointer',
-//     borderRadius: '50%',
-//     display: 'flex',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     width: '50px',
-//     height: '50px',
-//     transition: 'color 0.3s ease, background-color 0.3s ease', // 애니메이션 추가
-//     color: 'white',
-//   },
-//   likeButtonLiked: {
-//     color: 'red',
-//     backgroundColor: 'white',
-//     transition: 'color 0.3s ease, background-color 0.3s ease', // 애니메이션 추가
-//   },
-// };
-
-// const getLikeButtonStyle = (isLiked) => {
-//   const baseStyle = styles.likeButton;
-//   if (isLiked) {
-//     return { ...baseStyle, color: 'red', background: 'white' };
-//   }
-//   return baseStyle;
-// };
-
 // export default Chat;
-
-
-
-
 
 import React, { useState, useEffect, useCallback } from "react";
 import Sessionbar from "./Sessionbar";
 import Storagebar from "./Storagebar";
 import './styles/Chat_.css';
+import { FaInfoCircle } from 'react-icons/fa';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -542,6 +363,8 @@ const Chat = () => {
   const [storages, setStorages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [showRightTooltip, setShowRightTooltip] = useState(false);
   const token = sessionStorage.getItem('token');
 
   const fetchSessions = useCallback(async () => {
@@ -589,8 +412,8 @@ const Chat = () => {
   }, [token]);
 
   useEffect(() => {
-    fetchSessions(); // 초기 로딩 시 세션 데이터 가져오기
-    fetchStorages(); // 초기 로딩 시 저장 데이터 가져오기
+    fetchSessions();
+    fetchStorages();
   }, [fetchSessions, fetchStorages]);
 
   const fetchMessagesForSession = useCallback(async (sessionId) => {
@@ -613,7 +436,7 @@ const Chat = () => {
         fetchedMessages.push({ sender: 'Bot', text: messages[i - 1] });
       }
       setMessages(fetchedMessages);
-      setSessionId(sessionId); // Update the sessionId state
+      setSessionId(sessionId);
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
@@ -667,7 +490,6 @@ const Chat = () => {
         const data = await response.json();
         console.log('Search data received:', data);
 
-        // Update titles state with elements from index 1 to 5
         if (data.title) {
           setTitles(data.title.slice(0, 6));
         } else {
@@ -683,7 +505,7 @@ const Chat = () => {
   const handleSessionClick = (sessionId) => {
     setSessionId(sessionId);
     console.log(`Selected session ID: ${sessionId}`);
-    fetchMessagesForSession(sessionId); // Fetch messages for the selected session
+    fetchMessagesForSession(sessionId);
   };
 
   const handleTitleClick = async (title) => {
@@ -728,7 +550,6 @@ const Chat = () => {
   };
 
   const handleCloseModal = (e) => {
-    // Storagebar를 클릭한 경우에는 패널을 닫지 않음
     if (e.target.closest('.storage-bar')) {
       return;
     }
@@ -755,7 +576,6 @@ const Chat = () => {
         const data = await response.json();
         console.log('Like status:', data.is_like);
 
-        // 하트 색상 업데이트
         setSelectedDoc(prevDoc => ({
           ...prevDoc,
           is_like: data.is_like
@@ -766,7 +586,6 @@ const Chat = () => {
     }
   };
 
-  // Handler to create a new session
   const handleNewConversation = () => {
     setSessionId(null);
     setMessages([]);
@@ -785,8 +604,7 @@ const Chat = () => {
   };
 
   const formatTitleText = (text) => {
-    // HTML 형식으로 텍스트를 변환하는 함수
-    if (typeof text !== 'string') return null; // 텍스트가 문자열이 아닐 경우 null 반환
+    if (typeof text !== 'string') return null;
     return text.split('\n').map((line, index) => (
       <p key={index} style={{ margin: '0 0 10px' }}>
         {line}
@@ -798,7 +616,19 @@ const Chat = () => {
     <div className="container">
       <div className="body">
         <div className="leftPane">
+          <div className="infoIcon">
+              <FaInfoCircle onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}/>
+              {showTooltip && (
+                <div className="tooltip">
+                  구글, 네이버처럼 검색 기능이 담겨져 있어요. <br />
+                특별한 점은, 여러분이 주신 질문에 대한 <br />
+                추가 관련질문을 5개를 GenAI를 통해 추천드리고 <br />
+                해당 관련질문 중 관심있는 질문을 클릭 시 더 자세한 정보를 제공드립니다:)
+                </div>
+              )}
+            </div>
           <div className="searchArea">
+            
             <input
               type="text"
               value={searchQuery}
@@ -811,7 +641,6 @@ const Chat = () => {
               <i className="fa fa-search"></i>
             </button>
           </div>
-
           {titles.length > 0 && (
             <div className="storageList">
               {titles.map((title, index) => (
@@ -828,6 +657,16 @@ const Chat = () => {
           )}
         </div>
         <div className="rightPane">
+          <div className="infoIcon">
+            <FaInfoCircle onMouseEnter={() => setShowRightTooltip(true)} onMouseLeave={() => setShowRightTooltip(false)}/>
+            {showRightTooltip && (
+              <div className="tooltip">
+                검색 엔진에서 찾아본 정보 중 <br />
+                궁금한 점을 챗봇에게 편하게 질문주시면 <br />
+                자세한 답변드리겠습니다:) 
+              </div>
+            )}
+          </div>
           <div className="chatArea">
             {messages.map((message, index) => (
               <div key={index} className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
@@ -870,6 +709,6 @@ const Chat = () => {
       )}
     </div>
   );
-};
 
+}
 export default Chat;

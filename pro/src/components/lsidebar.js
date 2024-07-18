@@ -47,11 +47,6 @@ const LSidebar = ({ width = 280, children }) => {
         }}
       >
         <button onClick={toggleMenu} className={styles.button}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/271/271228.png"
-            alt="toggle button"
-            className={styles.toggleIcon}
-          />
         </button>
         <div className={styles.content}>{children}</div>
       </div>

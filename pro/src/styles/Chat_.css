@@ -5,26 +5,25 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f0f4f8;
-  overflow: hidden; /* 전체 스크롤을 없앰 */
+  /* overflow: hidden; 전체 스크롤을 없앰 */
 }
 
 .container {
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  padding: 0;
+  width: 100vw;  /* 전체 너비를 채움 */
+  height: calc(100vh - 70px);
   align-items: center;  /* 수직 중앙 정렬 */
   justify-content: center;  /* 수평 중앙 정렬 */
+  padding: 20px 30px 20px 30px;
 }
 
 .body {
   flex: 1;
-  width: 80%;
-  max-width: 1200px; /* 최대 너비 설정 */
+  width: 100%;
+  /* max-width: 1200px; */
   margin: 0;
   display: flex;
-  height: calc(100vh - 80px); /* 전체 화면에서 상단 메뉴바 높이만큼 뺀 높이 설정 */
+  height: 100%; /*전체 화면을 채움* */
 }
 
 .leftPane {
@@ -37,13 +36,13 @@ body {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   border-radius: 15px; /* 모서리를 둥글게 설정 */
   margin-right: 20px; /* 오른쪽으로 간격 추가 */
-  padding: 20px;       /* 패널 내부에 패딩 추가 */
+  padding: 10px;       /* 패널 내부에 패딩 추가 */
   height: 100%;        /* 부모 요소의 전체 높이를 채움 */
 }
 
 .searchArea {
   display: flex;
-  margin: 20px;
+  margin: 10px;
 }
 
 .searchInput {
@@ -54,6 +53,13 @@ body {
   margin-right: 10px;
   color: #000000;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.searchInput::placeholder {
+  font-size: 14px; /* placeholder 글씨 크기 조정 */
+  color: #313131;  /* placeholder 글씨 색상 */
+  font-family: 'Arial', sans-serif;
 }
 
 .searchButton {
@@ -78,26 +84,32 @@ body {
 }
 
 .storageList {
-  /* margin: 10px 20px; */
+  margin: 5px 10px;
   margin-top: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   overflow-y: auto;
   flex: 1;
 }
 
 .storageItem {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  margin: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background-color: rgba(139, 179, 197, 0.3);
   color: #000000;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .storageItem:hover {
-  background-color: #e0f7fa;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .titleTextArea {
@@ -120,14 +132,13 @@ body {
   background-color: #ffffff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   border-radius: 15px; /* 모서리를 둥글게 설정 */
-  /* margin-right: 20px; */
   padding: 10px;       /*패널 내부에 패딩 추가*/
   height: 100%;        /* 부모 요소의 전체 높이를 채움 */
 }
 
 .chatArea {
   flex: 1;
-  padding: 20px;
+  padding: 10px;
   overflow-y: auto;
   border-bottom: 1px solid #ccc;
 }
@@ -136,24 +147,39 @@ body {
   text-align: right;
   margin: 5px 0;
   padding: 10px;
-  background-color: #d1e7ff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(139, 179, 197, 0.3);
+  /* background-color: #d1e7ff; */
   border-radius: 10px;
   color: #000000;
+  cursor: text;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .botMessage {
   text-align: left;
   margin: 5px 0;
   padding: 10px;
-  background-color: #f1f0f0;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(241,240,240, 1);
   border-radius: 10px;
   color: #000000;
+}
+
+
+.botMessage:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer ;
 }
 
 .inputArea {
   display: flex;
   padding: 10px;
   border-top: 1px solid #ccc;
+  
 }
 
 .input {
@@ -164,6 +190,12 @@ body {
   margin-right: 10px;
   color: #000000;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 10px; /* 회색 실선을 더 위로 올리기 위해 마진 추가 */
+}
+
+.input::placeholder {
+  font-size: 14px; /* placeholder 글씨 크기 조정 */
+  color: #313131;  /* placeholder 글씨 색상 */
 }
 
 .sendButton,
@@ -182,6 +214,7 @@ body {
   font-size: 18px; /* 아이콘 크기 */
   width: 40px; /* 원형 버튼의 너비 */
   height: 40px; /* 원형 버튼의 높이 */
+  margin-top: 10px; /* 회색 실선을 더 위로 올리기 위해 마진 추가 */
 }
 
 .sendButton:hover,
@@ -252,4 +285,51 @@ body {
   background-color: #ffffff;
   border-color: red;
   transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.infoIcon {
+  top: 5px;
+  left: 5px;
+  font-size: 16px;
+  /* cursor: text; */
+  color: #333;
+  z-index: 99; /* 툴팁이 다른 요소 위에 표시되도록 z-index 설정 */
+  font-size: 15.5px; /* 아이콘 크기 */
+}
+
+.leftPane .infoIcon {
+  left: 10px;
+  top: 5px; /* 검색 영역 위쪽에 위치 */
+}
+
+.rightPane .infoIcon {
+  right: 10px;
+  top: 5px; /* 챗봇 영역 위쪽에 위치 */
+}
+
+
+.tooltip {
+  position: fixed; /* position을 fixed로 설정하여 스크롤에 영향을 받지 않게 함 */
+  top: 30px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 100; /* 툴팁이 다른 요소 위에 표시되도록 z-index 설정 */
+  width: 340px;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px; /* 툴팁 글씨 크기 줄이기 */
+  white-space: pre-line;
+}
+
+
+.leftPane .tooltip {
+  top: auto;
+  right: auto;
+}
+
+.rightPane .tooltip {
+  top: auto;
+  left: auto;
 }

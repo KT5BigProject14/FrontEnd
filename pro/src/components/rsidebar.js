@@ -55,14 +55,8 @@ const RSidebar = ({ width = 280, children, onRefresh }) => {
         }}
         onClick={handleSessionItemClick} // 클릭 이벤트 추가
       >
-        <button onClick={toggleMenu} className={styles.button}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/271/271228.png"
-            alt="toggle button"
-            className={styles.toggleIcon}
-          />
-        </button>
-        <div className={styles.content}>{children}</div>
+      <button onClick={toggleMenu} className={styles.button}></button>
+      <div className={styles.content}>{children}</div>
       </div>
     </div>
   );
