@@ -263,8 +263,8 @@ const Chat = () => {
   };
 
   return (
-    <div className="container">
-      <div className="body">
+    <div className="chatcontainer">
+      <div className="chatbody">
         <div className="leftPane">
           <div className="infoIcon">
               <FaInfoCircle onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}/>
@@ -284,7 +284,7 @@ const Chat = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleSearchKeyDown}
               className="searchInput"
-              placeholder="검색할 내용을 넣어주세요"
+              placeholder="  검색할 내용을 넣어주세요"
             />
             <button onClick={handleSearch} className="searchButton">
               <i className="fa fa-search"></i>
@@ -330,7 +330,7 @@ const Chat = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleInputKeyDown}
               className="input"
-              placeholder="질문할 내용을 작성해주세요"
+              placeholder="  질문할 내용을 작성해주세요"
             />
             <button onClick={handleSendMessage} className="sendButton">
               <i className="fas fa-paper-plane"></i>

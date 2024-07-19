@@ -45,9 +45,9 @@ const Storage = () => {
     }, [fetchLikedDocs]);
   
     return (
-      <div className="container">
-        <div className="body">
-          <h1 className="header">Liked Documents</h1>
+      <div className="storagecontainer">
+        <div className="storagebody">
+          <h1 className="storageheader">Liked Documents</h1>
           <div className="docList">
             {likedDocs.map((doc) => (
               <div key={doc.docs_id} className="docItem" onClick={() => handleDocClick(doc)}>

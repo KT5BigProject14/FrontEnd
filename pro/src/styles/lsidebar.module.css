@@ -49,6 +49,7 @@
 
 .line {
   position: absolute;
+  justify-content: center;  /* 수평 중앙 정렬 */
   width: 5px; /* 흰색 선의 너비 */
   height: 50px; /* 흰색 선의 높이 (약 5cm) */
   background-color: rgb(255, 251, 251);

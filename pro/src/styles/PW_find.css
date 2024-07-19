@@ -1,17 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 
-body {
-  font-family: 'Noto Sans KR', sans-serif;
-  user-select: none; /* 드래그 방지 */
-}
-
 .container {
+  font-family: 'Noto Sans KR', sans-serif;
+
   display: flex;
   justify-content: center;
   align-items: center;
   height: 73vh;
   background-color: rgb(255, 255, 255);
   color: black;
+  user-select: none; /* 드래그 방지 */
+
 }
 
 .signup-form {

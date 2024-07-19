@@ -1,29 +1,21 @@
 /* Chat_.css */
 
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f4f8;
-  /* overflow: hidden; 전체 스크롤을 없앰 */
-}
-
-.container {
+.chatcontainer {
   display: flex;
-  width: 100vw;  /* 전체 너비를 채움 */
-  height: calc(100vh - 70px);
+  width: 100vw;
+  height: calc(100vh - 80px);
   align-items: center;  /* 수직 중앙 정렬 */
   justify-content: center;  /* 수평 중앙 정렬 */
-  padding: 20px 30px 20px 30px;
+  padding: 20px 90px 20px 90px;
+  background-color: #f0f4f8;
 }
 
-.body {
+.chatbody {
   flex: 1;
   width: 100%;
-  /* max-width: 1200px; */
-  margin: 0;
   display: flex;
   height: 100%; /*전체 화면을 채움* */
+  background-color: #f0f4f8;
 }
 
 .leftPane {
@@ -58,7 +50,7 @@ body {
 }
 
 .searchInput::placeholder {
-  font-size: 16px; /* placeholder 글씨 크기 조정 */
+  font-size: 15px; /* placeholder 글씨 크기 조정 */
   color: #313131;  /* placeholder 글씨 색상 */
   font-family: 'Arial', sans-serif;
 
@@ -197,7 +189,7 @@ body {
 }
 
 .input::placeholder {
-  font-size: 16px; /* placeholder 글씨 크기 조정 */
+  font-size: 15px; /* placeholder 글씨 크기 조정 */
   color: #313131;  /* placeholder 글씨 색상 */
 }
 
