@@ -1,3 +1,4 @@
+/* SignUpPage.css */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 
 body {
@@ -85,6 +86,8 @@ body {
   margin-top:8px;
 }
 
+.email-container select,
+.email-container input,
 .email-container button,
 .code-container button {
   margin-left: 10px;
@@ -96,17 +99,16 @@ body {
   cursor: pointer;
   font-size: 14px;
   font-family: 'Noto Sans KR', sans-serif;
-  width: 120px; 
 }
 .code-container button {
   width: 68px;
 }
 
+.email-container select:hover,
 .email-container button:hover,
 .code-container button:hover {
   background-color: #f1f1f1;
 }
-
 
 .error-message {
   color: red;

@@ -37,6 +37,13 @@ const Login = ({ setIsLoggedIn }) => {
       navigate("/");
     } else {
       setLoginCheck(true);
+      setEmail("");
+      setPassword("");
+      const loginForm = document.querySelector(".login-form");
+      loginForm.classList.add("shake");
+      setTimeout(() => {
+        loginForm.classList.remove("shake");
+      }, 500);
       if (response.status === 400) {
         alert("이메일 혹은 비밀번호가 틀렸습니다.");
         console.log('data가 잘못들어감');
@@ -63,16 +70,26 @@ const Login = ({ setIsLoggedIn }) => {
     }
   };
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setLoginCheck(false); // 입력을 시작하면 에러 상태 초기화
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setLoginCheck(false); // 입력을 시작하면 에러 상태 초기화
+  };
+
   return (
     <div className="login-container" onDragStart={(e) => e.preventDefault()}>
+      <h1 className="login-title">Let's Start</h1>
       <form className="login-form" onSubmit={handleLogin}>
-        <h1>Let's Start</h1>
         <label htmlFor="username">이메일</label>
         <input
           type="text"
           id="username"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange}
         />
         <label htmlFor="password">비밀번호</label>
         <div className="password-container">
@@ -80,17 +97,21 @@ const Login = ({ setIsLoggedIn }) => {
             type={showPassword ? "text" : "password"}
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
           />
           <FontAwesomeIcon
-            icon={showPassword ? faEye: faEyeSlash}
+            icon={showPassword ? faEye : faEyeSlash}
             onClick={() => setShowPassword((prev) => !prev)}
             className="password-toggle-icon"
           />
         </div>
-        {loginCheck && (
-          <label style={{ color: "red" }}>올바른 이메일 혹은 비밀번호를 입력하세요.</label>
-        )}
+        <div className="error-message-container">
+          {loginCheck && (
+            <div className="error-message">
+              올바른 이메일 혹은 비밀번호를 입력하세요.
+            </div>
+          )}
+        </div>
         <button type="submit">Login</button>
         <button type="button" className="google-login-button" onClick={handleGoogleLogin}>
           <img src={`${process.env.PUBLIC_URL}/g.png`} alt="Google Logo" />

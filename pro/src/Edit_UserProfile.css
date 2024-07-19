@@ -66,8 +66,8 @@ h2 {
   padding-right: 10px; /* 오른쪽 여백 추가 */
 }
 
-.no-underline {
-  border-bottom: none; /* 밑줄 제거 */
+.info-group .no-underline {
+  color: #ccc;
 }
 
 .info-group input {
@@ -94,4 +94,17 @@ form button {
 button:hover {
   background-color: #E5F1FF;
   color:#12254b;
+}
+
+.error-message-container {
+  height: 20px; /* Adjust the height to maintain consistent container size */
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  
 }

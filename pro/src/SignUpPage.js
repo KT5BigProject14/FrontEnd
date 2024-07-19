@@ -5,10 +5,9 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./SignUpPage.css";
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [domain, setDomain] = useState("naver.com");
-  const [customDomain, setCustomDomain] = useState("");
-  const [isCustomDomain, setIsCustomDomain] = useState(false);
+  const [emailLocal, setEmailLocal] = useState("");
+  const [emailDomain, setEmailDomain] = useState("naver.com");
+  const [customEmailDomain, setCustomEmailDomain] = useState("");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,18 +19,20 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const getEmailAddress = () => {
-    return `${email}@${isCustomDomain ? customDomain : domain}`;
-  };
+  const email =
+    emailDomain === "직접입력"
+      ? `${emailLocal}@${customEmailDomain}`
+      : `${emailLocal}@${emailDomain}`;
 
   const handleSignup = async (event) => {
     event.preventDefault();
+    console.log(email);
     try {
       const response = await fetch("http://localhost:8000/retriever/user/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: getEmailAddress(),
+          email,
           password,
         }),
       });
@@ -39,7 +40,7 @@ const Signup = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        console.log("성공! 이메일주소: " + data.email);
+        console.log("성공! ");
         navigate("/login");
       } else if (response.status === 400) {
         alert(`회원가입 실패: ${data.message}`);
@@ -49,9 +50,9 @@ const Signup = () => {
     }
   };
 
-  const validateEmail = (email) => {
+  const validateEmail = (emailLocal) => {
     const emailRegex = /^[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(emailLocal);
   };
 
   const validatePassword = (password) => {
@@ -64,10 +65,10 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    if (validateEmail(email)) {
+    if (validateEmail(emailLocal)) {
       setEmailError("");
     } else {
-      if (email.length >= 1) {
+      if (emailLocal.length >= 1) {
         setEmailError("유효한 이메일을 입력하세요.");
       } else {
         setEmailError("");
@@ -93,17 +94,19 @@ const Signup = () => {
         setConfirmPasswordError("");
       }
     }
-  }, [email, password, confirmPassword]);
+  }, [emailLocal, password, confirmPassword]);
 
   const sendVerificationCode = async () => {
+    console.log(email);
     try {
-      const response = await fetch("http://localhost:8000/retriever/user/send/email/code", {
+      const response = await fetch("http://localhost:8000/retriever/user/send/eamil/code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: getEmailAddress() }),
+        body: JSON.stringify({ email :email}),
       });
+
       if (response.ok) {
         setIsCodeSent(true);
         alert("인증코드가 발송되었습니다.");
@@ -123,7 +126,7 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: getEmailAddress(), verify_code: code }),
+        body: JSON.stringify({ email, verify_code: code }),
       });
 
       const result = await response.json();
@@ -141,17 +144,6 @@ const Signup = () => {
     }
   };
 
-  const handleDomainChange = (e) => {
-    const selectedDomain = e.target.value;
-    if (selectedDomain === "custom") {
-      setIsCustomDomain(true);
-      setDomain("");
-    } else {
-      setIsCustomDomain(false);
-      setDomain(selectedDomain);
-    }
-  };
-
   return (
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleSignup}>
@@ -160,25 +152,30 @@ const Signup = () => {
         <div className="email-container">
           <input
             type="text"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="emailLocal"
+            value={emailLocal}
+            onChange={(e) => setEmailLocal(e.target.value)}
+            placeholder="이메일"
           />
-          <span className="at-symbol">@</span>
-          {!isCustomDomain ? (
-            <select id="domain" value={domain} onChange={handleDomainChange}>
-              <option value="naver.com">naver.com</option>
-              <option value="google.com">google.com</option>
-              <option value="custom">직접 입력</option>
-            </select>
-          ) : (
+          <span>@</span>
+          {emailDomain === "직접입력" ? (
             <input
               type="text"
-              id="custom-domain"
-              value={customDomain}
-              onChange={(e) => setCustomDomain(e.target.value)}
-              placeholder="도메인 입력"
+              value={customEmailDomain}
+              onChange={(e) => setCustomEmailDomain(e.target.value)}
+              placeholder="직접 입력"
             />
+          ) : (
+            <select
+              id="emailDomain"
+              value={emailDomain}
+              onChange={(e) => setEmailDomain(e.target.value)}
+            >
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
+              <option value="daum.net">daum.net</option>
+              <option value="직접입력">직접입력</option>
+            </select>
           )}
           <button type="button" onClick={sendVerificationCode} disabled={isCodeSent}>
             <FontAwesomeIcon icon={faPaperPlane} />

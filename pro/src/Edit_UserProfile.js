@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import apiFetch from "./api";
- import "./Edit_UserProfile.css";
+import "./Edit_UserProfile.css";
 
 const EditUserProfile = () => {
   const navigate = useNavigate();
@@ -13,19 +13,23 @@ const EditUserProfile = () => {
     position: "",
     phone: ""
   });
+  const [originalUserInfo, setOriginalUserInfo] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
       fetchUserInfo(token).then(data => {
-        setUserInfo({
+        const formattedData = {
           email: data.email,
           user_name: data.user_name,
           corporation: data.corporation,
           business_number: formatBusinessNumber(data.business_number),
           position: data.position,
           phone: formatPhoneNumber(data.phone)
-        });
+        };
+        setUserInfo(formattedData);
+        setOriginalUserInfo(formattedData);
       });
     }
   }, []);
@@ -40,10 +44,10 @@ const EditUserProfile = () => {
           'Content-Type': 'application/json'
         }
       });
-      if (!response.status ===200) {
+      if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
-      const data = response.data
+      const data = response.data;
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -83,12 +87,37 @@ const EditUserProfile = () => {
     }
 
     setUserInfo({ ...userInfo, [name]: formattedValue });
+    setErrorMessage(""); // Clear error message when user starts typing
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = sessionStorage.getItem("token");
-    
+    let hasError = false;
+    let errorMessages = [];
+
+    if (userInfo.business_number.replace(/-/g, '').length !== 10) {
+      errorMessages.push("올바른 사업자 번호를 입력하세요");
+      setUserInfo(prevState => ({
+        ...prevState,
+        business_number: originalUserInfo.business_number
+      }));
+      hasError = true;
+    }
+
+    if (userInfo.phone.replace(/-/g, '').length !== 11) {
+      errorMessages.push("올바른 전화번호를 입력하세요");
+      setUserInfo(prevState => ({
+        ...prevState,
+        phone: originalUserInfo.phone
+      }));
+      hasError = true;
+    }
+
+    if (hasError) {
+      setErrorMessage(errorMessages.join(", "));
+      return;
+    }
 
     const formattedUserInfo = {
       ...userInfo,
@@ -106,7 +135,7 @@ const EditUserProfile = () => {
         body: JSON.stringify(formattedUserInfo)
       });
 
-      if (!response.status ===200) {
+      if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
 
@@ -125,11 +154,11 @@ const EditUserProfile = () => {
           <form onSubmit={handleSubmit}>
             <div className="info-group">
               <label>Email:</label>
-              <span className="no-underline">{userInfo.email}</span> {/* no-underline 클래스 추가 */}
+              <span className="no-underline">{userInfo.email}</span>
             </div>
             <div className="info-group">
               <label>Name:</label>
-              <span className="no-underline">{userInfo.user_name}</span> {/* no-underline 클래스 추가 */}
+              <span className="no-underline">{userInfo.user_name}</span>
             </div>
             <div className="info-group">
               <label>Corporation:</label>
@@ -166,6 +195,9 @@ const EditUserProfile = () => {
                 value={userInfo.phone}
                 onChange={handleInputChange}
               />
+            </div>
+            <div className="error-message-container">
+              <p className="error-message">{errorMessage}</p>
             </div>
             <button type="submit">Save Changes</button>
           </form>

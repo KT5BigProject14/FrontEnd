@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./SignUpPage.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import "./PW_find.css";
 
-const Signup = () => {
+const PWFind = () => {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -100,36 +102,52 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup-container">
+    <div className="container">
+      <h1 className="pw-title">비밀번호 찾기</h1>
       <form className="signup-form" onSubmit={(e) => e.preventDefault()}>
-        <h1>비밀번호 찾기</h1>
-        <label htmlFor="email">이메일</label>
+        <label className="signup-form-label" htmlFor="email">이메일</label>
         <div className="email-container">
           <input
+            className="signup-form-input"
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button type="button" onClick={sendVerificationCode} disabled={isCodeSent}>
-            인증코드 발송
+          <button
+            className="signup-form-button"
+            type="button"
+            onClick={sendVerificationCode}
+            disabled={isCodeSent}
+          >
+            <FontAwesomeIcon icon={faPaperPlane} />
           </button>
         </div>
         {emailError && <p className="error-message">{emailError}</p>}
-        <label htmlFor="code">인증번호</label>
+        <label className="signup-form-label" htmlFor="code">인증번호</label>
         <div className="code-container">
           <input
+            className="signup-form-input"
             type="text"
             id="code"
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
-          <button type="button" onClick={verifyCode}>
+          <button
+            className="signup-form-button"
+            type="button"
+            onClick={verifyCode}
+          >
             인증
           </button>
         </div>
         {codeError && <p className="error-message">{codeError}</p>}
-        <button type="button" onClick={handleGetNewPassword} disabled={!isCodeVerified}>
+        <button
+          className="signup-form-button"
+          type="button"
+          onClick={handleGetNewPassword}
+          disabled={!isCodeVerified}
+        >
           새 비밀번호 받기
         </button>
         <p className="login-link">
@@ -140,4 +158,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default PWFind;
