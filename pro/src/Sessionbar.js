@@ -11,16 +11,6 @@ const Sessionbar = ({ sessions, onSessionClick, fetchSessions }) => {
         <p>과거 대화기록이 없습니다.</p>   
       ) : (
         <ul style={styles.sessionList}>
-          {/* {sessions.map((session) => (
-            <li
-              key={session.id}
-              onClick={() => onSessionClick(session.id)}
-              style={styles.sessionItem}
-            >
-              
-              {session.title}
-            </li>
-          ))} */}
           {Object.keys(groupedSessions).map((date) => (
             <React.Fragment key={date}>
               <li style={styles.dateHeader}>

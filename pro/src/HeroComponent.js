@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import './HeroComponent.css';
+import './styles/HeroComponent.css';
 import GlobeDemo from './Aceternity_UI/backgroundGlobe';
 
 const HeroComponent = ({ isLoggedIn, hasToken, handleLogout }) => {

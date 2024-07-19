@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import "./Edit_UserProfile.css";
+import "./styles/Edit_UserProfile.css";
 
 const EditUserProfile = () => {
   const navigate = useNavigate();
