@@ -145,82 +145,90 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup-container">
-      <form className="signup-form" onSubmit={handleSignup}>
-        <h1>Sign Up</h1>
-        <label htmlFor="email">이메일</label>
-        <div className="email-container">
-          <input
-            type="text"
-            id="emailLocal"
-            value={emailLocal}
-            onChange={(e) => setEmailLocal(e.target.value)}
-            placeholder="이메일"
-          />
-          <span>@</span>
-          {emailDomain === "직접입력" ? (
+    <div className="signup-page">
+      <div className="signup-container">
+        <form className="signup-form" onSubmit={handleSignup}>
+          <h1>Sign Up</h1>
+          <label htmlFor="email">이메일</label>
+          <div className="email-container">
             <input
               type="text"
-              value={customEmailDomain}
-              onChange={(e) => setCustomEmailDomain(e.target.value)}
-              placeholder="직접 입력"
+              id="emailLocal"
+              value={emailLocal}
+              onChange={(e) => setEmailLocal(e.target.value)}
+              placeholder="이메일"
+              className="underline-input"
             />
-          ) : (
-            <select
-              id="emailDomain"
-              value={emailDomain}
-              onChange={(e) => setEmailDomain(e.target.value)}
-            >
-              <option value="naver.com">naver.com</option>
-              <option value="google.com">google.com</option>
-              <option value="daum.net">daum.net</option>
-              <option value="직접입력">직접입력</option>
-            </select>
-          )}
-          <button type="button" onClick={sendVerificationCode} disabled={isCodeSent}>
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </button>
-        </div>
-        {emailError && <p className="error-message">{emailError}</p>}
-        <label htmlFor="code">인증번호</label>
-        <div className="code-container">
+            <span className="at-symbol">@</span>
+            {emailDomain === "직접입력" ? (
+              <input
+                type="text"
+                value={customEmailDomain}
+                onChange={(e) => setCustomEmailDomain(e.target.value)}
+                placeholder="직접 입력"
+                className="underline-input"
+              />
+            ) : (
+              <select
+                id="emailDomain"
+                value={emailDomain}
+                onChange={(e) => setEmailDomain(e.target.value)}
+              >
+                <option value="naver.com">naver.com</option>
+                <option value="google.com">google.com</option>
+                <option value="daum.net">daum.net</option>
+                <option value="직접입력">직접입력</option>
+              </select>
+            )}
+            <button type="button" onClick={sendVerificationCode} disabled={isCodeSent}>
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </button>
+          </div>
+          {emailError && <p className="error-message">{emailError}</p>}
+          <label htmlFor="code">인증번호</label>
+          <div className="code-container">
+            <input
+              type="text"
+              id="code"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className="underline-input"
+            />
+            <button type="button" onClick={verifyCode}>
+              인증
+            </button>
+          </div>
+          <label htmlFor="password">비밀번호</label>
           <input
-            type="text"
-            id="code"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={!isCodeVerified}
+            className="underline-input"
           />
-          <button type="button" onClick={verifyCode}>
-            인증
+          {passwordError && <p className="error-message">{passwordError}</p>}
+          <label htmlFor="confirm-password">비밀번호 확인</label>
+          <input
+            type="password"
+            id="confirm-password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            disabled={!isCodeVerified}
+            className="underline-input"
+          />
+          {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
+          <button type="submit" disabled={!isCodeVerified}>
+            회원가입
           </button>
-        </div>
-        <label htmlFor="password">비밀번호</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={!isCodeVerified}
-        />
-        {passwordError && <p className="error-message">{passwordError}</p>}
-        <label htmlFor="confirm-password">비밀번호 확인</label>
-        <input
-          type="password"
-          id="confirm-password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          disabled={!isCodeVerified}
-        />
-        {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
-        <button type="submit" disabled={!isCodeVerified}>
-          회원가입
-        </button>
-        <p className="login-link">
-          이미 회원이신가요? <Link to="/login">로그인</Link>
-        </p>
-      </form>
+          <p className="login-link">
+            이미 회원이신가요? <Link to="/login">로그인</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default Signup;
+
