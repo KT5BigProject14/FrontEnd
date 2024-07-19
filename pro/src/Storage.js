@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './styles/Storage.css'; // CSS 파일을 임포트합니다.
+import './styles/Storage.css';
 import apiFetch from './api';
 
 const Storage = () => {
