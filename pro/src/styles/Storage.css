@@ -1,51 +1,69 @@
-/* .container {
+/* 전체 컨테이너 */
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center; 
   height: calc(100vh - 60px); 
+  background-color: #ffffff; /* 배경 흰색 */
 }
 
+/* 본문 */
 .body {
   flex: 1;         
   margin: 10px;   
   display: flex;
-}  */
+  flex-direction: column; /* 문서 목록을 세로 정렬 */
+  align-items: center;
+  width: 80%; /* 중앙 정렬을 위한 너비 조정 */
+}
 
-
+/* 문서 목록 */
 .docList {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%; /* 전체 너비 사용 */
 }
 
+/* 문서 항목 */
 .docItem {
-  padding: 10px;
+  padding: 15px; /* 여백 조정 */
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: flex;
-  justify-content: space-between; /* 제목과 시간을 양쪽 끝에 배치 */
-  align-items: center;
-  color: black; /* 글씨 색상 검정색으로 변경 */
+  flex-direction: column; /* 제목과 세부내용을 세로 정렬 */
+  gap: 5px; /* 요소 간격 추가 */
+  color: black; /* 글씨 색상 검정색 */
 }
 
 .docItem:hover {
-  background-color: #f1f1f1;
+  background-color: #e0e0e0; /* 호버 시 배경색 변경 */
 }
 
+/* 문서 제목 */
 .docTitle {
-  flex: 1;
+  font-weight: bold; /* 두꺼운 글씨 */
+  color: #333; /* 어두운 글씨 색상 */
 }
 
+/* 문서 세부내용 */
+.docDetail {
+  font-size: 0.9em; /* 작은 글씨 크기 */
+  color: #666; /* 연한 글씨 색상 */
+}
+
+/* 문서 시간 */
 .docTime {
-  color: grey; /* 시간 글씨 색상 회색으로 변경 */
-  margin-left: 20px;
-  white-space: nowrap;
+  color: #999; /* 회색 글씨 색상 */
+  font-size: 0.8em; /* 작은 글씨 크기 */
+  margin-top: 5px; /* 위쪽 여백 추가 */
 }
 
+/* 모달 오버레이 */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -59,17 +77,19 @@
   z-index: 1000;
 }
 
+/* 모달 콘텐츠 */
 .modalContent {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #ffffff; /* 흰색 배경 */
   padding: 20px;
   border-radius: 10px;
   position: relative;
   max-width: 80%;
   max-height: 80%;
   overflow-y: auto;
-  color: white;
+  color: #333; /* 어두운 글씨 색상 */
 }
 
+/* 모달 닫기 버튼 */
 .closeButton {
   position: absolute;
   top: 10px;
@@ -78,10 +98,11 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: white;
+  color: #333; /* 어두운 글씨 색상 */
 }
 
+/* 모달 텍스트 콘텐츠 */
 .modalTextContent {
   margin-top: 20px;
-  color: white;
+  color: #333; /* 어두운 글씨 색상 */
 }
