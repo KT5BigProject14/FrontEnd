@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import apiFetch from "./api";
 import "./styles/Edit_UserProfile.css";
 
 const EditUserProfile = () => {
@@ -12,19 +13,23 @@ const EditUserProfile = () => {
     position: "",
     phone: ""
   });
+  const [originalUserInfo, setOriginalUserInfo] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
       fetchUserInfo(token).then(data => {
-        setUserInfo({
+        const formattedData = {
           email: data.email,
           user_name: data.user_name,
           corporation: data.corporation,
-          business_number: data.business_number,
+          business_number: formatBusinessNumber(data.business_number),
           position: data.position,
-          phone: data.phone
-        });
+          phone: formatPhoneNumber(data.phone)
+        };
+        setUserInfo(formattedData);
+        setOriginalUserInfo(formattedData);
       });
     }
   }, []);
@@ -32,17 +37,17 @@ const EditUserProfile = () => {
   const fetchUserInfo = async (token) => {
     try {
       const address = 'http://localhost:8000/retriever/info/user';
-      const response = await fetch(address, {
+      const response = await apiFetch(address, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
+      const data = response.data;
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -57,26 +62,80 @@ const EditUserProfile = () => {
     }
   };
 
+  const formatBusinessNumber = (value) => {
+    const rawValue = String(value).replace(/[^0-9]/g, '');
+    if (rawValue.length <= 3) return rawValue;
+    if (rawValue.length <= 5) return `${rawValue.slice(0, 3)}-${rawValue.slice(3)}`;
+    return `${rawValue.slice(0, 3)}-${rawValue.slice(3, 5)}-${rawValue.slice(5, 10)}`;
+  };
+
+  const formatPhoneNumber = (value) => {
+    const rawValue = String(value).replace(/[^0-9]/g, '');
+    if (rawValue.length <= 3) return rawValue;
+    if (rawValue.length <= 7) return `${rawValue.slice(0, 3)}-${rawValue.slice(3)}`;
+    return `${rawValue.slice(0, 3)}-${rawValue.slice(3, 7)}-${rawValue.slice(7, 11)}`;
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
+    let formattedValue = value;
+
+    if (name === "business_number") {
+      formattedValue = formatBusinessNumber(value);
+    } else if (name === "phone") {
+      formattedValue = formatPhoneNumber(value);
+    }
+
+    setUserInfo({ ...userInfo, [name]: formattedValue });
+    setErrorMessage(""); // Clear error message when user starts typing
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = sessionStorage.getItem("token");
+    let hasError = false;
+    let errorMessages = [];
+
+    if (userInfo.business_number.replace(/-/g, '').length !== 10) {
+      errorMessages.push("올바른 사업자 번호를 입력하세요");
+      setUserInfo(prevState => ({
+        ...prevState,
+        business_number: originalUserInfo.business_number
+      }));
+      hasError = true;
+    }
+
+    if (userInfo.phone.replace(/-/g, '').length !== 11) {
+      errorMessages.push("올바른 전화번호를 입력하세요");
+      setUserInfo(prevState => ({
+        ...prevState,
+        phone: originalUserInfo.phone
+      }));
+      hasError = true;
+    }
+
+    if (hasError) {
+      setErrorMessage(errorMessages.join(", "));
+      return;
+    }
+
+    const formattedUserInfo = {
+      ...userInfo,
+      business_number: userInfo.business_number.replace(/-/g, ''),
+      phone: userInfo.phone.replace(/-/g, '')
+    };
 
     try {
-      const response = await fetch('http://localhost:8000/retriever/info/change/user', {
+      const response = await apiFetch('http://localhost:8000/retriever/info/change/user', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userInfo)
+        body: JSON.stringify(formattedUserInfo)
       });
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
 
@@ -88,26 +147,20 @@ const EditUserProfile = () => {
   };
 
   return (
-    <>
-      <div className="navbar">
-        <a href="/home">Home</a>
-        <a href="/chat">Chat</a>
-        <a href="/qna">QnA</a>
-        <a href="/my-page">My Page</a>
-        <a href="/storage">Storage</a>
-        <a href="/logout">로그아웃</a>
-      </div>
+    <div>
       <div className="edit-user-profile-container">
+        <h2>Edit User Profile</h2>
         <div className="edit-user-profile">
-          <h2>Edit User Profile</h2>
           <form onSubmit={handleSubmit}>
-            <div>
-              <label>Email: {userInfo.email}</label>
+            <div className="info-group">
+              <label>Email:</label>
+              <span className="no-underline">{userInfo.email}</span>
             </div>
-            <div>
-              <label>Name: {userInfo.user_name}</label>
+            <div className="info-group">
+              <label>Name:</label>
+              <span className="no-underline">{userInfo.user_name}</span>
             </div>
-            <div>
+            <div className="info-group">
               <label>Corporation:</label>
               <input
                 type="text"
@@ -116,7 +169,7 @@ const EditUserProfile = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            <div className="info-group">
               <label>Business Number:</label>
               <input
                 type="text"
@@ -125,7 +178,7 @@ const EditUserProfile = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            <div className="info-group">
               <label>Position:</label>
               <input
                 type="text"
@@ -134,7 +187,7 @@ const EditUserProfile = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            <div className="info-group">
               <label>Phone:</label>
               <input
                 type="text"
@@ -143,11 +196,14 @@ const EditUserProfile = () => {
                 onChange={handleInputChange}
               />
             </div>
+            <div className="error-message-container">
+              <p className="error-message">{errorMessage}</p>
+            </div>
             <button type="submit">Save Changes</button>
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

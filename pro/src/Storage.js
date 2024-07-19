@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './styles/Storage.css'; // CSS 파일을 임포트합니다.
+import apiFetch from './api';
 
 const Storage = () => {
     const [likedDocs, setLikedDocs] = useState([]);
@@ -11,17 +12,17 @@ const Storage = () => {
     // 좋아요 누른 문서 목록 가져오기
     const fetchLikedDocs = useCallback(async () => {
       try {
-        const response = await fetch('http://localhost:8000/retriever/ai/get/like/text', {
+        const response = await apiFetch('http://localhost:8000/retriever/ai/get/like/text', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           }
         });
-        if (!response.ok) {
+        if (!response.status ===200) {
           throw new Error('Network response was not ok');
         }
-        const data = await response.json();
+        const data = response.data
         setLikedDocs(data.documents);
       } catch (error) {
         console.error('Error fetching liked documents:', error);

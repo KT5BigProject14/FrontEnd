@@ -4,7 +4,9 @@
 
 .newpost-title {
     text-align: center;
-    color: white; /* 다른 텍스트는 흰색으로 유지 */
+    color: black;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .newpost-form {
@@ -19,21 +21,58 @@
 .form-group label {
     display: block;
     margin-bottom: 5px;
-    color: white; /* 다른 텍스트는 흰색으로 유지 */
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .form-group input[type="text"],
 .form-group textarea {
     width: 100%;
     padding: 8px;
-    color: black; /* 입력 박스 안의 글씨만 검게 변경 */
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .form-group textarea {
     height: 200px;
 }
 
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-item {
+    position: relative;
+}
+
+.image-item img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.image-item button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* background: rgba(255, 0, 0, 0.8); */
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
 .submit-button {
+    display: block;
+    margin-left: auto;
     padding: 10px 20px;
     background-color: #007BFF;
     color: white;

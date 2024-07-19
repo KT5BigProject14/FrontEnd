@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/UserProfile.css";
+import apiFetch from "./api";
 
 const UserProfile = ({ handleLogout }) => {
   const navigate = useNavigate();
@@ -35,17 +36,17 @@ const UserProfile = ({ handleLogout }) => {
   const fetchUserInfo = async (token) => {
     try {
       const address = 'http://localhost:8000/retriever/info/user';
-      const response = await fetch(address, {
+      const response = await apiFetch(address, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      if (!response.ok) {
+      if (!response.status ===200) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
+      const data = response.data
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -82,12 +83,12 @@ const UserProfile = ({ handleLogout }) => {
     <div className="user-profile">
       <h2>MY Information</h2>
       <div className="user-info">
-        <p>Email: {userInfo.email}</p>
-        <p>Name: {userInfo.user_name}</p>
-        <p>Corporation: {userInfo.corporation}</p>
-        <p>Business Number: {userInfo.business_number}</p>
-        <p>Position: {userInfo.position}</p>
-        <p>Phone: {userInfo.phone}</p>
+        <p><span className="label">Email:</span> <span className="value">{userInfo.email}</span></p>
+        <p><span className="label">Name:</span> <span className="value">{userInfo.user_name}</span></p>
+        <p><span className="label">Corporation:</span> <span className="value">{userInfo.corporation}</span></p>
+        <p><span className="label">Business Number:</span> <span className="value">{userInfo.business_number}</span></p>
+        <p><span className="label">Position:</span> <span className="value">{userInfo.position}</span></p>
+        <p><span className="label">Phone:</span> <span className="value">{userInfo.phone}</span></p>
       </div>
       <div className="user-actions">
         <button className="user-edit-btn" onClick={handleEditProfile}>

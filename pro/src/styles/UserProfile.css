@@ -1,51 +1,95 @@
-/* UserProfile.css */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  user-select: none; /* 드래그 방지 */
+}
+
 .user-profile {
-  width: 600px;
-  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
+  background-color: rgb(255, 255, 255);
+  color: black;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #000; /* 글씨 색상을 검은색으로 설정 */
+  box-sizing: border-box;
 }
 
 .user-profile h2 {
-  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
   margin-bottom: 20px;
-  color: #000; /* 글씨 색상을 검은색으로 설정 */
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .user-info {
+  width: 100%;
+  max-width: 500px;
   margin-bottom: 20px;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(53, 116, 199, 0.1);
+  color: black;
 }
 
 .user-info p {
-  margin: 10px 0;
   font-size: 16px;
+  margin: 10px 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-info p span.label {
+  font-weight: bold;
+  color: #12254b; /* 진한 파란색 */
+}
+
+.user-info p span.value {
+  text-align: right;
 }
 
 .user-actions {
+  width: 100%;
+  max-width: 500px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .user-edit-btn {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
   padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
+  margin: 10px 0;
+  border: 1px solid #ccc;  
   border-radius: 5px;
+  background-color: white;
+  color: black;
   cursor: pointer;
   font-size: 16px;
+  font-family: 'Noto Sans KR', sans-serif;
+  box-shadow: 0px 4px 10px rgba(53, 116, 199, 0.1);
 }
 
 .user-edit-btn:hover {
-  background-color: #45a049;
+  background-color: #E5F1FF;
+  color:#12254b;
 }
 
 .move-page-icon {
-  margin-left: 10px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.move-page-icon svg {
+  font-size: 14px;
+  color: #707070;
 }

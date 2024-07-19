@@ -1,62 +1,110 @@
-/* Edit_UserProfile.css */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  user-select: none; /* 드래그 방지 */
+}
+
+.edit-user-profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 83vh;
+  background-color: #fff;
+  color: black;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
 .edit-user-profile {
-    width: 600px;
-    height: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: #000; /* 글씨 색상을 검은색으로 설정 */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(53, 116, 199, 0.1);
+  color: black;
+  width: 480px;
+}
+
+.info-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  width: 100%;
+  padding-right: 5px; /* 오른쪽 여백 추가 */
+}
+
+.info-group label {
+  width: 40%;
+  margin-bottom: 5px;
+  font-weight: bolder; /* 글씨 굵기 증가 */
+  font-size: 16px; /* 글씨 크기 증가 */
+  color: #12254b;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: left; /* 라벨 텍스트 왼쪽 정렬 */
+}
+
+.info-group span,
+.info-group input {
+  width: 60%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px; /* 글씨 크기 증가 */
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: right; /* 텍스트 오른쪽 정렬 */
+  padding-right: 10px; /* 오른쪽 여백 추가 */
+}
+
+.info-group .no-underline {
+  color: #ccc;
+}
+
+.info-group input {
+  margin-bottom: 7px;
+}
+
+.info-group span {
+  margin-bottom: 15px;
+}
+
+form button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 18px; /* 글씨 크기 증가 */
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+button:hover {
+  background-color: #E5F1FF;
+  color:#12254b;
+}
+
+.error-message-container {
+  height: 20px; /* Adjust the height to maintain consistent container size */
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
   
-  .edit-user-profile h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #000; /* 글씨 색상을 검은색으로 설정 */
-  }
-  
-  .edit-user-profile form {
-    display: flex;
-    flex-direction: column;
-    color: #000; /* 글씨 색상을 검은색으로 설정 */
-  }
-  
-  .edit-user-profile form div {
-    margin-bottom: 15px;
-  }
-  
-  .edit-user-profile form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #000; /* 글씨 색상을 검은색으로 설정 */
-  }
-  
-  .edit-user-profile form input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    color: #000; /* 글씨 색상을 검은색으로 설정 */
-  }
-  
-  .edit-user-profile form input[type="text"] {
-    width: calc(100% - 22px);
-  }
-  
-  .edit-user-profile form button {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .edit-user-profile form button:hover {
-    background-color: #45a049;
-  }
-  
+}

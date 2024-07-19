@@ -1,9 +1,13 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./styles/SignUpPage.css";
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
+  const [emailLocal, setEmailLocal] = useState("");
+  const [emailDomain, setEmailDomain] = useState("naver.com");
+  const [customEmailDomain, setCustomEmailDomain] = useState("");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,8 +19,14 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
+  const email =
+    emailDomain === "직접입력"
+      ? `${emailLocal}@${customEmailDomain}`
+      : `${emailLocal}@${emailDomain}`;
+
   const handleSignup = async (event) => {
     event.preventDefault();
+    console.log(email);
     try {
       const response = await fetch("http://localhost:8000/retriever/user/signup", {
         method: "POST",
@@ -30,7 +40,7 @@ const Signup = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        console.log("성공! 이메일주소: " + data.email);
+        console.log("성공! ");
         navigate("/login");
       } else if (response.status === 400) {
         alert(`회원가입 실패: ${data.message}`);
@@ -40,9 +50,9 @@ const Signup = () => {
     }
   };
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  const validateEmail = (emailLocal) => {
+    const emailRegex = /^[^\s@]+$/;
+    return emailRegex.test(emailLocal);
   };
 
   const validatePassword = (password) => {
@@ -55,10 +65,10 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    if (validateEmail(email)) {
+    if (validateEmail(emailLocal)) {
       setEmailError("");
     } else {
-      if (email.length >= 1) {
+      if (emailLocal.length >= 1) {
         setEmailError("유효한 이메일을 입력하세요.");
       } else {
         setEmailError("");
@@ -84,16 +94,17 @@ const Signup = () => {
         setConfirmPasswordError("");
       }
     }
-  }, [email, password, confirmPassword]);
+  }, [emailLocal, password, confirmPassword]);
 
   const sendVerificationCode = async () => {
+    console.log(email);
     try {
       const response = await fetch("http://localhost:8000/retriever/user/send/eamil/code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email :email}),
       });
 
       if (response.ok) {
@@ -140,13 +151,34 @@ const Signup = () => {
         <label htmlFor="email">이메일</label>
         <div className="email-container">
           <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            id="emailLocal"
+            value={emailLocal}
+            onChange={(e) => setEmailLocal(e.target.value)}
+            placeholder="이메일"
           />
+          <span>@</span>
+          {emailDomain === "직접입력" ? (
+            <input
+              type="text"
+              value={customEmailDomain}
+              onChange={(e) => setCustomEmailDomain(e.target.value)}
+              placeholder="직접 입력"
+            />
+          ) : (
+            <select
+              id="emailDomain"
+              value={emailDomain}
+              onChange={(e) => setEmailDomain(e.target.value)}
+            >
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
+              <option value="daum.net">daum.net</option>
+              <option value="직접입력">직접입력</option>
+            </select>
+          )}
           <button type="button" onClick={sendVerificationCode} disabled={isCodeSent}>
-            인증코드 발송
+            <FontAwesomeIcon icon={faPaperPlane} />
           </button>
         </div>
         {emailError && <p className="error-message">{emailError}</p>}

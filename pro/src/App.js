@@ -9,7 +9,7 @@ import HeroComponent from './HeroComponent';
 import Chat from './Chat_';
 import TextRevealCardPreview from './test';
 import PWFind from './PW_find';
-import { GoogleFontsLink, Menu } from './Menu';
+import { GoogleFontsLink, Menu } from './components/Menu';
 import Storage from './Storage';
 import Dashboard from './Dashborad';
 import NewPost from './NewPost';
@@ -40,6 +40,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include',
     });
     const result = await response.json();
     if(response.status === 200){

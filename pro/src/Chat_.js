@@ -349,6 +349,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Sessionbar from "./Sessionbar";
 import Storagebar from "./Storagebar";
+import apiFetch from "./api";
 import './styles/Chat_.css';
 import { FaInfoCircle } from 'react-icons/fa';
 
@@ -369,17 +370,17 @@ const Chat = () => {
 
   const fetchSessions = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8000/retriever/redis/all/messages', {
+      const response = await apiFetch('http://localhost:8000/retriever/redis/all/messages', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
-      if (!response.ok) {
+      if (!response.status ===200) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
+      const data = response.data
       const fetchedSessions = [];
       const messages = data.messages;
       for (let i = 0; i < messages.length; i += 3) {
@@ -393,17 +394,17 @@ const Chat = () => {
 
   const fetchStorages = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8000/retriever/ai/view/all/title', {
+      const response = await apiFetch('http://localhost:8000/retriever/ai/view/all/title', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         }
       });
-      if (!response.ok) {
+      if (!response.status ===200) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
+      const data = response.data
       setStorages(data.documents);
     } catch (error) {
       console.error("Error fetching storages data:", error);
@@ -416,17 +417,17 @@ const Chat = () => {
   }, [fetchSessions, fetchStorages]);
   const fetchMessagesForSession = useCallback(async (sessionId) => {
     try {
-      const response = await fetch(`http://localhost:8000/retriever/redis/messages/${sessionId}`, {
+      const response = await apiFetch(`http://localhost:8000/retriever/redis/messages/${sessionId}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
-      if (!response.ok) {
+      if (!response.status ===200) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
+      const data = response.data
       const fetchedMessages = [];
       const messages = data.messages;
       for (let i = messages.length - 1; i >= 0; i -= 2) {
@@ -446,7 +447,7 @@ const Chat = () => {
       setInput('');
       console.log(input, sessionId);
 
-      const response = await fetch('http://localhost:8000/retriever/ai/chat', {
+      const response = await apiFetch('http://localhost:8000/retriever/ai/chat', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -458,7 +459,7 @@ const Chat = () => {
         }),
       });
 
-      const data = await response.json();
+      const data = response.data;
       console.log(data);
       console.log(data.session_id);
       setMessages((prevMessages) => [
@@ -476,7 +477,7 @@ const Chat = () => {
     console.log('Search query:', searchQuery);
     if (searchQuery.trim()) {
       try {
-        const response = await fetch('http://localhost:8000/retriever/ai/title', {
+        const response = await apiFetch('http://localhost:8000/retriever/ai/title', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -485,7 +486,7 @@ const Chat = () => {
           body: JSON.stringify({ question: searchQuery }),
         });
 
-        const data = await response.json();
+        const data = response.data
         console.log('Search data received:', data);
 
         if (data.title) {
@@ -508,7 +509,7 @@ const Chat = () => {
 
   const handleTitleClick = async (title) => {
     try {
-      const response = await fetch('http://localhost:8000/retriever/ai/text', {
+      const response = await apiFetch('http://localhost:8000/retriever/ai/text', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -516,7 +517,7 @@ const Chat = () => {
         },
         body: JSON.stringify({ title: title }),
       });
-      const data = await response.json();
+      const data = response.data
       console.log('Document data received:', data.text);
       setTitletext(data.text);
 
@@ -529,7 +530,7 @@ const Chat = () => {
 
   const handleDocClick = async (docs_id) => {
     try {
-      const response = await fetch(`http://localhost:8000/retriever/ai/view/text/${docs_id}`, {
+      const response = await apiFetch(`http://localhost:8000/retriever/ai/view/text/${docs_id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -537,8 +538,8 @@ const Chat = () => {
         },
       });
 
-      const data = await response.json();
-      console.log(typeof data.text);
+      const data = response.data;
+      console.log(typeof data.text)
       setSelectedDoc({ docs_id, text: data.text || "" });
       setShowModal(true);
     } catch (error) {
@@ -561,7 +562,7 @@ const Chat = () => {
   const handleLikeClick = async () => {
     if (selectedDoc) {
       try {
-        const response = await fetch('http://localhost:8000/retriever/ai/like', {
+        const response = await apiFetch('http://localhost:8000/retriever/ai/like', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -570,7 +571,7 @@ const Chat = () => {
           body: JSON.stringify({ docs_id: selectedDoc.docs_id }),
         });
 
-        const data = await response.json();
+        const data = response.data
         console.log('Like status:', data.is_like);
 
         setSelectedDoc(prevDoc => ({

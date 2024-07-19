@@ -1,11 +1,28 @@
-/* Login.css */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  user-select: none; /* 드래그 방지 */
+}
+
 .login-container {
+  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: rgb(9, 14, 23);
-	color: black;
+  height: 85vh;
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+.login-title {
+  /* position: absolute; */
+  top: 0;
+  font-size: 30px;
+  /* margin-bottom: 30px; */
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: bold;
 }
 
 .login-form {
@@ -13,47 +30,149 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border: 2px solid pink;
+  border: 2px solid #dadbe7;
   border-radius: 10px;
   background-color: white;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 10px rgba(53, 116, 199, 0.1);
   color: black;
-}
-
-.login-form h1 {
-  margin-bottom: 20px;
+  width: 480px;
+  margin-top: 30px; /* login-title과 간격을 두기 위해 추가 */
 }
 
 .login-form label {
-  margin-bottom: 10px;
+  margin-top:3px;
+  margin-bottom: 5px;
   width: 100%;
   text-align: left;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333333;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .login-form input {
   margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: none;
+  border-bottom: 1px solid #ccc;
   width: 100%;
   box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.password-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: none; /* 아이콘 기본 상태를 숨김 */
+}
+
+/* input에 커서가 올려질 때 아이콘을 표시 */
+.password-container:hover .password-toggle-icon {
+  display: block;
+}
+
+.error-message-container {
+  height: 20px; /* 고정 높이 설정 */
+  margin-bottom: 15px; /* 여유 공간 추가 */
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  text-align: center;
 }
 
 .login-form button {
   padding: 10px 20px;
-  border: none;
+  border: 1px solid #ccc;  
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  background-color: white;
+  color: black;
   cursor: pointer;
   margin-bottom: 10px;
   width: 100%;
+  font-size: 16px;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .login-form button:hover {
-  background-color: #0056b3;
+  background-color: #E5F1FF;
 }
 
+.google-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.google-login-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.google-login-button:hover {
+  background-color: #f1f1f1;
+}
+
+.pw-find,
 .signup-link {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   margin-top: 10px;
+  margin-left: 12px;
+  margin-right:10px;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.pw-find a,
+.signup-link a {
+  color: #707070;
+  text-decoration: none;
+}
+
+.pw-find a:hover,
+.signup-link a:hover {
+  color: #007bff;
+}
+
+.pw-find a {
+  font-weight: bold;
+}
+
+.signup-link a {
+  font-weight: bold;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-10px);
+  }
+  40%, 80% {
+    transform: translateX(10px);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
 }

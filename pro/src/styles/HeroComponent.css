@@ -16,7 +16,8 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	padding: 0;
-	background-color: #d5e8fc;
+	background-color: d5e8fc;
+	/* background-color: rgb(9, 14, 23); */
 	/* color: #ffffff; */
 }
 
