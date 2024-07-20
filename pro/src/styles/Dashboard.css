@@ -1,4 +1,4 @@
-.body{
+body {
     background-color: white;
 }
 
@@ -12,22 +12,29 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: fixed; /* 테이블의 셀 너비를 고정 */
 }
 
 .dashboard-table th,
 .dashboard-table td {
     padding: 15px;
     border-bottom: 1px solid #ddd;
-    text-align: left;
+    text-align: center;
 }
 
 .dashboard-table th {
-    background-color: #f2f2f2;
+    background-color: #E5F1FF;
     color: #333;
 }
 
-.dashboard-table td.title-cell {
-    max-width: 400px;
+.dashboard-table th.no-column,
+.dashboard-table td.no-column {
+    width: 8%; /* No 열의 너비를 테이블의 5%로 설정 */
+}
+
+.dashboard-table th.title-column,
+.dashboard-table td.title-column {
+    width: 57%; /* 제목 셀의 너비를 테이블의 70%로 설정 */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -36,10 +43,6 @@
 
 .dashboard-table td {
     color: #666; /* 기본 글씨색을 회색으로 설정 */
-}
-
-.dashboard-table td:first-child {
-    color: black; /* 번호는 검은색 */
 }
 
 .pagination {
@@ -58,7 +61,7 @@
 }
 
 .page-number.active {
-    background-color: #f2f2f2;
+    background-color: #E5F1FF;
     color: black;
 }
 
@@ -67,7 +70,7 @@
     right: 20px;
     bottom: 20px;
     padding: 10px 20px;
-    background-color: #f2f2f2;
+    background-color: #E5F1FF;
     color: black;
     font-weight: bold;
     border: none;
@@ -82,4 +85,3 @@
     width: 20px;
     height: 20px;
 }
-

@@ -4,7 +4,8 @@
 
 .editpost-title {
     text-align: center;
-    color: white; 
+    color: black; 
+    margin-bottom: 10px;
 }
 
 .editpost-form {
@@ -19,7 +20,8 @@
 .form-group label {
     display: block;
     margin-bottom: 5px;
-    color: white; 
+    margin-top: 5px;
+    color: black; 
 }
 
 .form-group input[type="text"],
@@ -35,9 +37,14 @@
 
 .submit-button {
     padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
+    background-color: #E5F1FF;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #135194; /* 진한 파란색으로 변경 */
+    color: white; /* 텍스트 색상을 흰색으로 변경 */
 }

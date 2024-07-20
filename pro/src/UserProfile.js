@@ -15,9 +15,16 @@ const UserProfile = ({ handleLogout }) => {
     position: "",
     phone: ""
   });
+  const [isPasswordChangeDisabled, setIsPasswordChangeDisabled] = useState(false);
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
+    const userType = sessionStorage.getItem('type');
+    
+    if (userType === 'social') {
+      setIsPasswordChangeDisabled(true);
+    }
+
     if (token) {
       // 토큰을 사용하여 서버에서 사용자 정보를 가져오는 함수 호출
       fetchUserInfo(token).then(data => {
@@ -43,10 +50,10 @@ const UserProfile = ({ handleLogout }) => {
           'Content-Type': 'application/json'
         }
       });
-      if (!response.status ===200) {
+      if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
-      const data = response.data
+      const data = response.data;
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -76,7 +83,9 @@ const UserProfile = ({ handleLogout }) => {
   };
 
   const handleChangePassword = () => {
-    navigate("/change-password");
+    if (!isPasswordChangeDisabled) {
+      navigate("/change-password");
+    }
   };
 
   return (
@@ -97,7 +106,12 @@ const UserProfile = ({ handleLogout }) => {
             <FontAwesomeIcon icon={faChevronRight} />
           </div>
         </button>
-        <button className="user-edit-btn" onClick={handleChangePassword}>
+        <button 
+          className="user-edit-btn" 
+          onClick={handleChangePassword} 
+          disabled={isPasswordChangeDisabled}
+          style={{ backgroundColor: isPasswordChangeDisabled ? '#f0f0f0' : 'white', color: isPasswordChangeDisabled ? '#808080' : 'black' }}
+        >
           비밀번호 변경하기
           <div className="move-page-icon">
             <FontAwesomeIcon icon={faChevronRight} />

@@ -55,8 +55,8 @@ const Dashboard = () => {
             <table className="dashboard-table">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>제목</th>
+                        <th className="no-column">No</th>
+                        <th className="title-column">제목</th>
                         <th>글쓴이</th>
                         <th>작성시간</th>
                     </tr>
@@ -64,8 +64,8 @@ const Dashboard = () => {
                 <tbody>
                     {currentItems.map((qna, index) => (
                         <tr key={qna.qna_id}>
-                            <td>{indexOfFirstItem + index + 1}</td>
-                            <td className="title-cell">
+                            <td className="no-column">{indexOfFirstItem + index + 1}</td>
+                            <td className="title-column">
                                 <Link to={`/qna/${qna.qna_id}`}>{qna.title}</Link>
                             </td>
                             <td>{qna.email}</td>
@@ -88,6 +88,5 @@ const Dashboard = () => {
         </div>
     );
 }
-
 
 export default Dashboard;
