@@ -107,7 +107,7 @@ const EditPost = () => {
             <h1 className="editpost-title">글 수정하기</h1>
             <form onSubmit={handleSubmit} className="editpost-form">
                 <div className="form-group">
-                    <label>제목:</label>
+                    <label>Title</label>
                     <input 
                         type="text" 
                         value={title} 
@@ -116,7 +116,7 @@ const EditPost = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label>내용:</label>
+                    <label>Context</label>
                     <textarea 
                         value={content} 
                         onChange={(e) => setContent(e.target.value)} 
@@ -134,13 +134,13 @@ const EditPost = () => {
                         {existingImages.map((image, index) => (
                             <div key={index} className="image-item">
                                 <img src={`data:image/jpeg;base64,${Object.values(image)[0]}`} alt={`기존 이미지 ${index + 1}`} />
-                                <button type="button" onClick={() => handleImageRemove(image)}>삭제</button>
+                                <button type="button" onClick={() => handleImageRemove(image)}>X</button>
                             </div>
                         ))}
                         {newFiles.map((file, index) => (
                             <div key={index + existingImages.length} className="image-item">
                                 <img src={URL.createObjectURL(file)} alt={`새 이미지 ${index + 1}`} />
-                                <button type="button" onClick={() => handleFileRemove(file)}>삭제</button>
+                                <button type="button" onClick={() => handleFileRemove(file)}>X</button>
                             </div>
                         ))}
                     </div>

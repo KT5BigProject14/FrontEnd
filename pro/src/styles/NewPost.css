@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
 .newpost-container {
     padding: 20px;
+    background-color: #f5f5f5;
 }
 
 .newpost-title {
@@ -7,11 +14,16 @@
     color: black;
     font-size: 2em;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .newpost-form {
     max-width: 600px;
     margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
@@ -33,12 +45,26 @@
     color: black;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 20px;
+    font-size: 16px; /* 글씨 크기 조정 */
     font-weight: bold;
 }
 
 .form-group textarea {
     height: 200px;
+}
+
+/* 제목 입력란 스타일 수정 */
+.form-group input[type="text"] {
+    border: none;
+    border-bottom: 2px solid #ccc; /* 밑줄 추가 */
+    border-radius: 0; /* 경계선 둥글기 제거 */
+    font-size: 16px; /* 글씨 크기 조정 */
+    font-weight: bold;
+}
+
+/* 파일 선택 버튼 밑에 마진 추가 */
+.form-group input[type="file"] {
+    margin-bottom: 10px;
 }
 
 .image-preview {
@@ -54,18 +80,21 @@
 .image-item img {
     max-width: 100px;
     max-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 7px;
 }
 
 .image-item button {
     position: absolute;
-    top: 0;
-    right: 0;
-    /* background: rgba(255, 0, 0, 0.8); */
-    color: black;
+    top: -8px; /* 상단 여백 조절 */
+    right: -8px; /* 오른쪽 여백 조절 */
+    background: none; /* 배경 제거 */
+    color: black; /* 색상을 원하는 색으로 변경 */
     border: none;
     border-radius: 50%;
-    width: 5px;
-    height: 5px;
+    width: 20px;
+    height: 20px;
     text-align: center;
     cursor: pointer;
 }
@@ -74,9 +103,19 @@
     display: block;
     margin-left: auto;
     padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
+    background-color: #E5F1FF;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #135194; /* 진한 파란색으로 변경 */
+    color: white; /* 텍스트 색상을 흰색으로 변경 */
+}
+.return-icon {
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
 }

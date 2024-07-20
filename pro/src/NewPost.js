@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import returnIcon from './assets/return-icon.png';
 import './styles/NewPost.css';
 import apiFetch from './api';
 
@@ -52,7 +53,7 @@ const NewPost = () => {
             <h1 className="newpost-title">새 글쓰기</h1>
             <form onSubmit={handleSubmit} className="newpost-form">
                 <div className="form-group">
-                    <label>제목:</label>
+                    <label>제목</label>
                     <input 
                         type="text" 
                         value={title} 
@@ -61,7 +62,7 @@ const NewPost = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label>내용:</label>
+                    <label>내용</label>
                     <textarea 
                         value={content} 
                         onChange={(e) => setContent(e.target.value)} 
@@ -69,7 +70,7 @@ const NewPost = () => {
                     ></textarea>
                 </div>
                 <div className="form-group">
-                    <label>이미지 업로드:</label>
+                    <label>이미지 업로드</label>
                     <input 
                         type="file" 
                         multiple 
@@ -86,6 +87,10 @@ const NewPost = () => {
                 </div>
                 <button type="submit" className="submit-button">작성하기</button>
             </form>
+            <button className="write-button" onClick={() => navigate('/QnA')}>
+                목록으로 가기
+                <img src={returnIcon} alt="Return Icon" className="return-icon" />
+            </button>
         </div>
     );
 }
