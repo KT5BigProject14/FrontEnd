@@ -1,0 +1,85 @@
+.body{
+    background-color: white;
+}
+
+.dashboard-container {
+    padding: 20px;
+    margin: 0px 40px 20px 80px;
+    background-color: white; /* 배경색을 흰색으로 설정 */
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.dashboard-table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.dashboard-table td.title-cell {
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black; /* 제목은 검은색 */
+}
+
+.dashboard-table td {
+    color: #666; /* 기본 글씨색을 회색으로 설정 */
+}
+
+.dashboard-table td:first-child {
+    color: black; /* 번호는 검은색 */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-number {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    background-color: #fff;
+    cursor: pointer;
+    color: black; 
+}
+
+.page-number.active {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+.write-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    padding: 10px 20px;
+    background-color: #f2f2f2;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.write-icon {
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+}
+
