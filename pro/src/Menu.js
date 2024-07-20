@@ -28,8 +28,8 @@ const Menu = ({ isLoggedIn, handleLogout }) => {
   return (
     <header className="header">
       <div className="logo">
-        <img src="./logo1.png" alt="Logo" className="logoImage" />
-        LoGo
+        <img src="./main_logo.png" alt="Logo" className="logoImage" />
+        {/* LoGo */}
       </div>
       <nav className="nav">
         {isLoggedIn ? (

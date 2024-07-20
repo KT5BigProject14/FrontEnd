@@ -2,19 +2,19 @@
 import React from "react";
 import LSidebar from "./components/lsidebar";
 
-const groupStoragesByDate = (storages) => {
-  return storages.reduce((groupedStorages, storage) => {
-    const date = storage.date.split('T')[0]; // Assuming storage.date is an ISO string
-    if (!groupedStorages[date]) {
-      groupedStorages[date] = [];
-    }
-    groupedStorages[date].push(storage);
-    return groupedStorages;
-  }, {});
-};
+// const groupStoragesByDate = (storages) => {
+//   return storages.reduce((groupedStorages, storage) => {
+//     const date = storage.date.split('T')[0]; // Assuming storage.date is an ISO string
+//     if (!groupedStorages[date]) {
+//       groupedStorages[date] = [];
+//     }
+//     groupedStorages[date].push(storage);
+//     return groupedStorages;
+//   }, {});
+// };
 
 const Storagebar = ({ storages = [], onItemClick }) => {
-  const groupedStorages = groupStoragesByDate(storages);
+  // const groupedStorages = groupStoragesByDate(storages);
 
   return (
     <LSidebar width={280}>
@@ -41,7 +41,7 @@ const Storagebar = ({ storages = [], onItemClick }) => {
         </ul>
       )} */}
       <div className={styles.container}>
-        {Object.keys(groupedStorages).map((date) => (
+        {/* {Object.keys(groupedStorages).map((date) => (
           <div key={date} className={styles.dateGroup}>
             <h3>{date}</h3>
             <ul>
@@ -50,7 +50,7 @@ const Storagebar = ({ storages = [], onItemClick }) => {
               ))}
             </ul>
           </div>
-        ))}
+        ))} */}
      </div>
     </LSidebar>
   );

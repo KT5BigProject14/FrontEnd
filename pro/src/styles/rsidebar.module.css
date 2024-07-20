@@ -17,7 +17,7 @@
   height: calc(100% - 90px) !important; /* 상단과 하단 여백을 뺀 높이 */
   z-index: 100;
   border-radius: 15px 0 0 15px !important; /* 좌상단 및 좌하단 모서리를 둥글게 */
-  cursor: pointer; /* 사이드바 전체가 클릭 가능하도록 커서 설정 */
+  /* cursor: pointer; */
   display: flex; /* 흰색 선과 콘텐츠를 나란히 배치 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
 }
@@ -30,7 +30,7 @@
   width: 40px; /* 버튼 너비 */
   height: 40px; /* 버튼 높이 */
   z-index: 99; /* 사이드바보다 앞에 위치 */
-  cursor: pointer; 
+  /* cursor: pointer;  */
   display: flex;
   align-items: center;
   justify-content: center;

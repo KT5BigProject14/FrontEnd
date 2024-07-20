@@ -62,7 +62,9 @@ const RSidebar = ({ width = 280, children, onRefresh }) => {
         onClick={handleClick} // 클릭 이벤트 추가
       >
         <div className={styles.line}></div>
-        <div className={styles.content}>{children}</div>
+        <div className={styles.content}>
+          {children}
+        </div>
       </div>
     </div>
   );

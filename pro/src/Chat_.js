@@ -170,7 +170,7 @@ const Chat = () => {
         body: JSON.stringify({ title: title }),
       });
       const data = response.data
-      console.log('Document data received:', data.text);
+      console.log('Document data received:', JSON.stringify(data.text));
       setTitletext(data.text);
 
       fetchStorages();
@@ -284,7 +284,7 @@ const Chat = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleSearchKeyDown}
               className="searchInput"
-              placeholder="  검색할 내용을 넣어주세요"
+              placeholder="검색할 내용을 넣어주세요"
             />
             <button onClick={handleSearch} className="searchButton">
               <i className="fa fa-search"></i>
@@ -318,9 +318,15 @@ const Chat = () => {
           </div>
           <div className="chatArea">
             {messages.map((message, index) => (
-              <div key={index} className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
-                {message.text}
-              </div>
+              // <div key={index} className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
+              //   {message.text}
+              // </div>
+              <div key={index} className={`messageContainer ${message.sender === 'Me' ? 'myMessageContainer' : 'botMessageContainer'}`}>
+                    {message.sender === 'Me' && <div className="messageIcon"></div>}
+                    <div className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
+                      {message.text}
+                    </div>
+                  </div>
             ))}
           </div>
           <div className="inputArea">
@@ -330,7 +336,7 @@ const Chat = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleInputKeyDown}
               className="input"
-              placeholder="  질문할 내용을 작성해주세요"
+              placeholder="질문할 내용을 작성해주세요"
             />
             <button onClick={handleSendMessage} className="sendButton">
               <i className="fas fa-paper-plane"></i>
@@ -348,7 +354,8 @@ const Chat = () => {
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
             <button className="closeButton" onClick={handleCloseModal}>X</button>
             <div className="modalTextContent">
-              {formatTitleText(selectedDoc?.text)}
+              {/* {formatTitleText(selectedDoc?.text)}*/}
+              {selectedDoc?.text}
             </div>
             <button className={selectedDoc?.is_like ? 'likeButton likeButtonLiked' : 'likeButton'} onClick={handleLikeClick}>
               ❤

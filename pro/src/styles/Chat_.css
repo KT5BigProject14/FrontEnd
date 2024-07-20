@@ -39,7 +39,7 @@
 
 .searchInput {
   flex: 1;
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
   border-radius: 25px;
   border: 1px solid #ccc;
   margin-right: 10px;
@@ -145,13 +145,27 @@
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   background-color: rgba(139, 179, 197, 0.3);
-  /* background-color: #d1e7ff; */
-  border-radius: 10px;
+  border-radius: 30Px 30px 0px 30px;
   color: #000000;
   cursor: text;
   transition: background-color 0.3s, box-shadow 0.3s;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  width: fit-content;
+  /* justify-content: flex-end; */
+  float: right;
+  clear: both; 
+  max-width: 70%;
+}
+
+.messageIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f1c40f; /* 임시 배경색, 필요에 따라 이미지로 대체 가능 */
+  margin-right: 10px;
+  float: right;
+
 }
 
 .botMessage {
@@ -160,8 +174,10 @@
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   background-color: rgba(241,240,240, 1);
-  border-radius: 10px;
+  border-radius: 30Px 30px 30px 0px;
   color: #000000;
+  clear: both; /* 이전 플로팅 요소와의 충돌 방지 */
+  max-width: 70%; /* 메시지 박스가 너무 길어지지 않도록 최대 너비 설정 */
 }
 
 
@@ -178,7 +194,7 @@
 
 .input {
   flex: 1;
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
   border-radius: 25px;
   border: 1px solid #ccc;
   margin-right: 10px;

@@ -20,7 +20,7 @@ const GlobeDemo: React.FC<GlobeDemoProps> = ({ hasToken }) => {
 
   const globeConfig = {
     pointSize: 4,
-    globeColor: "#5c89ce", //062056
+    globeColor: "#092869", //062056 5c89ce
     showAtmosphere: true,
     atmosphereColor: "#FFFFFF",
     atmosphereAltitude: 0.1,
