@@ -1,6 +1,6 @@
 // src/components/LSidebar.js
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../../styles/lsidebar.css";
+import styles from "../../styles/lsidebar.module.css";
 
 
 const LSidebar = ({ width = 280, children }) => {

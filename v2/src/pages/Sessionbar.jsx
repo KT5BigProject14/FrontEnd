@@ -1,6 +1,6 @@
 import React from "react";
 import RSidebar from '../components/sidebar/rsidebar'
-import styles from "../styles/Sessionbar.css";
+import styles from "../styles/Sessionbar.module.css";
 
 const Sessionbar = ({ sessions, onSessionClick, fetchSessions }) => {
   // 날짜별로 세션 그룹화

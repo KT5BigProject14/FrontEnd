@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import styles from "../../styles/rsidebar.css";
+import styles from "../../styles/rsidebar.module.css";
 
 
 const RSidebar = ({ width = 280, children, onRefresh }) => {
