@@ -97,6 +97,18 @@ const EditUserPage = () => {
     let hasError = false;
     let errorMessages = [];
 
+    // Check for empty fields
+    for (const key in userInfo) {
+      if (userInfo[key].trim() === "") {
+        errorMessages.push("정보를 입력하지 않았습니다.");
+        setUserInfo(prevState => ({
+          ...prevState,
+          [key]: originalUserInfo[key]
+        }));
+        hasError = true;
+      }
+    }
+
     if (userInfo.business_number.replace(/-/g, '').length !== 10) {
       errorMessages.push("올바른 사업자 번호를 입력하세요");
       setUserInfo(prevState => ({
@@ -127,7 +139,7 @@ const EditUserPage = () => {
     };
 
     try {
-      const response = await apiFetch('${apiUrl}/retriever/info/change/user', {
+      const response = await apiFetch(`${apiUrl}/retriever/info/change/user`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

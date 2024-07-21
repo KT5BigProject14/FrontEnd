@@ -13,7 +13,7 @@ const QnaPage = () => {
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        apiFetch('${apiUrl}/retriever/qna/load/all/qna', {
+        apiFetch(`${apiUrl}/retriever/qna/load/all/qna`, {
             method: 'GET',
             // headers: {
             //     'Authorization': `Bearer ${token}`,

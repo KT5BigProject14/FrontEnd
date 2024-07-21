@@ -15,6 +15,7 @@ const PWFindPage = () => {
   const [isCodeVerified, setIsCodeVerified] = useState(false);
 
   const navigate = useNavigate();
+  const apiUrl=import.meta.env.VITE_API_BASE_URL;
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,7 +36,7 @@ const PWFindPage = () => {
 
   const sendVerificationCode = async () => {
     try {
-      const response = await fetch("${apiUrl}/retriever/user/find/password/send/email/code", {
+      const response = await fetch(`${apiUrl}/retriever/user/find/password/send/email/code`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +58,7 @@ const PWFindPage = () => {
 
   const verifyCode = async () => {
     try {
-      const response = await fetch("${apiUrl}/retriever/user/check/code", {
+      const response = await fetch(`${apiUrl}/retriever/user/check/code`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +84,7 @@ const PWFindPage = () => {
 
   const handleGetNewPassword = async () => {
     try {
-      const response = await fetch("${apiUrl}/retriever/user/send/new/password", {
+      const response = await fetch(`${apiUrl}/retriever/user/send/new/password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -104,20 +105,20 @@ const PWFindPage = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="pw-title">비밀번호 찾기</h1>
-      <form className="signup-form" onSubmit={(e) => e.preventDefault()}>
-        <label className="signup-form-label" htmlFor="email">이메일</label>
+    <div className="pwfind-container">
+      <h1 className="pwfind-title">비밀번호 찾기</h1>
+      <form className="pwfind-form" onSubmit={(e) => e.preventDefault()}>
+        <label className="pwfind-form-label" htmlFor="email">이메일</label>
         <div className="email-container">
           <input
-            className="signup-form-input"
+            className="pwfind-form-input"
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <button
-            className="signup-form-button"
+            className="pwfind-form-button"
             type="button"
             onClick={sendVerificationCode}
             disabled={isCodeSent}
@@ -126,17 +127,17 @@ const PWFindPage = () => {
           </button>
         </div>
         {emailError && <p className="error-message">{emailError}</p>}
-        <label className="signup-form-label" htmlFor="code">인증번호</label>
+        <label className="pwfind-form-label" htmlFor="code">인증번호</label>
         <div className="code-container">
           <input
-            className="signup-form-input"
+            className="pwfind-form-input"
             type="text"
             id="code"
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
           <button
-            className="signup-form-button"
+            className="pwfind-form-button"
             type="button"
             onClick={verifyCode}
           >
@@ -145,7 +146,7 @@ const PWFindPage = () => {
         </div>
         {codeError && <p className="error-message">{codeError}</p>}
         <button
-          className="signup-form-button"
+          className="pwfind-form-button"
           type="button"
           onClick={handleGetNewPassword}
           disabled={!isCodeVerified}

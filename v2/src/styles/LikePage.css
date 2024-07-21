@@ -5,7 +5,7 @@ body {
   user-select: none; /* 드래그 방지 */
 }
 
-.change-password-container {
+.Like-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,14 +15,14 @@ body {
   color: black;
 }
 
-.change-password-title {
+.Like-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.change-password-form {
+.Like-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,19 +35,7 @@ body {
   transition: transform 0.2s ease-in-out;
 }
 
-.change-password-form.shake {
-  animation: shake 0.3s;
-}
-
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-10px); }
-  50% { transform: translateX(10px); }
-  75% { transform: translateX(-10px); }
-  100% { transform: translateX(0); }
-}
-
-.change-password-form .info-group {
+.Like-form .Like-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -55,7 +43,7 @@ body {
   margin-bottom: 15px;
 }
 
-.change-password-form label {
+.Like-form label {
   margin-bottom: 5px;
   font-weight: bolder; /* 글씨 굵기 증가 */
   font-size: 16px; /* 글씨 크기 증가 */
@@ -63,7 +51,7 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.change-password-form input {
+.Like-form input {
   width: 100%;
   padding: 10px;
   border: none;
@@ -73,13 +61,13 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.change-password-form .error-container {
+.Like-form .error-container {
   height: 20px; /* 오류 메시지를 표시할 영역 확보 */
   display: flex;
   align-items: flex-end;
 }
 
-.change-password-form .error {
+.Like-form .error {
   color: red;
   font-size: 14px;
   margin-top: 0;
@@ -87,7 +75,7 @@ body {
   width: 100%;
 }
 
-.change-password-form button {
+.Like-form button {
   padding: 10px 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -100,7 +88,7 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.change-password-form button:hover {
+.Like-form button:hover {
   background-color: #E5F1FF;
   color:#12254b;
 }

@@ -9,6 +9,7 @@ import PWFindPage from './pages/PWFindPage';
 import InputInfoPage from './pages/InputInfoPage';
 import UserPage from './pages/UserPage';
 import EditUserPage from './pages/EditUserPage';
+import LikePage from './pages/LikePage';
 import PWChangePage from './pages/PWChangePage';
 import QnaPage from './pages/QnaPage';
 import NewPost from './pages/NewPost';
@@ -69,6 +70,7 @@ function App() {
         <Route path="/info" element={<InputInfoPage />} />
         <Route path="/profile" element={<UserPage />} />
         <Route path="/edit-profile" element={<EditUserPage />} />
+        <Route path="/like-keyword" element={<LikePage />} />
         <Route path="/change-password" element={<PWChangePage />} />
         <Route path="/QnA" element={<QnaPage />} />
         <Route path="/new-post" element={<NewPost />} />

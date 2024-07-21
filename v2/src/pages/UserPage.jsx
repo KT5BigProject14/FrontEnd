@@ -44,13 +44,13 @@ const UserPage = () => {
 
   const fetchUserInfo = async (token) => {
     try {
-      const address = '${apiUrl}/retriever/info/user';
+      const address = `${apiUrl}/retriever/info/user`;
       const response = await apiFetch(address, {
         method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+        // headers: {
+        //   'Authorization': `Bearer ${token}`,
+        //   'Content-Type': 'application/json'
+        // }
       });
       if (response.status !== 200) {
         throw new Error('Network response was not ok');
@@ -89,6 +89,9 @@ const UserPage = () => {
       navigate("/change-password");
     }
   };
+  const handleLikekeyword =() =>{
+    navigate("/like-keyword");
+  }
 
   return (
     <div className="user-profile">
@@ -104,6 +107,12 @@ const UserPage = () => {
       <div className="user-actions">
         <button className="user-edit-btn" onClick={handleEditProfile}>
           내 정보 수정하기
+          <div className="move-page-icon">
+            <FontAwesomeIcon icon={faChevronRight} />
+          </div>
+        </button>
+        <button className="user-edit-btn" onClick={handleLikekeyword}>
+          관심단어 지정하기
           <div className="move-page-icon">
             <FontAwesomeIcon icon={faChevronRight} />
           </div>

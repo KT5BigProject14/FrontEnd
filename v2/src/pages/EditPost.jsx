@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import returnIcon from '../assets/return-icon.png';
 import '../styles/EditPost.css';
 import apiFetch from '../api';
 
@@ -107,7 +108,7 @@ const EditPost = () => {
         <div className="editpost-container">
             <h1 className="editpost-title">글 수정하기</h1>
             <form onSubmit={handleSubmit} className="editpost-form">
-                <div className="form-group">
+                <div className="editpost-group">
                     <label>Title</label>
                     <input 
                         type="text" 
@@ -116,7 +117,7 @@ const EditPost = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="editpost-group">
                     <label>내용</label>
                     <textarea 
                         value={content} 
@@ -124,7 +125,7 @@ const EditPost = () => {
                         required
                     ></textarea>
                 </div>
-                <div className="form-group">
+                <div className="editpost-group">
                     <label>이미지 업로드</label>
                     <input 
                         type="file" 
@@ -146,8 +147,12 @@ const EditPost = () => {
                         ))}
                     </div>
                 </div>
-                <button type="submit" className="submit-button">수정하기</button>
+                <button type="submit" className="editpost-submit-button">수정하기</button>
             </form>
+            <button className="editpost-write-button" onClick={() => navigate('/QnA')}>
+                되돌아가기
+            <img src={returnIcon} alt="Return Icon" className="editpost-return-icon" />
+            </button>
         </div>
     );
 }

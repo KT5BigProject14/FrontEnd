@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 
-.container {
+.pwfind-container {
   font-family: 'Noto Sans KR', sans-serif;
-
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 73vh;
@@ -13,7 +13,7 @@
 
 }
 
-.signup-form {
+.pwfind-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +26,7 @@
   width: 480px;
 }
 
-.pw-title {
+.pwfind-title {
   /* position: absolute; */
   top: 0;
   font-size: 30px;
@@ -35,7 +35,7 @@
   font-weight: bold;
 }
 
-.signup-form label {
+.pwfind-form label {
   margin-top:2px;
   margin-bottom: 5px;
   width: 100%;
@@ -46,8 +46,8 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.signup-form input,
-.signup-form select {
+.pwfind-form input,
+.pwfind-form select {
   margin-bottom: 20px;
   padding: 10px;
   border: none;
@@ -58,7 +58,7 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.signup-form button {
+.pwfind-form button {
   padding: 10px 20px;
   border: 1px solid #ccc;  
   border-radius: 5px;
@@ -71,7 +71,7 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.signup-form button:hover {
+.pwfind-form button:hover {
   background-color: #E5F1FF;
 }
 

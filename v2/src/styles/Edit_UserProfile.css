@@ -10,12 +10,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 83vh;
+  height: 103vh;
   background-color: #fff;
   color: black;
 }
 
-h2 {
+.edit-user-profile-container h2 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;

@@ -3,8 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/InputInfoPage.css";
 import apiFetch from "../api";
 
-const apiUrl = import.meta.env.VITE_API_BASE_URL;
-
 const InputInfoPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,7 +14,7 @@ const InputInfoPage = () => {
   const [extensionNumber, setExtensionNumber] = useState("");
 
   const formData = location.state || {};
-
+  const apiUrl=import.meta.env.VITE_API_BASE_URL;
   const handleInfo = async (event) => {
     event.preventDefault();
 

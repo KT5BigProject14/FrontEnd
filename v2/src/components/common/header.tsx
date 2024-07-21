@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import MobileMenu from './mobile-menu';
-import Logo from '@/assets/kt-logo.png';
+import Logo from '@/assets/Logo-kt.png';
+// import Logo from '@/assets/kt-logo.png';
 
 export default function Header({ isLoggedIn, handleLogout }) {
   const navigate = useNavigate();

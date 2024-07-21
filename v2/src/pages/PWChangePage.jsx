@@ -58,7 +58,7 @@ const PWChangePage = () => {
     };
 
     try {
-      const response = await apiFetch('${apiUrl}/retriever/info/change/password', {
+      const response = await apiFetch(`${apiUrl}/retriever/info/change/password`, {
         method: 'POST',
         // headers: {
         //   'Content-Type': 'application/json',
