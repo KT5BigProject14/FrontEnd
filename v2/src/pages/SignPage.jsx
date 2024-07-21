@@ -148,7 +148,7 @@ const SignPage = () => {
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} /> {/* isLoggedIn 상태를 Header에 전달 */}
+      {/* <Header isLoggedIn={isLoggedIn} /> isLoggedIn 상태를 Header에 전달 */}
       <div className="signup-container">
         <h1 className="signup-title">Sign Up</h1>
         <form className="signup-form" onSubmit={handleSignup}>

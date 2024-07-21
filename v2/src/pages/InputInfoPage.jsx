@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "../styles/SignUpPage.css";
+import "../styles/InputInfoPage.css";
 import apiFetch from "../api";
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -98,9 +98,9 @@ const InputInfoPage = () => {
   };
 
   return (
-    <div className="signup-container">
-      <form className="signup-form" onSubmit={handleInfo}>
-        <h1>More Information</h1>
+    <div className="inputinfo-container">
+      <h1 className="inputinfo-title">More Information</h1>
+      <form className="inputinfo-form" onSubmit={handleInfo}>
         <label htmlFor="companyName">회사명</label>
         <input
           type="text"

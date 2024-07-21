@@ -39,12 +39,12 @@ export default function Header({ isLoggedIn, handleLogout }) {
                 </a>
               </div>
               <div className="shrink-0 mr-8">
-                <a href="/" className="block " aria-label="Cruip">
+                <a href="/QnA" className="block " aria-label="Cruip">
                   <div className="text-black">QnA</div>
                 </a>
               </div>
               <div className="shrink-0 mr-8">
-                <a href="/" className="block " aria-label="Cruip">
+                <a href="/profile" className="block " aria-label="Cruip">
                   <div className="text-black">My Page</div>
                 </a>
               </div>

@@ -74,7 +74,7 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
   };
 
   const handleNaverLogin = async () => {
-    const response = await fetch(`${apiUrl}/retriever/user/login/Naver`, {
+    const response = await fetch(`${apiUrl}/retriever/user/login/naver`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
