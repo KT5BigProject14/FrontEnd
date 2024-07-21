@@ -5,10 +5,9 @@ export default function Features() {
         <div className="py-12 md:py-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="h2 mb-4">Features</h2>
+            <h2 className="h2 mb-4">LoGo's Features</h2>
             <p className="text-xl text-gray-400">
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum.
+            해외 시장 진출을 목표로 하는 스타트업과 기업을 위한 정보 제공 웹 서비스, LoGo의 독창적이고 특별한 특징들은 다음과 같습니다
             </p>
           </div>
 
@@ -68,10 +67,9 @@ export default function Features() {
                   strokeLinecap="square"
                 />
               </svg>
-              <h4 className="h4 mb-2">Instant Features</h4>
+              <h4 className="h4 mb-2">데이터수집 자동화</h4>
               <p className="text-lg text-gray-400 text-center">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat.
+                Airflow를 통해 데이터를 자동으로 수집하여 방대한 양의 데이터를 제공
               </p>
             </div>
 
@@ -89,10 +87,9 @@ export default function Features() {
                   <circle className="stroke-current text-purple-100" cx="11" cy="11" r="11" />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">Instant Features</h4>
+              <h4 className="h4 mb-2">사용자 친화적인 Ui/Ux</h4>
               <p className="text-lg text-gray-400 text-center">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat.
+                직관적인 Nevigation과 사용자의 경험과 유사한 component 배치로, 사용자들이 어려움을 겪지 않고 편하게 이용
               </p>
             </div>
 
@@ -135,10 +132,9 @@ export default function Features() {
                   <path className="stroke-current text-purple-300" d="M22 30h4v12h-4z" />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">Instant Features</h4>
+              <h4 className="h4 mb-2">니즈에 따른 커스터마이징</h4>
               <p className="text-lg text-gray-400 text-center">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat.
+                많은 Data와 Category 사이에서 원하는 정보를 얻을 수 있도록 필터링
               </p>
             </div>
 
@@ -162,10 +158,9 @@ export default function Features() {
                   />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">Instant Features</h4>
+              <h4 className="h4 mb-2">Chat</h4>
               <p className="text-lg text-gray-400 text-center">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat.
+              사용자가 정보를 단순히 받아들이는 것을 넘어, 대화를 통해 이해할 수 있는 상호작용을 제공
               </p>
             </div>
           </div>

@@ -46,7 +46,7 @@ export default function Hero() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
             <div className="inline-flex text-sm font-semibold py-1 px-3 text-green-600 bg-green-200 rounded-full">
-              Reach goals that matter
+              KT_AivleSchool 14조
             </div>
             {/* <h1 className="h1 mb-4 text-black-700" data-aos="fade-up">
               LoGO _ AI Chat Service
