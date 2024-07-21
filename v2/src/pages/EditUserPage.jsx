@@ -37,7 +37,7 @@ const EditUserPage = () => {
 
   const fetchUserInfo = async (token) => {
     try {
-      const address = '${apiUrl}/retriever/info/user';
+      const address = `${apiUrl}/retriever/info/user`;
       const response = await apiFetch(address, {
         method: 'GET',
         headers: {

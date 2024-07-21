@@ -34,7 +34,7 @@ const InputInfoPage = () => {
     };
 
     try {
-      const response = await apiFetch("${apiUrl}/retriever/info/create/user", {
+      const response = await apiFetch(`${apiUrl}/retriever/info/create/user`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
