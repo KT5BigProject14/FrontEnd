@@ -15,6 +15,7 @@
   transition: 0.4s ease;
   color: #ffffff;
   height: calc(100% - 90px) !important; /* 상단과 하단 여백을 뺀 높이 */
+  
   z-index: 100;
   border-radius: 0 15px 15px 0; /* 좌상단 및 좌하단 모서리를 둥글게 */
   cursor: pointer; /* 사이드바 전체가 클릭 가능하도록 커서 설정 */
@@ -69,11 +70,32 @@
   padding: 40px 20px 0 40px; /* padding을 적절히 조정 */
   position: relative;
   width: 100%;
-  height: calc(100vh - 40px); /* 전체 높이에서 패딩 값을 뺀 높이 */
-  overflow-y: auto; /* 스크롤바 추가 */
+  height: calc(100vh - 90px); /* 전체 높이에서 패딩 값을 뺀 높이 */
+  overflow-y: auto;
+  direction: rtl;
+}
+
+.content > * {
+  direction: ltr; /* 자식 요소들은 왼쪽에서 오른쪽으로 */
 }
 
 .icon {
   margin: 0;
   color: #202020;
+}
+
+/* Custom Scrollbar for Webkit browsers */
+.content::-webkit-scrollbar {
+  width: 12px; /* 스크롤바 너비 */
+  height: 12px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
 }
