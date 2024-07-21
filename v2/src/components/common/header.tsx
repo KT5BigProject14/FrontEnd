@@ -8,6 +8,20 @@ export default function Header({ isLoggedIn, handleLogout }) {
     handleLogout();
     navigate('/');
   };
+
+    // 버튼 클릭 시 역할 확인 및 리디렉션 로직
+  const handleButtonClick = (e, path) => {
+    const role = sessionStorage.getItem("role");
+    console.log(role);
+    if (role === "guest") {
+      e.preventDefault();
+      alert("정보를 입력해야 사용할 수 있습니다.");
+      navigate("/signup-next");
+    } else {
+      navigate(path);
+    }
+  };
+
   return (
     <header className="absolute w-full z-30 overflow-x-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -34,22 +48,22 @@ export default function Header({ isLoggedIn, handleLogout }) {
                 </a>
               </div>
               <div className="shrink-0 mr-8">
-                <a href="/" className="block " aria-label="Cruip">
+                <a href="/chat_" className="block " aria-label="Cruip" onClick={(e) => handleButtonClick(e, "/chat_")}>
                   <div className="text-black">Chat</div>
                 </a>
               </div>
               <div className="shrink-0 mr-8">
-                <a href="/" className="block " aria-label="Cruip">
+                <a href="/QnA" className="block " aria-label="Cruip" onClick={(e) => handleButtonClick(e, "/chat_")}>
                   <div className="text-black">QnA</div>
                 </a>
               </div>
               <div className="shrink-0 mr-8">
-                <a href="/" className="block " aria-label="Cruip">
+                <a href="/profile" className="block " aria-label="Cruip" onClick={(e) => handleButtonClick(e, "/chat_")}>
                   <div className="text-black">My Page</div>
                 </a>
               </div>
               <div className="shrink-0 mr-8">
-                <a href="/" className="block " aria-label="Cruip">
+                <a href="/storage" className="block " aria-label="Cruip" onClick={(e) => handleButtonClick(e, "/chat_")}>
                   <div className="text-black">Storage</div>
                 </a>
               </div>

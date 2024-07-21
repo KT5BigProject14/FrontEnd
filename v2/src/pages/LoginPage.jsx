@@ -16,7 +16,7 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
     event.preventDefault();
     await new Promise(r => setTimeout(r, 1000));
 
-    const response = await fetch('http://54.181.1.215:8000/retriever/user/login', {
+    const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/retriever/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
   };
 
   const handleGoogleLogin = async () => {
-    const response = await fetch('http://54.181.1.215:8000/retriever/user/login/google', {
+    const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/retriever/user/login/google', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
