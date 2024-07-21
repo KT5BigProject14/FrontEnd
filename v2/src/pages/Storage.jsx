@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import '../styles/Storage.css';
-import apiFetch from './api';
+import '../styles/Storage.css'
+import apiFetch from '../api';
 
 const Storage = () => {
     const [likedDocs, setLikedDocs] = useState([]);

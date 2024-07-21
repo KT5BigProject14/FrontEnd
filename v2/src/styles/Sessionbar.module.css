@@ -1,0 +1,32 @@
+/* Sessionbar.css */
+
+.sessionbarList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sessionbardateHeader {
+  padding: 5px;
+  margin: 5px 30px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.sessionbarbutton {
+  padding: 10px;
+  margin-bottom: 7px;
+  box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: left;
+  width: calc(100% - 5px); /* 부모 요소에 맞춰 전체 너비를 유지하면서 패딩 감안 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
