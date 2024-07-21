@@ -3,10 +3,10 @@
 .chatcontainer {
   display: flex;
   width: 100vw;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 0px);
   align-items: center;  /* 수직 중앙 정렬 */
   justify-content: center;  /* 수평 중앙 정렬 */
-  padding: 20px 90px 20px 90px;
+  padding: 100px 90px 20px 90px;
   background-color: #f0f4f8;
 }
 
@@ -39,8 +39,8 @@
 
 .searchInput {
   flex: 1;
-  padding: 10px;
-  border-radius: 25px;
+  padding: 10px 10px 10px 20px;
+  border-radius: 25px !important;
   border: 1px solid #ccc;
   margin-right: 10px;
   color: #000000;
@@ -145,14 +145,28 @@
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   background-color: rgba(139, 179, 197, 0.3);
-  /* background-color: #d1e7ff; */
-  border-radius: 10px;
+  border-radius: 30Px 30px 0px 30px;
   color: #000000;
   cursor: text;
   transition: background-color 0.3s, box-shadow 0.3s;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  width: fit-content;
+  /* justify-content: flex-end; */
+  float: right;
+  clear: both; 
+  max-width: 80%;
 }
+
+/* .messageIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f1c40f;
+  margin-right: 10px;
+  float: right;
+
+} */
 
 .botMessage {
   text-align: left;
@@ -160,8 +174,10 @@
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   background-color: rgba(241,240,240, 1);
-  border-radius: 10px;
+  border-radius: 30Px 30px 30px 0px;
   color: #000000;
+  clear: both; /* 이전 플로팅 요소와의 충돌 방지 */
+  /* max-width: 70%;  */
 }
 
 
@@ -178,8 +194,8 @@
 
 .input {
   flex: 1;
-  padding: 10px;
-  border-radius: 25px;
+  padding: 10px 10px 10px 20px;
+  border-radius: 25px !important;
   border: 1px solid #ccc;
   margin-right: 10px;
   color: #000000;
@@ -328,3 +344,31 @@
   top: auto;
   left: auto;
 }
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #000;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.copyNotification {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  font-size: 14px;
+}
+

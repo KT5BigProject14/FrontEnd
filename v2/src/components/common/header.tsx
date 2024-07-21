@@ -4,6 +4,7 @@ import Logo from '@/assets/kt-logo.png';
 
 export default function Header({ isLoggedIn, handleLogout }) {
   const navigate = useNavigate();
+
   const handleLogoutAndRedirect = () => {
     handleLogout();
     navigate('/');
@@ -23,7 +24,7 @@ export default function Header({ isLoggedIn, handleLogout }) {
   };
 
   return (
-    <header className="absolute w-full z-30 overflow-x-hidden">
+    <header id="custom-header" className="absolute w-full z-30 overflow-x-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Site branding */}
@@ -42,9 +43,8 @@ export default function Header({ isLoggedIn, handleLogout }) {
           {isLoggedIn ? (
             <>
               <div className="shrink-0 mr-8">
-                {/* Logo */}
                 <a href="/" className="block " aria-label="Cruip">
-                  <div className="text-black text-lg">Home</div>
+                  <div className="text-black">Home</div>
                 </a>
               </div>
               <div className="shrink-0 mr-8">

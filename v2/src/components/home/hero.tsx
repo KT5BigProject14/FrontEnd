@@ -65,7 +65,7 @@ export default function Hero() {
               <div data-aos="fade-up" data-aos-delay="400">
                 <a
                   className="btn text-white bg-gradient-to-b from-slate-700 via-slate-600 to-slate-500 hover:bg-green-600 w-full mb-4 sm:w-auto sm:mb-0 rounded-full border-none"
-                  href="#0">
+                  href="chat_">
                   서비스 이용하러 가기 &gt;
                 </a>
               </div>

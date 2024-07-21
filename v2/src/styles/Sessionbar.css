@@ -1,0 +1,56 @@
+/* Sessionbar.css */
+
+.sessionList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dateHeader {
+  /* padding: 0px; */
+  margin: 17px 0px 5px 0px;
+  border-radius: 5px;
+  /* background-color: rgba(194, 219, 233, 0.5); */
+  color: #ffffff;
+  /* transition: background-color 0.3s, box-shadow 0.3s; */
+  /* backdrop-filter: blur(10px); */
+  /* -webkit-backdrop-filter: blur(10px); */
+  font-size: 14px;
+  text-align: center;
+  /* align-items: center; */
+  /* display: inline-block; */
+  justify-content: center;
+  /* font-weight: bold; */
+}
+
+.sessionItem {
+  padding: 10px;
+  margin: 5px auto;
+  border-radius: 5px;
+  background-color: rgba(240, 240, 240, 0.8); /* 투명도 추가 */
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.3s;
+  display: block; /* 박스가 무조건 하나씩 오도록 설정 */
+  width: fit-content; /* 내용에 맞게 너비 자동 조정 */
+}
+
+.sessionItem:hover {
+  background-color: rgba(220, 220, 220, 0.8); /* 호버 시 배경색 */
+}
+
+.button {
+  padding: 10px;
+  margin: 2px 0px 5px 0px;
+  border: 0px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  background-color: rgb(31, 72, 92, 0.7);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 14px;
+  /* font-weight: bold; */
+
+}

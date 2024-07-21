@@ -14,7 +14,7 @@ import QnaPage from './pages/QnaPage';
 import NewPost from './pages/NewPost';
 import EditPost from './pages/EditPost';
 import ViewPost from './pages/ViewPost';
-// import chat from './pages/Chat';
+import Chat from './pages/Chat_';
 // import storage from './pages/Storage';
 
 import { useEffect, useState } from 'react';
@@ -74,8 +74,8 @@ function App() {
         <Route path="/new-post" element={<NewPost />} />
         <Route path="/qna/:qna_id" element={<ViewPost />} />
         <Route path="/edit-post/:qna_id" element={<EditPost />} /> 
-        {/* <Route path="/chat" element={<Caht />} /> 
-        <Route path="/storage" element={<Storage />} />  */}
+        <Route path="/chat_" element={<Chat />} />
+        {/* <Route path="/storage" element={<Storage />} />  */}
 
       </Routes>
     </Router>
