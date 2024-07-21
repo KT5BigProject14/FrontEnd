@@ -1,6 +1,6 @@
 import React from "react";
 import RSidebar from '../components/sidebar/rsidebar'
-import styles from "../styles/Sessionbar.module.css";
+import styles from "../styles/Sessionbar.css";
 
 const Sessionbar = ({ sessions, onSessionClick, fetchSessions }) => {
   // 날짜별로 세션 그룹화
@@ -11,17 +11,17 @@ const Sessionbar = ({ sessions, onSessionClick, fetchSessions }) => {
       {sessions.length === 0 ? (
         <p>과거 대화기록이 없습니다.</p>   
       ) : (
-        <ul className={styles.sessionbarList}>
+        <ul className={styles.sessionList}>
           {Object.keys(groupedSessions).map((date) => (
             <React.Fragment key={date}>
-              <li className={styles.sessionbardateHeader}>
+              <li className={styles.dateHeader}>
                 {parseInt(date.slice(5, 7))}월 {parseInt(date.slice(8, 10))}일
               </li>
               {groupedSessions[date].map((session) => (
                 <button
                   key={session.id}
                   onClick={() => onSessionClick(session.id)}
-                  className={`${styles.sessionbarbutton}`}
+                  className={`${styles.sessionItem} ${styles.button}`}
                 >
                   {session.title}
                 </button>
@@ -45,5 +45,28 @@ const groupSessionsByDate = (sessions) => {
     return acc;
   }, {});
 };
+
+// const styles = {
+//   sessionList: {
+//     listStyleType: "none",
+//     padding: 0,
+//   },
+//   dateHeader: {
+//     padding: "10px",
+//     margin: "5px 0",
+//     fontWeight: "bold",
+//     backgroundColor: "#dcdcdc",
+//     textAlign: "left",
+//   },
+//   sessionItem: {
+//     padding: "10px",
+//     margin: "5px 0",
+//     borderRadius: "5px",
+//     backgroundColor: "#f0f0f0",
+//     cursor: "pointer",
+//     textAlign: "left",
+//     transition: "background-color 0.3s",
+//   },
+// };
 
 export default Sessionbar;

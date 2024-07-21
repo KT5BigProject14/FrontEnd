@@ -14,13 +14,12 @@
   right: 0;
   transition: 0.4s ease;
   color: #ffffff;
-  height: calc(100% - 100px) !important; /* 상단과 하단 여백을 뺀 높이 */
+  height: calc(100% - 90px) !important; /* 상단과 하단 여백을 뺀 높이 */
   z-index: 100;
   border-radius: 15px 0 0 15px !important; /* 좌상단 및 좌하단 모서리를 둥글게 */
   cursor: pointer; /* 사이드바 전체가 클릭 가능하도록 커서 설정 */
   display: flex; /* 흰색 선과 콘텐츠를 나란히 배치 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
-  align-items: center; /* 자식 요소를 세로 가운데 정렬 */
 }
 
 .button {
@@ -54,10 +53,8 @@
   background-color: rgb(255, 251, 251);
   margin-left: 5px; /* 사이드바가 튀어나오도록 설정한 너비에 맞게 조정 */
   cursor: pointer; /* 흰색 선을 클릭 가능하도록 커서 설정 */
+  margin-top: 300px;
   border-radius: 15px; /* 좌상단 및 좌하단 모서리를 둥글게 */
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%); 
 }
 
 .toggleIcon {
@@ -67,10 +64,10 @@
 }
 
 .content {
-  padding: 20px 20px 0 30px; /* padding을 적절히 조정 */
+  padding: 40px 20px 0 40px; /* padding을 적절히 조정 */
   position: relative;
   width: 100%;
-  height: calc(100vh - 100px); /* 전체 높이에서 패딩 값을 뺀 높이 */
+  height: calc(100vh - 90px); /* 전체 높이에서 패딩 값을 뺀 높이 */
   overflow-y: auto; /* 스크롤바 추가 */
 }
 

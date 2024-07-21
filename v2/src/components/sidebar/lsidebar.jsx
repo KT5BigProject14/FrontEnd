@@ -1,6 +1,6 @@
 // src/components/LSidebar.js
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../../styles/lsidebar.module.css";
+import styles from "../../styles/lsidebar.css";
 
 
 const LSidebar = ({ width = 280, children }) => {
@@ -34,7 +34,7 @@ const LSidebar = ({ width = 280, children }) => {
     return () => {
       window.removeEventListener("click", handleClose);
     };
-  }, [handleClose]);
+  });
 
   return (
     <div className={styles.container}>
