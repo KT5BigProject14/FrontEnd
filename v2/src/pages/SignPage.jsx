@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import Header from '../components/common/header';  // Header 컴포넌트를 import 합니다.
 import "../styles/SignUpPage.css";
 
 const SignPage = () => {
@@ -16,6 +17,7 @@ const SignPage = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [isCodeVerified, setIsCodeVerified] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // isLoggedIn 상태 추가
 
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const SignPage = () => {
   const handleSignup = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('${apiUrl}/retriever/user/signup', {
+      const response = await fetch(`${apiUrl}/retriever/user/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -98,14 +100,13 @@ const SignPage = () => {
   }, [emailLocal, password, confirmPassword]);
 
   const sendVerificationCode = async () => {
-    console.log(email);
     try {
-      const response = await fetch('${apiUrl}/retriever/user/send/eamil/code', {
+      const response = await fetch(`${apiUrl}/retriever/user/send/email/code`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email :email}),
+        body: JSON.stringify({ email }),
       });
 
       if (response.ok) {
@@ -122,7 +123,7 @@ const SignPage = () => {
 
   const verifyCode = async () => {
     try {
-      const response = await fetch('${apiUrl}/retriever/user/check/code', {
+      const response = await fetch(`${apiUrl}/retriever/user/check/code`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -146,10 +147,11 @@ const SignPage = () => {
   };
 
   return (
-    <div className="signup-page">
+    <>
+      <Header isLoggedIn={isLoggedIn} /> {/* isLoggedIn 상태를 Header에 전달 */}
       <div className="signup-container">
+        <h1 className="signup-title">Sign Up</h1>
         <form className="signup-form" onSubmit={handleSignup}>
-          <h1>Sign Up</h1>
           <label htmlFor="email">이메일</label>
           <div className="email-container">
             <input
@@ -227,9 +229,8 @@ const SignPage = () => {
           </p>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
 export default SignPage;
-

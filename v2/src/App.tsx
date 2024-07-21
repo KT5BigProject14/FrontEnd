@@ -59,7 +59,7 @@ function App() {
         <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />} />
         <Route path="/google/login" element={<GoogleLoginRedirect setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/naver/login" element={<NaverLoginRedirect setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/signup" element={<SignPage />} />
+        <Route path="/signup" element={<SignPage isLoggedIn={isLoggedIn}/>} />
         <Route path="/pw-find" element={<PWFindPage />} />
         <Route path="/info" element={<InputInfoPage />} />
         <Route path="/profile" element={<UserPage />} />
