@@ -12,11 +12,13 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
   const [loginCheck, setLoginCheck] = useState(false);
   const navigate = useNavigate();
 
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
   const handleLogin = async event => {
     event.preventDefault();
     await new Promise(r => setTimeout(r, 1000));
 
-    const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/retriever/user/login', {
+    const response = await fetch(`${apiUrl}/retriever/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +58,7 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
   };
 
   const handleGoogleLogin = async () => {
-    const response = await fetch(import.meta.env.VITE_API_BASE_URL + '/retriever/user/login/google', {
+    const response = await fetch(`${apiUrl}/retriever/user/login/google`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -68,6 +70,22 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
       window.location.href = result.url;
     } else {
       alert('구글 로그인에 실패했습니다.');
+    }
+  };
+
+  const handleNaverLogin = async () => {
+    const response = await fetch(`${apiUrl}/retriever/user/login/Naver`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const result = await response.json();
+
+    if (response.status === 200) {
+      window.location.href = result.url;
+    } else {
+      alert('네이버 로그인에 실패했습니다.');
     }
   };
 
@@ -108,8 +126,12 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
             {loginCheck && <div className="error-message">올바른 이메일 혹은 비밀번호를 입력하세요.</div>}
           </div>
           <button type="submit">Login</button>
+          <button type="button" className="naver-login-button" onClick={handleNaverLogin}>
+            {/*<img src={`${process.env.PUBLIC_URL}/naver.png`} alt="Naver Logo" />*/}
+            Login with Naver
+          </button>
           <button type="button" className="google-login-button" onClick={handleGoogleLogin}>
-            {/* <img src={`${process.env.PUBLIC_URL}/g.png`} alt="Google Logo" /> */}
+           {/*img src={`${process.env.PUBLIC_URL}/google.png`} alt="Google Logo" />*/}
             Login with Google
           </button>
           <p className="pw-find">
