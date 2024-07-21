@@ -74,7 +74,7 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
   };
 
   const handleNaverLogin = async () => {
-    const response = await fetch(`${apiUrl}/retriever/user/login/Naver`, {
+    const response = await fetch(`${apiUrl}/retriever/user/login/naver`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -127,11 +127,11 @@ const LoginPage = ({ setIsLoggedIn, isLoggedIn }) => {
           </div>
           <button type="submit">Login</button>
           <button type="button" className="naver-login-button" onClick={handleNaverLogin}>
-            {/*<img src={`${process.env.PUBLIC_URL}/naver.png`} alt="Naver Logo" />*/}
+            <img src='../public/images/naver.png' alt="Naver Logo" />
             Login with Naver
           </button>
           <button type="button" className="google-login-button" onClick={handleGoogleLogin}>
-           {/*img src={`${process.env.PUBLIC_URL}/google.png`} alt="Google Logo" />*/}
+           <img src='../public/images//google.png' alt="Google Logo" />
             Login with Google
           </button>
           <p className="pw-find">

@@ -16,7 +16,7 @@ export default function Header({ isLoggedIn, handleLogout }) {
     if (role === "guest") {
       e.preventDefault();
       alert("정보를 입력해야 사용할 수 있습니다.");
-      navigate("/signup-next");
+      navigate("/info");
     } else {
       navigate(path);
     }
