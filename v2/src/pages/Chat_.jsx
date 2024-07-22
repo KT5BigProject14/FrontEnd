@@ -312,118 +312,120 @@ const Chat = () => {
   };
 
   return (
-    <div className="chatcontainer">
-      <div className="chatbody">
-        <div className="leftPane">
-          <div className="infoIcon">
-              <FaInfoCircle onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}/>
-              {showTooltip && (
-                <div className="tooltip">
-                  구글, 네이버처럼 검색 기능이 담겨져 있어요. <br />
-                특별한 점은, 여러분이 주신 질문에 대한 <br />
-                추가 관련질문을 5개를 GenAI를 통해 추천드리고 <br />
-                해당 관련질문 중 관심있는 질문을 클릭 시 더 자세한 정보를 제공드립니다:)
-                </div>
-              )}
+    <div className="chat">
+      <div className="chatcontainer">
+        <div className="chatbody">
+          <div className="leftPane">
+            <div className="infoIcon">
+                <FaInfoCircle onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}/>
+                {showTooltip && (
+                  <div className="tooltip">
+                    구글, 네이버처럼 검색 기능이 담겨져 있어요. <br />
+                  특별한 점은, 여러분이 주신 질문에 대한 <br />
+                  추가 관련질문을 5개를 GenAI를 통해 추천드리고 <br />
+                  해당 관련질문 중 관심있는 질문을 클릭 시 더 자세한 정보를 제공드립니다:)
+                  </div>
+                )}
+              </div>
+            <div className="searchArea">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearchKeyDown}
+                className="searchInput"
+                placeholder="검색할 내용을 넣어주세요"
+                disabled={isLoadingsearching} // 로딩 중일 때 입력 비활성화
+              />
+              <button onClick={handleSearch} className="searchButton" disabled={isLoadingsearching}>
+                {isLoadingsearching ? <div className="spinner"></div> : <FaSearch />}
+              </button>
             </div>
-          <div className="searchArea">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleSearchKeyDown}
-              className="searchInput"
-              placeholder="검색할 내용을 넣어주세요"
-              disabled={isLoadingsearching} // 로딩 중일 때 입력 비활성화
-            />
-            <button onClick={handleSearch} className="searchButton" disabled={isLoadingsearching}>
-              {isLoadingsearching ? <div className="spinner"></div> : <FaSearch />}
-            </button>
-          </div>
-          {titles.length > 0 && (
-            <div className="storageList">
-              {titles.map((title, index) => (
-                <button key={index} className="storageItem" onClick={() => handleTitleClick(title)}>
-                  {title}
-                </button>
-              ))}
-            </div>
-          )}
-          {titletext && (
-            <div className="titleTextArea">
-              {formatTitleText(titletext)}
-              {titletext}
-            </div>
-          )}
-        </div>
-        <div className="rightPane">
-          <div className="infoIcon">
-            <FaInfoCircle onMouseEnter={() => setShowRightTooltip(true)} onMouseLeave={() => setShowRightTooltip(false)}/>
-            {showRightTooltip && (
-              <div className="tooltip">
-                검색 엔진에서 찾아본 정보 중 <br />
-                궁금한 점을 챗봇에게 편하게 질문주시면 <br />
-                자세한 답변드리겠습니다:) 
+            {titles.length > 0 && (
+              <div className="storageList">
+                {titles.map((title, index) => (
+                  <button key={index} className="storageItem" onClick={() => handleTitleClick(title)}>
+                    {title}
+                  </button>
+                ))}
+              </div>
+            )}
+            {titletext && (
+              <div className="titleTextArea">
+                {formatTitleText(titletext)}
+                {titletext}
               </div>
             )}
           </div>
-          <div className="chatArea">
-            {messages.map((message, index) => (
-              // <div key={index} className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
-              //   {message.text}
-              // </div>
-              <div
-                key={index}
-                className={`messageContainer ${message.sender === 'Me' ? 'myMessageContainer' : 'botMessageContainer'}`}
-                onClick={(e) => message.sender !== 'Me' && handleBotMessageClick(e, message.text)}
-              >
-                {message.sender === 'Me' && <div className="messageIcon"></div>}
-                <div className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
-                  {message.text}
+          <div className="rightPane">
+            <div className="infoIcon">
+              <FaInfoCircle onMouseEnter={() => setShowRightTooltip(true)} onMouseLeave={() => setShowRightTooltip(false)}/>
+              {showRightTooltip && (
+                <div className="tooltip">
+                  검색 엔진에서 찾아본 정보 중 <br />
+                  궁금한 점을 챗봇에게 편하게 질문주시면 <br />
+                  자세한 답변드리겠습니다:) 
                 </div>
-              </div>
-            ))}
-          </div>
-          <div className="inputArea">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)} 
-              onKeyDown={handleInputKeyDown}
-              className="input"
-              placeholder="질문할 내용을 작성해주세요"
-              disabled={isLoadingchat} // 로딩 중일 때 입력 비활성화
-            />
-            <button onClick={handleSendMessage} className="sendButton" disabled={isLoadingchat}>
-              {isLoadingchat ? <div className="spinner"></div> : <FaPaperPlane />}
-            </button>
-            <button onClick={handleNewConversation} className="newConversationButton" disabled={isLoadingchat}>
-              <FaPlus />
-            </button>
-          </div>
-        </div>
-      </div>
-      <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
-      <Storagebar storages={storages} onItemClick={handleStorageItemClick} />
-      {showModal && (
-        <div className="modalOverlay" onClick={handleCloseModal}>
-          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <button className="closeButton" onClick={handleCloseModal}>X</button>
-            <div className="modalTextContent">
-              {formatTitleText(selectedDoc?.text)}
-              {selectedDoc?.text}
+              )}
             </div>
-            <button className={selectedDoc?.is_like ? 'likeButton likeButtonLiked' : 'likeButton'} onClick={handleLikeClick}>
-              ❤
-            </button>
+            <div className="chatArea">
+              {messages.map((message, index) => (
+                // <div key={index} className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
+                //   {message.text}
+                // </div>
+                <div
+                  key={index}
+                  className={`messageContainer ${message.sender === 'Me' ? 'myMessageContainer' : 'botMessageContainer'}`}
+                  onClick={(e) => message.sender !== 'Me' && handleBotMessageClick(e, message.text)}
+                >
+                  {message.sender === 'Me' && <div className="messageIcon"></div>}
+                  <div className={message.sender === 'Me' ? 'myMessage' : 'botMessage'}>
+                    {message.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="inputArea">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)} 
+                onKeyDown={handleInputKeyDown}
+                className="input"
+                placeholder="질문할 내용을 작성해주세요"
+                disabled={isLoadingchat} // 로딩 중일 때 입력 비활성화
+              />
+              <button onClick={handleSendMessage} className="sendButton" disabled={isLoadingchat}>
+                {isLoadingchat ? <div className="spinner"></div> : <FaPaperPlane />}
+              </button>
+              <button onClick={handleNewConversation} className="newConversationButton" disabled={isLoadingchat}>
+                <FaPlus />
+              </button>
+            </div>
           </div>
         </div>
-      )}
-      {copySuccess && (
-        <div className="copyNotification" style={{ top: copyPosition.y, left: copyPosition.x }}>
-          복사되었습니다!
-        </div>
-      )}
+        <Sessionbar sessions={sessions} onSessionClick={handleSessionClick} fetchSessions={fetchSessions} />
+        <Storagebar storages={storages} onItemClick={handleStorageItemClick} />
+        {showModal && (
+          <div className="modalOverlay" onClick={handleCloseModal}>
+            <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+              <button className="closeButton" onClick={handleCloseModal}>X</button>
+              <div className="modalTextContent">
+                {formatTitleText(selectedDoc?.text)}
+                {selectedDoc?.text}
+              </div>
+              <button className={selectedDoc?.is_like ? 'likeButton likeButtonLiked' : 'likeButton'} onClick={handleLikeClick}>
+                ❤
+              </button>
+            </div>
+          </div>
+        )}
+        {copySuccess && (
+          <div className="copyNotification" style={{ top: copyPosition.y, left: copyPosition.x }}>
+            복사되었습니다!
+          </div>
+        )}
+      </div>
     </div>
   );
 

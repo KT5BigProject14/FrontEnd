@@ -46,32 +46,34 @@ const Storage = () => {
     }, [fetchLikedDocs]);
   
     return (
-      <div className="storagecontainer">
-        <div className="storagebody">
-          <h1 className="storageheader">
-            {/* Liked Documents */}
-          </h1>
-          <div className="docList">
-            {likedDocs.map((doc) => (
-              <div key={doc.docs_id} className="docItem" onClick={() => handleDocClick(doc)}>
-                <span className="docTitle">{doc.title}</span>
-                <span className="docTime">{new Date(doc.time).toLocaleString()}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        {showModal && (
-          <div className="modalOverlay" onClick={handleCloseModal}>
-            <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-              <button className="closeButton" onClick={handleCloseModal}>X</button>
-              <div className="modalTextContent">
-                {selectedDoc?.text.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
-              </div>
+      <div className="storage">
+        <div className="storagecontainer">
+          <div className="storagebody">
+            <h1 className="storageheader">
+              {/* Liked Documents */}
+            </h1>
+            <div className="docList">
+              {likedDocs.map((doc) => (
+                <div key={doc.docs_id} className="docItem" onClick={() => handleDocClick(doc)}>
+                  <span className="docTitle">{doc.title}</span>
+                  <span className="docTime">{new Date(doc.time).toLocaleString()}</span>
+                </div>
+              ))}
             </div>
           </div>
-        )}
+          {showModal && (
+            <div className="modalOverlay" onClick={handleCloseModal}>
+              <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+                <button className="closeButton" onClick={handleCloseModal}>X</button>
+                <div className="modalTextContent">
+                  {selectedDoc?.text.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   };

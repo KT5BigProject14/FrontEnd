@@ -23,7 +23,7 @@ body {
 }
 
 .dashboard-table th {
-    background-color: #E5F1FF;
+    background-color: #f0f4f8;
     color: #333;
 }
 
@@ -61,7 +61,7 @@ body {
 }
 
 .page-number.active {
-    background-color: #E5F1FF;
+    background-color: #f0f4f8;
     color: black;
 }
 
@@ -70,7 +70,7 @@ body {
     right: 20px;
     bottom: 20px;
     padding: 10px 20px;
-    background-color: #E5F1FF;
+    background-color: #f0f4f8;
     color: black;
     font-weight: bold;
     border: none;

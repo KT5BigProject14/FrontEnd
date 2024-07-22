@@ -1,4 +1,8 @@
 /* Chat_.css */
+.chat{
+  padding:80px 0px;
+}
+
 
 .chatcontainer {
   display: flex;
@@ -6,7 +10,7 @@
   height: calc(100vh - 0px);
   align-items: center;  /* 수직 중앙 정렬 */
   justify-content: center;  /* 수평 중앙 정렬 */
-  padding: 100px 90px 20px 90px;
+  padding: 20px 90px 20px 90px;
   background-color: #f0f4f8;
 }
 
