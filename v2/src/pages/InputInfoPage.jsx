@@ -13,16 +13,29 @@ const InputInfoPage = () => {
   const [position, setPosition] = useState("");
   const [extensionNumber, setExtensionNumber] = useState("");
 
+  const [error, setError] = useState("");
+
   const formData = location.state || {};
-  const apiUrl=import.meta.env.VITE_API_BASE_URL;
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
   const handleInfo = async (event) => {
     event.preventDefault();
-
-    // Remove hyphens from businessNumber and convert to number
+  
+    // Validation logic
+    if (!username || !companyName || !businessNumber || !position || !extensionNumber) {
+      setError("모든 필드를 입력해 주세요.");
+      return;
+    }
+  
+    if (businessNumber.replace(/\D/g, '').length !== 10 || extensionNumber.replace(/\D/g, '').length !== 11) {
+      setError("형식에 맞는 값을 다시 작성해주세요.");
+      return;
+    }
+  
     const cleanedBusinessNumber = parseInt(businessNumber.replace(/-/g, ''), 10);
     const cleanedExtensionNumber = extensionNumber.replace(/-/g, '');
     const token = sessionStorage.getItem('token');
-
+  
     const payload = {
       corporation: companyName,
       business_number: cleanedBusinessNumber,
@@ -34,27 +47,25 @@ const InputInfoPage = () => {
     try {
       const response = await apiFetch(`${apiUrl}/retriever/info/create/user`, {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
-        },
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   'Authorization': `Bearer ${token}`
+        // },
         body: JSON.stringify(payload),
       });
 
-      const data = response.data
+      const data=response.data;
 
       if (response.status === 200) {
         console.log("성공! 정보기입");
         sessionStorage.setItem("token", data.access_token);
-        if (data.role) {
-          sessionStorage.setItem("role", data.role);
-        }
+        sessionStorage.setItem("role", data.role);
         navigate("/");
-      } else if (response.status === 400) {
-        alert(`정보기입 실패: ${data.message}`);
+      }else {
+        setError(response.data.detail || "Unknown error occurred");
       }
     } catch (error) {
-      console.error("오류 발생:", error);
+      setError(error.message);
     }
   };
 
@@ -82,6 +93,7 @@ const InputInfoPage = () => {
   }, [businessNumber, extensionNumber]);
 
   const handleBusinessNumberChange = (e) => {
+    setError(""); // Clear error on input change
     const { value } = e.target;
     if (value.replace(/\D/g, '').length <= 10) {
       setBusinessNumber(value);
@@ -89,10 +101,16 @@ const InputInfoPage = () => {
   };
 
   const handleExtensionNumberChange = (e) => {
+    setError(""); // Clear error on input change
     const { value } = e.target;
     if (value.replace(/\D/g, '').length <= 11) {
       setExtensionNumber(value);
     }
+  };
+
+  const handleInputChange = (setter) => (e) => {
+    setError(""); // Clear error on input change
+    setter(e.target.value);
   };
 
   return (
@@ -104,8 +122,9 @@ const InputInfoPage = () => {
           type="text"
           id="companyName"
           value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
+          onChange={handleInputChange(setCompanyName)}
         />
+
         <label htmlFor="businessNumber">사업자 번호</label>
         <input
           type="text"
@@ -113,20 +132,23 @@ const InputInfoPage = () => {
           value={businessNumber}
           onChange={handleBusinessNumberChange}
         />
+
         <label htmlFor="username">이름</label>
         <input
           type="text"
           id="username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={handleInputChange(setUsername)}
         />
+
         <label htmlFor="position">직책</label>
         <input
           type="text"
           id="position"
           value={position}
-          onChange={(e) => setPosition(e.target.value)}
+          onChange={handleInputChange(setPosition)}
         />
+
         <label htmlFor="extensionNumber">전화번호</label>
         <input
           type="text"
@@ -134,6 +156,7 @@ const InputInfoPage = () => {
           value={extensionNumber}
           onChange={handleExtensionNumberChange}
         />
+        {error && <div className="error-message">{error}</div>}
         <button type="submit">확인</button>
       </form>
     </div>
