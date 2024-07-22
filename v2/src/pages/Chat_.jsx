@@ -322,7 +322,7 @@ const Chat = () => {
                   구글, 네이버처럼 검색 기능이 담겨져 있어요. <br />
                 특별한 점은, 여러분이 주신 질문에 대한 <br />
                 추가 관련질문을 5개를 GenAI를 통해 추천드리고 <br />
-                해당 관련질문 중 관심있는 질문을 클릭 시 더 자세한 정보를 제공드립니다:)
+                해당 관련질문 중 관심있는 질문을 클릭 시 더 자세한 정보를 제공드립니다.
                 </div>
               )}
             </div>
@@ -333,7 +333,7 @@ const Chat = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleSearchKeyDown}
               className="searchInput"
-              placeholder="검색할 내용을 넣어주세요"
+              placeholder="검색할 내용을 입력해주세요"
               disabled={isLoadingsearching} // 로딩 중일 때 입력 비활성화
             />
             <button onClick={handleSearch} className="searchButton" disabled={isLoadingsearching}>
@@ -361,9 +361,9 @@ const Chat = () => {
             <FaInfoCircle onMouseEnter={() => setShowRightTooltip(true)} onMouseLeave={() => setShowRightTooltip(false)}/>
             {showRightTooltip && (
               <div className="tooltip">
-                검색 엔진에서 찾아본 정보 중 <br />
+                검색 엔진에서 찾아본 정보와 관련하여 <br />
                 궁금한 점을 챗봇에게 편하게 질문주시면 <br />
-                자세한 답변드리겠습니다:) 
+                자세한 답변드리겠습니다.
               </div>
             )}
           </div>
@@ -391,7 +391,7 @@ const Chat = () => {
               onChange={(e) => setInput(e.target.value)} 
               onKeyDown={handleInputKeyDown}
               className="input"
-              placeholder="질문할 내용을 작성해주세요"
+              placeholder="질문을 입력해주세요"
               disabled={isLoadingchat} // 로딩 중일 때 입력 비활성화
             />
             <button onClick={handleSendMessage} className="sendButton" disabled={isLoadingchat}>

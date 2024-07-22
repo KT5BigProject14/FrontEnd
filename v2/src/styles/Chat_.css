@@ -39,18 +39,16 @@
 
 .searchInput {
   flex: 1;
-  padding: 10px 10px 10px 20px;
+  padding: 10px 10px 10px 20px !important;
   border-radius: 25px !important;
   border: 1px solid #ccc;
   margin-right: 10px;
   color: #000000;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2) ;
   font-family: 'Arial', sans-serif;
-  font-size: 16px;
 }
 
 .searchInput::placeholder {
-  font-size: 15px; /* placeholder 글씨 크기 조정 */
   color: #313131;  /* placeholder 글씨 색상 */
   font-family: 'Arial', sans-serif;
 
@@ -99,7 +97,7 @@
   transition: background-color 0.3s, box-shadow 0.3s;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  font-size: 14px;
+  /* font-size: 14px; */
 
 }
 
@@ -194,14 +192,13 @@
 
 .input {
   flex: 1;
-  padding: 10px 10px 10px 20px;
+  padding: 10px 10px 10px 20px !important;
   border-radius: 25px !important;
   border: 1px solid #ccc;
   margin-right: 10px;
   color: #000000;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
   margin-top: 10px; /* 회색 실선을 더 위로 올리기 위해 마진 추가 */
-  font-size: 16px;
 }
 
 .input::placeholder {

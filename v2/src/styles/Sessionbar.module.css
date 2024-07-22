@@ -3,11 +3,12 @@
 .sessionList {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 .dateHeader {
   /* padding: 0px; */
-  margin: 17px 0px 5px 0px;
+  margin: 5px 0px 5px 0px;
   border-radius: 5px;
   /* background-color: rgba(194, 219, 233, 0.5); */
   color: #ffffff;

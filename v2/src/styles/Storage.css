@@ -40,6 +40,8 @@
   flex-direction: column; /* 제목과 세부내용을 세로 정렬 */
   gap: 5px; /* 요소 간격 추가 */
   color: black; /* 글씨 색상 검정색 */
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, .5);
+
 }
 
 .docItem:hover {
