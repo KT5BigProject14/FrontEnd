@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/Storage.css';
 import apiFetch from '../api';
-import { LikedContext } from './LikedContexts';
+// import { LikedContext } from './LikedContexts';
 
 const Storage = () => {
     const [likedDocs, setLikedDocs] = useState([]);
