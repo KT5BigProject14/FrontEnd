@@ -7,7 +7,8 @@ export default function Features() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             <h2 className="h2 mb-4">LoGo's Features</h2>
             <p className="text-xl text-gray-400">
-            해외 시장 진출을 목표로 하는 스타트업과 기업을 위한 정보 제공 웹 서비스, LoGo의 독창적이고 특별한 특징들은 다음과 같습니다
+            해외 시장 진출을 목표로 하는 스타트업과 기업을 위한 AI assistant <br/>
+            LoGo의 독창적이고 특별한 특징들은 다음과 같습니다
             </p>
           </div>
 
@@ -87,9 +88,11 @@ export default function Features() {
                   <circle className="stroke-current text-purple-100" cx="11" cy="11" r="11" />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">사용자 친화적인 Ui/Ux</h4>
+              <h4 className="h4 mb-2">사용자 친화적 UI/UX</h4>
               <p className="text-lg text-gray-400 text-center">
-                직관적인 Nevigation과 사용자의 경험과 유사한 component 배치로, 사용자들이 어려움을 겪지 않고 편하게 이용
+                직관적인 Nevigation, 사용자의 경험과 <br/>
+                유사한 component 배치로, 사용자들이 <br/>
+                어려움을 겪지 않고 편하게 이용
               </p>
             </div>
 

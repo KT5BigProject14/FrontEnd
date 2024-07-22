@@ -9,8 +9,13 @@ body {
 }
 
 .editpost-container {
-    padding: 20px;
+    padding: 40px;
+    height: calc(100vh - 80px);
     background-color: #f0f4f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .editpost-title {
@@ -22,6 +27,7 @@ body {
 }
 
 .editpost-form {
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
     background-color: white;
@@ -115,9 +121,12 @@ body {
     color: white; /* 텍스트 색상을 흰색으로 변경 */
 }
 .editpost-write-button{
-    padding: 5px;
-    background-color: #e7e7e7;
+    padding: 10px 20px; /* 패딩 추가 */
+    background-color: #6692c4;
     border-radius: 5px;
+    position: absolute; /* 위치 설정을 위해 absolute 추가 */
+    bottom: 10px; /* 부모 요소의 아래쪽에서 10px 위로 */
+    right: 10px; /* 부모 요소의 오른쪽에서 10px 왼쪽으로 */
 }
 .editpost-write-button:hover {
     background-color: #0077b6;
@@ -127,4 +136,5 @@ body {
     margin-left: 5px;
     width: 20px;
     height: 20px;
+    filter: invert(100%) brightness(200%);
 }

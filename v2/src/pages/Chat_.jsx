@@ -320,7 +320,7 @@ const Chat = () => {
                 <FaInfoCircle onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}/>
                 {showTooltip && (
                   <div className="tooltip">
-                    구글, 네이버처럼 검색 기능이 담겨져 있어요. <br />
+                  구글, 네이버와 같은 검색 기능입니다. <br />
                   특별한 점은, 여러분이 주신 질문에 대한 <br />
                   추가 관련질문을 5개를 GenAI를 통해 추천드리고 <br />
                   해당 관련질문 중 관심있는 질문을 클릭 시 더 자세한 정보를 제공드립니다.

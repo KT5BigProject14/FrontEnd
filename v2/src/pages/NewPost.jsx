@@ -90,7 +90,7 @@ const NewPost = () => {
                     <button type="submit" className="newpost-submit-button">작성하기</button>
                 </form>
                 <button className="newpost-write-button" onClick={() => navigate('/QnA')}>
-                    되돌아가기
+                    {/* 되돌아가기 */}
                     <img src={returnIcon} alt="Return Icon" className="newpost-return-icon" />
                 </button>
             </div>

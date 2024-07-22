@@ -2,8 +2,31 @@
 import ModalVideo from '@/components/home/modal-video';
 import { Globe } from '../ui/globe';
 import GlobeDemo from '../ui/backgroundGlobe';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Hero() {
+  
+  const navigate = useNavigate();
+
+  // 버튼 클릭 시 역할 확인 및 리디렉션 로직
+  const handleButtonClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
+    const role = sessionStorage.getItem("role");
+
+    console.log(role);
+    if (role === "guest") {
+      e.preventDefault();
+      alert("정보를 입력해야 사용할 수 있습니다.");
+      navigate("/info");
+    } else if (role === null){
+      e.preventDefault();
+      alert("로그인을 해야 사용할 수 있습니다.");
+      navigate("/login");
+    }
+    else {
+      navigate(path);
+    }
+  };
+
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
@@ -46,7 +69,7 @@ export default function Hero() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
             <div className="inline-flex text-sm font-semibold py-1 px-3 text-green-600 bg-green-200 rounded-full">
-              KT_AivleSchool 14조
+              Just do Logo
             </div>
             {/* <h1 className="h1 mb-4 text-black-700" data-aos="fade-up">
               LoGO _ AI Chat Service
@@ -54,18 +77,18 @@ export default function Hero() {
             <h1
               className="h1 mb-4 bg-gradient-to-b from-slate-700 via-slate-600 to-slate-500 text-transparent bg-clip-text"
               data-aos="fade-up">
-              LoGO _ AI Chat Service
+              LoGO, AI Chat Service
             </h1>
             <br /> <br />
             <p className="text-xl text-gray-500 mb-8" data-aos="fade-up" data-aos-delay="200">
-              Discover new markets with LoGO, your global expansion partner. Unlock international opportunities with
-              LoGO by your side.
+              Discover new markets with LoGO, your global expansion partner. <br/>
+              Unlock international opportunities with LoGO by your side.
             </p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
                 <a
                   className="btn text-white bg-gradient-to-b from-slate-700 via-slate-600 to-slate-500 hover:bg-green-600 w-full mb-4 sm:w-auto sm:mb-0 rounded-full border-none"
-                  href="chat_">
+                  href="chat_" onClick={(e) => handleButtonClick(e, "/chat_")}>
                   서비스 이용하러 가기 &gt;
                 </a>
               </div>

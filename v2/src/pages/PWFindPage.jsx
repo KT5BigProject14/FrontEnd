@@ -93,7 +93,7 @@ const PWFindPage = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        alert(`새 비밀번호가 이메일로 발송되었습니다: ${data.message}`);
+        alert(`새 비밀번호가 이메일로 발송되었습니다.`);
         navigate("/login");
       } else {
         alert(`비밀번호 발송 실패: ${data.message}`);

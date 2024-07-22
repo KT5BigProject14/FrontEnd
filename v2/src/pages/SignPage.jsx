@@ -82,7 +82,7 @@ const SignPage = () => {
       setPasswordError("");
     } else {
       if (password.length >= 1) {
-        setPasswordError("비밀번호는 영문, 숫자, 특수기호를 조합하여 8자 이상 입력해 주세요.");
+        setPasswordError("비밀번호는 영문, 숫자, 특수기호를 조합하여 8자 이상 입력하세요.");
       } else {
         setPasswordError("");
       }
@@ -178,7 +178,7 @@ const SignPage = () => {
                 onChange={(e) => setEmailDomain(e.target.value)}
               >
                 <option value="naver.com">naver.com</option>
-                <option value="google.com">google.com</option>
+                <option value="gmail.com">gmail.com</option>
                 <option value="daum.net">daum.net</option>
                 <option value="직접입력">직접입력</option>
               </select>

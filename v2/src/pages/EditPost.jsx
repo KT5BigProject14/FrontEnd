@@ -151,7 +151,6 @@ const EditPost = () => {
                     <button type="submit" className="editpost-submit-button">수정하기</button>
                 </form>
                 <button className="editpost-write-button" onClick={() => navigate('/QnA')}>
-                    되돌아가기
                 <img src={returnIcon} alt="Return Icon" className="editpost-return-icon" />
                 </button>
             </div>

@@ -141,6 +141,7 @@ body {
 .error-message {
   color: red;
   font-size: 12px;
+  font-weight: normal !important;
   margin-bottom: 15px;
   font-family: 'Noto Sans KR', sans-serif;
 }
