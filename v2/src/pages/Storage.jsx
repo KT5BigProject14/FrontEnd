@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/Storage.css';
 import apiFetch from '../api';
+import { LikedContext } from './LikedContexts';
 
 const Storage = () => {
     const [likedDocs, setLikedDocs] = useState([]);
@@ -45,9 +46,14 @@ const Storage = () => {
       <div className="storage">
         <div className="storagecontainer">
           <div className="storagebody">
-            <h1 className="storageheader">Liked Documents</h1>
+            <h1 className="storageheader"></h1>
             {likedDocs.length  === 0 ? (
-              <div className="empty-message">좋아요를 눌러주세요</div>
+              <div className="empty-message">
+                <div className="docItem">
+                <span className="docTitle">저장된 자료가 없습니다.</span>
+                </div>
+                
+              </div>
             ) : (
               <div className="docList">
                 {likedDocs.map((doc) => (
