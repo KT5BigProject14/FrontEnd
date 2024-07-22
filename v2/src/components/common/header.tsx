@@ -1,9 +1,15 @@
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import MobileMenu from './mobile-menu';
 import Logo from '@/assets/Logo-kt.png';
 // import Logo from '@/assets/kt-logo.png';
 
-export default function Header({ isLoggedIn, handleLogout }) {
+interface HeaderProps {
+  isLoggedIn: boolean;
+  handleLogout: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ isLoggedIn, handleLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,7 +19,7 @@ export default function Header({ isLoggedIn, handleLogout }) {
   };
 
   // 버튼 클릭 시 역할 확인 및 리디렉션 로직
-  const handleButtonClick = (e, path) => {
+  const handleButtonClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
     const role = sessionStorage.getItem("role");
     console.log(role);
     if (role === "guest") {
@@ -25,10 +31,10 @@ export default function Header({ isLoggedIn, handleLogout }) {
     }
   };
 
-  const isActive = (path) => location.pathname === path ? 'border-b-2 border-black' : '';
+  const isActive = (path: string) => location.pathname === path ? 'border-b-2 border-black' : '';
 
   return (
-    <header id="custom-header" className="absolute w-full z-30 overflow-x-hidden">
+    <header className="absolute w-full z-30 overflow-x-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Site branding */}
@@ -113,4 +119,6 @@ export default function Header({ isLoggedIn, handleLogout }) {
       </div>
     </header>
   );
-}
+};
+
+export default Header;

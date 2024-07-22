@@ -6,6 +6,7 @@
   justify-content: center; 
   height: calc(100vh - 60px); 
   background-color: #ffffff; /* 배경 흰색 */
+  padding: 120px 90px 20px 90px;
 }
 
 /* 본문 */
@@ -48,6 +49,8 @@
 .docTitle {
   font-weight: bold; /* 두꺼운 글씨 */
   color: #333; /* 어두운 글씨 색상 */
+  display: flex;
+  justify-content: space-between; /* 제목과 시간을 양쪽 끝에 배치 */
 }
 
 /* 문서 세부내용 */
@@ -60,50 +63,4 @@
 .docTime {
   color: #999; /* 회색 글씨 색상 */
   font-size: 0.8em; /* 작은 글씨 크기 */
-  margin-top: 5px; /* 위쪽 여백 추가 */
-}
-
-
-/* 모달 오버레이 */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* 모달 콘텐츠 */
-.modalContent {
-  background-color: #ffffff; /* 흰색 배경 */
-  padding: 20px;
-  border-radius: 10px;
-  position: relative;
-  max-width: 80%;
-  max-height: 80%;
-  overflow-y: auto;
-  color: #333; /* 어두운 글씨 색상 */
-}
-
-/* 모달 닫기 버튼 */
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #333; /* 어두운 글씨 색상 */
-}
-
-/* 모달 텍스트 콘텐츠 */
-.modalTextContent {
-  margin-top: 20px;
-  color: #333; /* 어두운 글씨 색상 */
 }
