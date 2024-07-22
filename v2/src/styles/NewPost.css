@@ -4,9 +4,13 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+.newpost{
+    padding: 80px 0px 0px 0px;
+}
+
 .newpost-container {
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #f0f4f8;
 }
 
 .newpost-title {
@@ -15,7 +19,7 @@ body {
     font-size: 2em;
     font-weight: bold;
     margin-bottom: 10px;
-    margin-top:70px;
+    /* margin-top:5px; */
 }
 
 .newpost-form {
@@ -50,7 +54,7 @@ body {
 }
 
 .newpost-group textarea {
-    height: 200px;
+    height: 178px;
 }
 
 /* 제목 입력란 스타일 수정 */
@@ -110,20 +114,21 @@ body {
 }
 
 .newpost-submit-button:hover {
-    background-color: #135194; /* 진한 파란색으로 변경 */
+    background-color: #0077b6; /* 진한 파란색으로 변경 */
     color: white; /* 텍스트 색상을 흰색으로 변경 */
 }
 .newpost-write-button{
     padding: 5px;
-    background-color: #E5F1FF;
+    background-color: #e7e7e7;
     border-radius: 5px;
 }
 .newpost-write-button:hover {
-    background-color: #135194;
+    background-color: #0077b6;
     color: white;
 }
 .newpost-return-icon {
     margin-left: 5px;
     width: 20px;
     height: 20px;
+    
 }

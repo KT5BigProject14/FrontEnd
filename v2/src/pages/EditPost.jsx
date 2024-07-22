@@ -105,54 +105,56 @@ const EditPost = () => {
     };
 
     return (
-        <div className="editpost-container">
-            <h1 className="editpost-title">글 수정하기</h1>
-            <form onSubmit={handleSubmit} className="editpost-form">
-                <div className="editpost-group">
-                    <label>Title</label>
-                    <input 
-                        type="text" 
-                        value={title} 
-                        onChange={(e) => setTitle(e.target.value)} 
-                        required
-                    />
-                </div>
-                <div className="editpost-group">
-                    <label>내용</label>
-                    <textarea 
-                        value={content} 
-                        onChange={(e) => setContent(e.target.value)} 
-                        required
-                    ></textarea>
-                </div>
-                <div className="editpost-group">
-                    <label>이미지 업로드</label>
-                    <input 
-                        type="file" 
-                        multiple 
-                        onChange={handleFileChange} 
-                    />
-                    <div className="image-preview">
-                        {existingImages.map((image, index) => (
-                            <div key={index} className="image-item">
-                                <img src={`data:image/jpeg;base64,${Object.values(image)[0]}`} alt={`기존 이미지 ${index + 1}`} />
-                                <button type="button" onClick={() => handleImageRemove(image)}>X</button>
-                            </div>
-                        ))}
-                        {newFiles.map((file, index) => (
-                            <div key={index + existingImages.length} className="image-item">
-                                <img src={URL.createObjectURL(file)} alt={`새 이미지 ${index + 1}`} />
-                                <button type="button" onClick={() => handleFileRemove(file)}>X</button>
-                            </div>
-                        ))}
+        <div className="editpost">
+            <div className="editpost-container">
+                <h1 className="editpost-title">글 수정하기</h1>
+                <form onSubmit={handleSubmit} className="editpost-form">
+                    <div className="editpost-group">
+                        <label>Title</label>
+                        <input 
+                            type="text" 
+                            value={title} 
+                            onChange={(e) => setTitle(e.target.value)} 
+                            required
+                        />
                     </div>
-                </div>
-                <button type="submit" className="editpost-submit-button">수정하기</button>
-            </form>
-            <button className="editpost-write-button" onClick={() => navigate('/QnA')}>
-                되돌아가기
-            <img src={returnIcon} alt="Return Icon" className="editpost-return-icon" />
-            </button>
+                    <div className="editpost-group">
+                        <label>내용</label>
+                        <textarea 
+                            value={content} 
+                            onChange={(e) => setContent(e.target.value)} 
+                            required
+                        ></textarea>
+                    </div>
+                    <div className="editpost-group">
+                        <label>이미지 업로드</label>
+                        <input 
+                            type="file" 
+                            multiple 
+                            onChange={handleFileChange} 
+                        />
+                        <div className="image-preview">
+                            {existingImages.map((image, index) => (
+                                <div key={index} className="image-item">
+                                    <img src={`data:image/jpeg;base64,${Object.values(image)[0]}`} alt={`기존 이미지 ${index + 1}`} />
+                                    <button type="button" onClick={() => handleImageRemove(image)}>X</button>
+                                </div>
+                            ))}
+                            {newFiles.map((file, index) => (
+                                <div key={index + existingImages.length} className="image-item">
+                                    <img src={URL.createObjectURL(file)} alt={`새 이미지 ${index + 1}`} />
+                                    <button type="button" onClick={() => handleFileRemove(file)}>X</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <button type="submit" className="editpost-submit-button">수정하기</button>
+                </form>
+                <button className="editpost-write-button" onClick={() => navigate('/QnA')}>
+                    되돌아가기
+                <img src={returnIcon} alt="Return Icon" className="editpost-return-icon" />
+                </button>
+            </div>
         </div>
     );
 }

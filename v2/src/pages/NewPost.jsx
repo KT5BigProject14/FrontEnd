@@ -50,48 +50,50 @@ const NewPost = () => {
     };
 
     return (
-        <div className="newpost-container">
-            <h1 className="newpost-title">새 글쓰기</h1>
-            <form onSubmit={handleSubmit} className="newpost-form">
-                <div className="newpost-group">
-                    <label>제목</label>
-                    <input 
-                        type="text" 
-                        value={title} 
-                        onChange={(e) => setTitle(e.target.value)} 
-                        required
-                    />
-                </div>
-                <div className="newpost-group">
-                    <label>내용</label>
-                    <textarea 
-                        value={content} 
-                        onChange={(e) => setContent(e.target.value)} 
-                        required
-                    ></textarea>
-                </div>
-                <div className="newpost-group">
-                    <label>이미지 업로드</label>
-                    <input 
-                        type="file" 
-                        multiple 
-                        onChange={handleFileChange} 
-                    />
-                    <div className="image-preview">
-                        {files.map((file, index) => (
-                            <div key={index} className="image-item">
-                                <img src={URL.createObjectURL(file)} alt={`미리보기 ${index + 1}`} />
-                                <button type="button" onClick={() => handleFileRemove(file)}>X</button>
-                            </div>
-                        ))}
+        <div className="newpost">
+            <div className="newpost-container">
+                <h1 className="newpost-title">새 글쓰기</h1>
+                <form onSubmit={handleSubmit} className="newpost-form">
+                    <div className="newpost-group">
+                        <label>제목</label>
+                        <input 
+                            type="text" 
+                            value={title} 
+                            onChange={(e) => setTitle(e.target.value)} 
+                            required
+                        />
                     </div>
-                </div>
-                <button type="submit" className="newpost-submit-button">작성하기</button>
-            </form>
-            <button className="newpost-write-button" onClick={() => navigate('/QnA')}>
-                되돌아가기
-                <img src={returnIcon} alt="Return Icon" className="newpost-return-icon" />
-            </button>
+                    <div className="newpost-group">
+                        <label>내용</label>
+                        <textarea 
+                            value={content} 
+                            onChange={(e) => setContent(e.target.value)} 
+                            required
+                        ></textarea>
+                    </div>
+                    <div className="newpost-group">
+                        <label>이미지 업로드</label>
+                        <input 
+                            type="file" 
+                            multiple 
+                            onChange={handleFileChange} 
+                        />
+                        <div className="image-preview">
+                            {files.map((file, index) => (
+                                <div key={index} className="image-item">
+                                    <img src={URL.createObjectURL(file)} alt={`미리보기 ${index + 1}`} />
+                                    <button type="button" onClick={() => handleFileRemove(file)}>X</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <button type="submit" className="newpost-submit-button">작성하기</button>
+                </form>
+                <button className="newpost-write-button" onClick={() => navigate('/QnA')}>
+                    되돌아가기
+                    <img src={returnIcon} alt="Return Icon" className="newpost-return-icon" />
+                </button>
+            </div>
         </div>
     );
 }

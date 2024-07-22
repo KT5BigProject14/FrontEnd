@@ -100,7 +100,7 @@ const ViewPost = () => {
         };
         console.log(requestData);
 
-        apiFetch(`${apiUrl}/retriever/qna/comment`, {
+        apiFetch(`${apiUrl}/retriever/qna/delete/comment`, {
             method: 'DELETE',
             body: JSON.stringify(requestData),
         })

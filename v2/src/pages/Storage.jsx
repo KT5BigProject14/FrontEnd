@@ -53,25 +53,27 @@ const Storage = () => {
     }, [fetchLikedDocs]);
   
     return (
-      <div className="storagecontainer">
-        <div className="storagebody">
-          <h1 className="storageheader">
-            {/* Liked Documents */}
-          </h1>
-          <div className="docList">
-            {likedDocs.map((doc) => (
-              <div key={doc.docs_id} className="docItem" onClick={() => handleDocClick(doc.docs_id)}>
+      <div className="storage">
+        <div className="storagecontainer">
+          <div className="storagebody">
+            <h1 className="storageheader">
+              {/* Liked Documents */}
+            </h1>
+            <div className="docList">
+              {likedDocs.map((doc) => (
+                <div key={doc.docs_id} className="docItem" onClick={() => handleDocClick(doc)}>
                   <span className="docTitle">{doc.title}</span>
                   <span className="docTime">{new Date(doc.time).toLocaleString()}</span>
-                {expandedDocId === doc.docs_id && (
-                  <div className="docDetail">
-                    {doc.text.split('\n').map((line, index) => (
-                      <p key={index}>{line}</p>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                  {expandedDocId === doc.docs_id && (
+                    <div className="docDetail">
+                      {doc.text.split('\n').map((line, index) => (
+                        <p key={index}>{line}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

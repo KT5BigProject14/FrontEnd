@@ -1,4 +1,8 @@
 /* 전체 컨테이너 */
+.storage{
+  padding: 80px;
+  background-color: white;
+}
 .storagecontainer {
   display: flex;
   flex-direction: column;
@@ -6,8 +10,8 @@
   justify-content: flex-start; 
   height: calc(100vh - 60px); 
   background-color: #ffffff; /* 배경 흰색 */
-  padding: 120px 90px 20px 90px;
-  overflow-y: auto; /* 스크롤 추가 */
+  padding: 20px 90px 20px 90px;
+  /* overflow-y: auto; */
 }
 
 /* 본문 */
