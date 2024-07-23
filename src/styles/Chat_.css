@@ -1,0 +1,407 @@
+/* Chat_.css */
+.chat{
+  padding:80px 0px 0px 0px;
+}
+
+
+.chatcontainer {
+  display: flex;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  align-items: center;  /* 수직 중앙 정렬 */
+  justify-content: center;  /* 수평 중앙 정렬 */
+  padding: 20px 90px 20px 90px;
+  overflow: hidden;
+  background-color: #f0f4f8;
+}
+
+.chatbody {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  height: 100%; /*전체 화면을 채움* */
+}
+
+.leftPane {
+  flex: 2;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 15px; /* 모서리를 둥글게 설정 */
+  margin-right: 20px; /* 오른쪽으로 간격 추가 */
+  padding: 10px;       /* 패널 내부에 패딩 추가 */
+  height: 100%;        /* 부모 요소의 전체 높이를 채움 */
+  max-width: 100%;     /* 부모 요소의 전체 너비를 채움 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.leftPane .content {
+  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
+  max-width: 100%;       /* 부모 요소의 전체 너비를 초과하지 않도록 설정 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.searchArea {
+  display: flex;
+  margin: 10px;
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.searchInput {
+  flex: 1;
+  padding: 10px 10px 10px 20px;
+  border-radius: 25px !important;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  color: #000000;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.searchInput::placeholder {
+  font-size: 15px; /* placeholder 글씨 크기 조정 */
+  color: #313131;  /* placeholder 글씨 색상 */
+  font-family: 'Arial', sans-serif;
+
+}
+
+.searchButton {
+  padding: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: #0077b6;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* 아이콘 크기 */
+  width: 40px; /* 원형 버튼의 너비 */
+  height: 40px; /* 원형 버튼의 높이 */
+}
+
+.searchButton:hover {
+  background-color: #005f8d;
+}
+
+.storageList {
+  margin: 5px 10px;
+  margin-top: 10px;
+  padding: 10px;
+  /* border: 1px solid #ccc; */
+  border-radius: 5px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  flex: 1;
+  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.storageItem {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background-color: rgba(139, 179, 197, 0.3);
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 14px;
+  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.storageItem:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.titleTextArea {
+  margin: 10px 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #000000;
+  overflow-y: auto;
+  flex: 1;
+  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.rightPane {
+  flex: 1;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 15px; /* 모서리를 둥글게 설정 */
+  padding: 10px;       /*패널 내부에 패딩 추가*/
+  height: 100%;        /* 부모 요소의 전체 높이를 채움 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  max-width: 100%;     /* 부모 요소의 전체 너비를 채움 */
+  overflow-x: hidden; /* 가로 스크롤 숨기기 */
+}
+
+.rightPane .content {
+  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
+  max-width: 100%;       /* 부모 요소의 전체 너비를 초과하지 않도록 설정 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+
+.chatArea {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.myMessage {
+  text-align: right;
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(139, 179, 197, 0.3);
+  border-radius: 30Px 30px 0px 30px;
+  color: #000000;
+  cursor: text;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: fit-content;
+  /* justify-content: flex-end; */
+  float: right;
+  clear: both; 
+  max-width: 80%;
+}
+
+/* .messageIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f1c40f;
+  margin-right: 10px;
+  float: right;
+
+} */
+
+.botMessage {
+  text-align: left;
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(241,240,240, 1);
+  border-radius: 30Px 30px 30px 0px;
+  color: #000000;
+  clear: both; /* 이전 플로팅 요소와의 충돌 방지 */
+  /* max-width: 70%;  */
+}
+
+
+.botMessage:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer ;
+}
+
+.inputArea {
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.input {
+  flex: 1;
+  padding: 10px 10px 10px 20px;
+  border-radius: 25px !important;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  color: #000000;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 10px; /* 회색 실선을 더 위로 올리기 위해 마진 추가 */
+  font-size: 16px;
+  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.input::placeholder {
+  font-size: 15px; /* placeholder 글씨 크기 조정 */
+  color: #313131;  /* placeholder 글씨 색상 */
+}
+
+.sendButton,
+.newConversationButton {
+  padding: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: #0077b6;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* 아이콘 크기 */
+  width: 40px; /* 원형 버튼의 너비 */
+  height: 40px; /* 원형 버튼의 높이 */
+  margin-top: 10px; /* 회색 실선을 더 위로 올리기 위해 마진 추가 */
+}
+
+.sendButton:hover,
+.newConversationButton:hover {
+  background-color: #005f8d;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  color: #000000;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #000000;
+}
+
+.modalTextContent {
+  margin-top: 20px;
+  color: #000000;
+}
+
+.likeButton {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: transparent;
+  border: 2px solid #0077b6;
+  font-size: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  color: #0077b6;
+}
+
+.likeButtonLiked {
+  color: red;
+  background-color: #ffffff;
+  border-color: red;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.infoIcon {
+  top: 5px;
+  left: 5px;
+  font-size: 16px;
+  /* cursor: text; */
+  color: #333;
+  z-index: 99; /* 툴팁이 다른 요소 위에 표시되도록 z-index 설정 */
+  font-size: 15.5px; /* 아이콘 크기 */
+}
+
+.leftPane .infoIcon {
+  left: 10px;
+  top: 5px; /* 검색 영역 위쪽에 위치 */
+}
+
+.rightPane .infoIcon {
+  right: 10px;
+  top: 5px; /* 챗봇 영역 위쪽에 위치 */
+}
+
+
+.tooltip {
+  position: fixed; /* position을 fixed로 설정하여 스크롤에 영향을 받지 않게 함 */
+  top: 30px;
+  left: 40px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 100; /* 툴팁이 다른 요소 위에 표시되도록 z-index 설정 */
+  width: 340px;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px; /* 툴팁 글씨 크기 줄이기 */
+  white-space: pre-line;
+}
+
+
+.leftPane .tooltip {
+  top: auto;
+  right: auto;
+}
+
+.rightPane .tooltip {
+  top: auto;
+  left: auto;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #000;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.copyNotification {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  font-size: 14px;
+}
+
+

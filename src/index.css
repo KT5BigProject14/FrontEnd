@@ -1,0 +1,13 @@
+@import 'style/additional-styles/utility-patterns.css';
+@import 'style/additional-styles/range-slider.css';
+@import 'style/additional-styles/toggle-switch.css';
+@import 'style/additional-styles/theme.css';
+
+@tailwind base;
+@tailwind components;
+
+@tailwind utilities;
+
+:root {
+  background-color: white;
+}

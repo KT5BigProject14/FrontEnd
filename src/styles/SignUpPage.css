@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  user-select: none; /* 드래그 방지 */
+}
+
+
+.signup-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+.signup-title {
+  /* position: absolute; */
+  top: 0;
+  font-size: 30px;
+  /* margin-bottom: 30px; */
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: bold;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(53, 116, 199, 0.1);
+  color: black;
+  width: 480px;
+  margin-top: 30px;
+}
+
+.signup-form h1 {
+  font-size: 20px;
+  margin-bottom: 30px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.signup-form label {
+  margin-bottom: 5px;
+  width: 100%;
+  text-align: left;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333333;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.signup-form input,
+.signup-form select {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.signup-form .underline-input {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0;
+}
+
+.signup-form button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 16px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.signup-form button:hover {
+  background-color: #E5F1FF;
+}
+
+.email-container,
+.code-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.email-container .at-symbol {
+  vertical-align: sub; /* @ 위치를 중간으로 조정 */
+  margin-top: 8px;
+}
+
+.email-container input,
+.email-container select {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.email-container button,
+.code-container button {
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.email-container .underline-input {
+  border-bottom: 2px solid #ccc;
+  padding: 5px 0;
+  box-shadow: none;
+}
+
+.email-container input:focus,
+.email-container select:focus,
+.code-container input:focus {
+  outline: none;
+  border-bottom: 2px solid #007bff;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  font-weight: normal !important;
+  margin-bottom: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.login-link {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.login-link a {
+  margin-left: auto;
+  color: #707070;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  color: #007bff;
+}
+
+.login-link a {
+  font-weight: bold;
+}

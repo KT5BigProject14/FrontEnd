@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.newpost{
+    padding: 80px 0px 0px 0px;
+}
+
+.newpost-container {
+    height: calc(100vh - 80px);
+    padding: 40px;
+    background-color: #f0f4f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.newpost-title {
+    text-align: center;
+    color: black;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    /* margin-top:5px; */
+}
+
+.newpost-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.newpost-group {
+    margin-bottom: 10px;
+}
+
+.newpost-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.newpost-group input[type="text"],
+.newpost-group textarea {
+    width: 100%;
+    padding: 8px;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px; /* 글씨 크기 조정 */
+}
+
+.newpost-group textarea {
+    height: 178px;
+}
+
+/* 제목 입력란 스타일 수정 */
+.newpost-group input[type="text"] {
+    border: none;
+    border-bottom: 2px solid #ccc; /* 밑줄 추가 */
+    border-radius: 0; /* 경계선 둥글기 제거 */
+    font-size: 16px; /* 글씨 크기 조정 */
+}
+
+/* 파일 선택 버튼 밑에 마진 추가 */
+.newpost-group input[type="file"] {
+    margin-bottom: 10px;
+}
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-item {
+    position: relative;
+}
+
+.image-item img {
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 7px;
+}
+
+.image-item button {
+    position: absolute;
+    top: -8px; /* 상단 여백 조절 */
+    right: -8px; /* 오른쪽 여백 조절 */
+    background: none; /* 배경 제거 */
+    color: black; /* 색상을 원하는 색으로 변경 */
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.newpost-submit-button {
+    display: block;
+    margin-left: auto;
+    padding: 10px 20px;
+    background-color: #E5F1FF;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.newpost-submit-button:hover {
+    background-color: #0077b6; /* 진한 파란색으로 변경 */
+    color: white; /* 텍스트 색상을 흰색으로 변경 */
+}
+.newpost-write-button{
+    padding: 10px 20px; /* 패딩 추가 */
+    background-color: #6692c4;
+    border-radius: 5px;
+    position: absolute; /* 위치 설정을 위해 absolute 추가 */
+    bottom: 10px; /* 부모 요소의 아래쪽에서 10px 위로 */
+    right: 10px; /* 부모 요소의 오른쪽에서 10px 왼쪽으로 */
+}
+.newpost-write-button:hover {
+    background-color: #0077b6;
+    color: white;
+}
+.newpost-return-icon {
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    filter: invert(100%) brightness(200%);
+}
