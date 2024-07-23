@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import MobileMenu from './mobile-menu';
-import Logo from '@/assets/Logo-kt.png';
+import Logo from '@/assets/Logokt.png';
 // import Logo from '@/assets/kt-logo.png';
 
 interface HeaderProps {

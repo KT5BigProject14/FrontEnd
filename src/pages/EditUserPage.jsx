@@ -22,12 +22,12 @@ const EditUserPage = () => {
     if (token) {
       fetchUserInfo(token).then(data => {
         const formattedData = {
-          email: data.email,
-          user_name: data.user_name,
-          corporation: data.corporation,
-          business_number: formatBusinessNumber(data.business_number),
-          position: data.position,
-          phone: formatPhoneNumber(data.phone)
+          email: data.user_info.email,
+          user_name: data.user_info.user_name,
+          corporation: data.user_info.corporation,
+          business_number: formatBusinessNumber(data.user_info.business_number),
+          position: data.user_info.position,
+          phone: formatPhoneNumber(data.user_info.phone)
         };
         setUserInfo(formattedData);
         setOriginalUserInfo(formattedData);

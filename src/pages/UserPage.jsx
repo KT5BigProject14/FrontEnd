@@ -15,7 +15,8 @@ const UserPage = () => {
     corporation: "",
     business_number: "",
     position: "",
-    phone: ""
+    phone: "",
+    keyword: ""
   });
   const [isPasswordChangeDisabled, setIsPasswordChangeDisabled] = useState(false);
 
@@ -31,12 +32,13 @@ const UserPage = () => {
       // 토큰을 사용하여 서버에서 사용자 정보를 가져오는 함수 호출
       fetchUserInfo(token).then(data => {
         setUserInfo({
-          email: data.email,
-          user_name: data.user_name,
-          corporation: data.corporation,
-          business_number: formatBusinessNumber(data.business_number),
-          position: data.position,
-          phone: formatPhoneNumber(data.phone)
+          email: data.user_info.email,
+          user_name: data.user_info.user_name,
+          corporation: data.user_info.corporation,
+          business_number: formatBusinessNumber(data.user_info.business_number),
+          position: data.user_info.position,
+          phone: formatPhoneNumber(data.user_info.phone),
+          keyword: formatKeywords(data.user_keyword) // keyword를 포맷팅하여 설정
         });
       });
     }
@@ -47,15 +49,12 @@ const UserPage = () => {
       const address = `${apiUrl}/retriever/info/user`;
       const response = await apiFetch(address, {
         method: 'GET',
-        // headers: {
-        //   'Authorization': `Bearer ${token}`,
-        //   'Content-Type': 'application/json'
-        // }
       });
       if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
       const data = response.data;
+      console.log(data);
       return data;
     } catch (error) {
       console.error('Error:', error);
@@ -65,7 +64,8 @@ const UserPage = () => {
         corporation: "",
         business_number: "",
         position: "",
-        phone: ""
+        phone: "",
+        keyword: ""
       };
     }
   };
@@ -80,6 +80,15 @@ const UserPage = () => {
     return `${numStr.slice(0, 3)}-${numStr.slice(3, 7)}-${numStr.slice(7)}`;
   };
 
+  const formatKeywords = (keywords) => {
+    // likeyear, likecountry, likebusiness를 각각 #을 붙여 포맷팅
+    const formattedKeywords = [];
+    if (keywords.likeyear) formattedKeywords.push(`#${keywords.likeyear}`);
+    if (keywords.likecountry) formattedKeywords.push(`#${keywords.likecountry}`);
+    if (keywords.likebusiness) formattedKeywords.push(`#${keywords.likebusiness}`);
+    return formattedKeywords.join(' ');
+  };
+
   const handleEditProfile = () => {
     navigate("/edit-profile");
   };
@@ -89,6 +98,7 @@ const UserPage = () => {
       navigate("/change-password");
     }
   };
+
   const handleLikekeyword =() =>{
     navigate("/like-keyword");
   }
@@ -103,6 +113,7 @@ const UserPage = () => {
         <p><span className="label">Business Number:</span> <span className="value">{userInfo.business_number}</span></p>
         <p><span className="label">Position:</span> <span className="value">{userInfo.position}</span></p>
         <p><span className="label">Phone:</span> <span className="value">{userInfo.phone}</span></p>
+        <p><span className="label">Keyword:</span> <span className="value">{userInfo.keyword}</span></p>
       </div>
       <div className="user-actions">
         <button className="user-edit-btn" onClick={handleEditProfile}>

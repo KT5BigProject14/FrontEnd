@@ -23,7 +23,6 @@ const LikePage = () => {
     setError(''); // 입력 시 에러 메시지 초기화
   };
 
-
   const handleLikebusiness = (e) => {
     setLikebusiness(e.target.value);
     setError(''); // 입력 시 에러 메시지 초기화
@@ -34,26 +33,26 @@ const LikePage = () => {
     const token = sessionStorage.getItem('token');
 
     const requestData = {
-        Likeyear: Likeyear,
-        Likecountry: Likecountry,
-        Likebusiness:Likebusiness,
+        likeyear: Likeyear,
+        likecountry: Likecountry,
+        likebusiness:Likebusiness,
     };
     navigate('/profile');
-    // try {
-    //   const response = await apiFetch('${apiUrl}/retriever/info/keyword', {
-    //     method: 'POST',
-    //     body: JSON.stringify(requestData)
-    //   });
+    try {
+      const response = await apiFetch(`${apiUrl}/retriever/info/keyword`, {
+        method: 'POST',
+        body: JSON.stringify(requestData)
+      });
 
-    //   if (!response.status === 200) {
-    //     throw new Error('Network response was not ok');
-    //   }
+      if (response.status !== 200) {
+        throw new Error('Network response was not ok');
+      }
 
-    //   navigate('/profile'); // 지정 후 프로필 페이지로 이동
-    // } catch (error) {
-    //   setError('지정 중 오류가 발생했습니다.');
+      navigate('/profile'); // 지정 후 프로필 페이지로 이동
+    } catch (error) {
+      setError('지정 중 오류가 발생했습니다.');
       
-    // }
+    }
   };
 
   return (
