@@ -10,7 +10,7 @@ const HomePage = ({ isLoggedIn, hasToken, handleLogout }) => {
       <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Hero />
       <Features />
-      <Zigzag />
+      {/* <Zigzag /> */}
       <Newsletter />
     </>
   );

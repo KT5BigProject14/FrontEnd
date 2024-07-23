@@ -3,6 +3,50 @@ import '../styles/Storage.css';
 import apiFetch from '../api';
 // import { LikedContext } from './LikedContexts';
 
+const formatTitleText = (data) => {
+
+  if (typeof data === 'string') {
+    const elements = [];
+    const lines = data.split('\n');
+    lines.forEach((line) => {
+      // console.log(line)
+      // console.log('trim line', line.trim())
+      line = line.trim()
+      // console.log('source_key ? :', line.trim().startsWith('source_key'))
+      if (line.startsWith('q_key')) {
+        elements.push(
+          <h2 key="q_key" style={{ margin: '20px 0', fontWeight: 'bold', fontSize: '24px' }}>
+            {line.split(':')[1].trim().replace(/["{},]/g, '')}
+          </h2>
+        );
+      } else if (line.startsWith('sub_key')) {
+        elements.push(
+          <h3 key={line} style={{ margin: '10px 0', fontWeight: 'bold', fontSize: '18px' }}>
+            {line.split(':')[1].trim().replace(/["{},]/g, '')}
+          </h3>
+        );
+      } else if (line.startsWith('content_key')) {
+        elements.push(
+          <p key={line} style={{ margin: '10px 0', fontSize: '16px' }}>
+            {line.split(':')[1].trim().replace(/["{},]/g, '')}
+          </p>
+        );
+      } else if (line.startsWith('source_key')) {
+        const sourceText = line.replace(/^[^:]+:\s*/, '').trim().replace(/["{},]/g, '');
+        elements.push(
+          <p key={line} style={{ margin: '10px 0', fontStyle: 'italic', color: 'gray', fontSize: '14px' }}>
+            Source: {sourceText}
+          </p>
+        );
+      }
+    });
+
+    return elements;
+  }
+
+  return null;
+};
+
 const Storage = () => {
     const [likedDocs, setLikedDocs] = useState([]);
     const [expandedDocId, setExpandedDocId] = useState(null);
@@ -62,9 +106,7 @@ const Storage = () => {
                     <span className="docTime">{new Date(doc.time).toLocaleString()}</span>
                     {expandedDocId === doc.docs_id && (
                       <div className="docDetail">
-                        {doc.text.split('\n').map((line, index) => (
-                          <p key={index}>{line}</p>
-                        ))}
+                        {formatTitleText(doc.text)}
                       </div>
                     )}
                   </div>

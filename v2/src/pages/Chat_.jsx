@@ -3,7 +3,7 @@ import Sessionbar from "./Sessionbar";
 import Storagebar from "./Storagebar";
 import apiFetch from "../api";
 import '../styles/Chat_.css';
-import { FaInfoCircle, FaSearch, FaPaperPlane, FaPlus } from 'react-icons/fa';
+import { FaInfoCircle, FaSearch, FaPaperPlane, FaPlus, FaHeart, FaRegHeart, FaTimes, FaCheck} from 'react-icons/fa';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -22,8 +22,11 @@ const Chat = () => {
   const [isLoadingchat, setIsLoadingchat] = useState(false); // 로딩 상태 변수 추가
   const [copySuccess, setCopySuccess] = useState(false); // 복사 상태 변수 추가
   const [copyPosition, setCopyPosition] = useState({ x: 0, y: 0 }); // 복사 위치 변수 추가
-  const token = sessionStorage.getItem('token');
+  const [loadingTitle, setLoadingTitle] = useState(null); // 로딩 중인 타이틀
+  const [checkTitle, setCheckTitle] = useState(null); // 로딩 중인 타이틀
 
+  
+  const token = sessionStorage.getItem('token');
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   const fetchSessions = useCallback(async () => {
@@ -46,7 +49,12 @@ const Chat = () => {
       }
       setSessions(fetchedSessions);
     } catch (error) {
-      console.error("Error fetching session data:", error);
+      if(error == 'Load failed'){
+        console.log("Any Chat exits")
+      } else{
+        console.error("Error fetching session data:", error);
+      }
+      
     }
   }, [token]);
 
@@ -139,6 +147,8 @@ const Chat = () => {
     console.log('Search query:', searchQuery);
     if (searchQuery.trim()) {
       setIsLoadingsearching(true); // 로딩 시작
+      setCheckTitle(null)
+
       try {
         const response = await apiFetch(`${apiUrl}/retriever/ai/title`, {
           method: 'POST',
@@ -172,6 +182,8 @@ const Chat = () => {
   };
 
   const handleTitleClick = async (title) => {
+    setLoadingTitle(title); // 로딩 중인 타이틀 설정
+    setCheckTitle(title)
     try {
       const response = await apiFetch(`${apiUrl}/retriever/ai/text`, {
         method: 'POST',
@@ -184,11 +196,12 @@ const Chat = () => {
       const data = response.data
       console.log('Document data received:', data.text);
       setTitletext(data.text);
-
+      setLoadingTitle(null); // 로딩 상태 초기화
       fetchStorages();
 
     } catch (error) {
       console.error('Error fetching document:', error);
+      setLoadingTitle(null); // 로딩 상태 초기화
     }
   };
 
@@ -276,39 +289,47 @@ const Chat = () => {
   };
 
   const formatTitleText = (data) => {
-    if (typeof data !== 'object' || data === null) return null;
+
+    if (typeof data === 'string') {
+      const elements = [];
+      const lines = data.split('\n');
+      lines.forEach((line) => {
+        // console.log(line)
+        // console.log('trim line', line.trim())
+        line = line.trim()
+        // console.log('source_key ? :', line.trim().startsWith('source_key'))
+        if (line.startsWith('q_key')) {
+          elements.push(
+            <h2 key="q_key" style={{ margin: '20px 0', fontWeight: 'bold', fontSize: '24px' }}>
+              {line.split(':')[1].trim().replace(/["{},]/g, '')}
+            </h2>
+          );
+        } else if (line.startsWith('sub_key')) {
+          elements.push(
+            <h3 key={line} style={{ margin: '10px 0', fontWeight: 'bold', fontSize: '18px' }}>
+              {line.split(':')[1].trim().replace(/["{},]/g, '')}
+            </h3>
+          );
+        } else if (line.startsWith('content_key')) {
+          elements.push(
+            <p key={line} style={{ margin: '10px 0', fontSize: '16px' }}>
+              {line.split(':')[1].trim().replace(/["{},]/g, '')}
+            </p>
+          );
+        } else if (line.startsWith('source_key')) {
+          const sourceText = line.replace(/^[^:]+:\s*/, '').trim().replace(/["{},]/g, '');
+          elements.push(
+            <p key={line} style={{ margin: '10px 0', fontStyle: 'italic', color: 'gray', fontSize: '14px' }}>
+              Source: {sourceText}
+            </p>
+          );
+        }
+      });
   
-    const elements = [];
+      return elements;
+    }
   
-    elements.push(
-      <h2 key="q_key" style={{ margin: '20px 0', fontWeight: 'bold', fontSize: '24px' }}>
-        {data.q_key}
-      </h2>
-    );
-  
-    Object.keys(data).forEach((key) => {
-      if (key.startsWith('sub_key')) {
-        elements.push(
-          <h3 key={key} style={{ margin: '10px 0', fontWeight: 'bold' }}>
-            {data[key]}
-          </h3>
-        );
-      } else if (key.startsWith('content_key')) {
-        elements.push(
-          <p key={key} style={{ margin: '10px 0' }}>
-            {data[key]}
-          </p>
-        );
-      } else if (key.startsWith('source_key')) {
-        elements.push(
-          <p key={key} style={{ margin: '10px 0', fontStyle: 'italic', color: 'gray' }}>
-            Source: {data[key]}
-          </p>
-        );
-      }
-    });
-  
-    return elements;
+    return null;
   };
 
   return (
@@ -345,7 +366,14 @@ const Chat = () => {
               <div className="storageList">
                 {titles.map((title, index) => (
                   <button key={index} className="storageItem" onClick={() => handleTitleClick(title)}>
-                    {title}
+                    <span className="titleText">{title}</span>
+                    {loadingTitle === title ? (
+                      <div className="spinner" style={{ marginLeft: '10px' }}></div>
+                    ) : (
+                      (checkTitle === title) && (
+                        <FaCheck className="checkIcon" />
+                      )
+                    )}
                   </button>
                 ))}
               </div>
@@ -353,7 +381,7 @@ const Chat = () => {
             {titletext && (
               <div className="titleTextArea">
                 {formatTitleText(titletext)}
-                {titletext}
+                {/* {titletext} */}
               </div>
             )}
           </div>
@@ -409,13 +437,15 @@ const Chat = () => {
         {showModal && (
           <div className="modalOverlay" onClick={handleCloseModal}>
             <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-              <button className="closeButton" onClick={handleCloseModal}>X</button>
+              <button className="closeButton" onClick={handleCloseModal} style={{ backgroundColor: 'white' }}>
+                  <FaTimes />
+                </button>
               <div className="modalTextContent">
-                {formatTitleText(selectedDoc?.text)}
-                {selectedDoc?.text}
+                {formatTitleText(selectedDoc?.text)} 
+                {/* {selectedDoc?.text} */}
               </div>
-              <button className={selectedDoc?.is_like ? 'likeButton likeButtonLiked' : 'likeButton'} onClick={handleLikeClick}>
-                ❤
+              <button className="likeButton" onClick={handleLikeClick} style={{ backgroundColor: selectedDoc?.is_like ? 'white' : 'transparent' }}>
+                {selectedDoc?.is_like ? <FaHeart style={{ color: 'red'}} /> : <FaRegHeart style={{ color: 'black' }} />}
               </button>
             </div>
           </div>

@@ -61,6 +61,11 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, handleLogout }) => {
                   <div className="text-black">QnA</div>
                 </a>
               </div>
+              <div className={`shrink-0 mr-8 ${isActive('/Community')}`}>
+                <a href="/Community" className="block" aria-label="Cruip"  onClick={(e) => handleButtonClick(e, "/Community")}>
+                  <div className="text-black">Community</div>
+                </a>
+              </div>
               <div className={`shrink-0 mr-8 ${isActive('/profile')}`}>
                 <a href="/profile" className="block" aria-label="Cruip"  onClick={(e) => handleButtonClick(e, "/profile")}>
                   <div className="text-black">My Page</div>
