@@ -36,6 +36,8 @@
   height: 100%;        /* 부모 요소의 전체 높이를 채움 */
   max-width: 100%;     /* 부모 요소의 전체 너비를 채움 */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  overflow-x: hidden; /* 가로 스크롤 숨기기 */
+
 }
 
 .leftPane .content {
@@ -52,10 +54,11 @@
 
 .searchInput {
   flex: 1;
-  padding: 10px 10px 10px 20px;
+  /* padding: 10px 10px 10px 20px; */
+  padding: 10px 10px 10px 20px !important;
   border-radius: 25px !important;
   border: 1px solid #ccc;
-  margin-right: 10px;
+  margin-right: 40px;
   color: #000000;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   font-family: 'Arial', sans-serif;
@@ -92,20 +95,21 @@
 }
 
 .storageList {
-  margin: 5px 10px;
-  margin-top: 10px;
+  margin: 3px 10px;
+  /* margin-top: 10px; */
   padding: 10px;
   /* border: 1px solid #ccc; */
   border-radius: 5px;
   background-color: #ffffff;
   overflow-y: auto;
   flex: 1;
-  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
+  width: 100%;         
   box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  overflow-y: hidden;
+
 }
 
 .storageItem {
-
   padding: 10px;
   margin: 5px;
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -130,15 +134,16 @@
 
 .titleTextArea {
   margin: 10px 20px;
-  padding: 10px;
+  padding: 10px 50px 50px 50px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
   color: #000000;
   overflow-y: auto;
   flex: 1;
-  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
+  /* width: 100%; */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  
 }
 
 .titleText {
@@ -232,7 +237,7 @@
 
 .input {
   flex: 1;
-  padding: 10px 10px 10px 20px;
+  padding: 10px 10px 10px 20px !important;
   border-radius: 25px !important;
   border: 1px solid #ccc;
   margin-right: 10px;

@@ -17,6 +17,8 @@ import EditPost from './pages/EditPost';
 import ViewPost from './pages/ViewPost';
 import Chat from './pages/Chat_';
 import Storage from './pages/Storage';
+import Community from './pages/Commuinty';
+
 
 import { useEffect, useState } from 'react';
 
@@ -78,7 +80,7 @@ function App() {
         <Route path="/edit-post/:qna_id" element={<EditPost />} /> 
         <Route path="/chat_" element={<Chat />} />
         <Route path="/storage" element={<Storage />} />
-
+        <Route path="/Community" element={<Community />} />
       </Routes>
     </Router>
   );
