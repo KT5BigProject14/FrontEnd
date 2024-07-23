@@ -18,7 +18,7 @@ const HomePage: React.FC<HomePageProps> = ({ isLoggedIn, hasToken, handleLogout 
       <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Hero />
       <Features />
-      <Zigzag />
+      {/* <Zigzag /> */}
       <Newsletter />
     </>
   );

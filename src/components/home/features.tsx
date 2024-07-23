@@ -38,10 +38,10 @@ export default function Features() {
                   strokeWidth="2"
                 />
               </svg>
-              <h4 className="h4 mb-2">Instant Features</h4>
+              <h4 className="h4 mb-2">GEN AI를 문서화</h4>
               <p className="text-lg text-gray-400 text-center">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat.
+                항상 새롭게 생성되는 문장을<br></br>
+                저장하여, 나만의 문서화 제공
               </p>
             </div>
 
@@ -70,7 +70,7 @@ export default function Features() {
               </svg>
               <h4 className="h4 mb-2">데이터수집 자동화</h4>
               <p className="text-lg text-gray-400 text-center">
-                Airflow를 통해 데이터를 자동으로 수집하여 방대한 양의 데이터를 제공
+                Airflow를 통해 데이터를 자동으로<br></br> 수집하여 방대한 양의 데이터를 제공
               </p>
             </div>
 
@@ -112,10 +112,11 @@ export default function Features() {
                   <circle className="stroke-current text-purple-300" cx="13" cy="9" r="3" />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">Instant Features</h4>
+              <h4 className="h4 mb-2">AI 최적화</h4>
               <p className="text-lg text-gray-400 text-center">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat.
+                광범위한 정보 제공이 아닌, <br></br>
+                필요한 정보만을 제공하도록
+                모델링
               </p>
             </div>
 
@@ -137,7 +138,7 @@ export default function Features() {
               </svg>
               <h4 className="h4 mb-2">니즈에 따른 커스터마이징</h4>
               <p className="text-lg text-gray-400 text-center">
-                많은 Data와 Category 사이에서 원하는 정보를 얻을 수 있도록 필터링
+                많은 Data와 Category 사이에서<br></br> 원하는 정보를 얻을 수 있도록 필터링
               </p>
             </div>
 
@@ -161,9 +162,9 @@ export default function Features() {
                   />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">Chat</h4>
+              <h4 className="h4 mb-2">Generation</h4>
               <p className="text-lg text-gray-400 text-center">
-              사용자가 정보를 단순히 받아들이는 것을 넘어, 대화를 통해 이해할 수 있는 상호작용을 제공
+              정보를 단순히 받아들이는 것을 넘어,<br></br> 대화를 통해 이해할 수 있는 상호작용을 제공
               </p>
             </div>
           </div>

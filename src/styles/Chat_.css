@@ -105,6 +105,7 @@
 }
 
 .storageItem {
+
   padding: 10px;
   margin: 5px;
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -116,8 +117,10 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   font-size: 14px;
-  width: 100%;           /* 부모 요소의 전체 너비를 채움 */
-  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center items vertically */
 }
 
 .storageItem:hover {
@@ -136,6 +139,11 @@
   flex: 1;
   width: 100%;           /* 부모 요소의 전체 너비를 채움 */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.titleText {
+  flex: 1; /* Allow the text to take up available space */
+  display: inline-block; /* Ensure the text is inline */
 }
 
 .rightPane {
@@ -295,16 +303,22 @@
   right: 10px;
   background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
   color: #000000;
 }
 
-.modalTextContent {
-  margin-top: 20px;
-  color: #000000;
+.closeButton:hover {
+  color: #333;
 }
 
+
+.modalTextContent {
+  padding: 40px 35px 30px 35px;
+  /* margin-top: 20px; */
+  color: #000000;
+}
+/* 
 .likeButton {
   position: absolute;
   bottom: 10px;
@@ -328,6 +342,25 @@
   background-color: #ffffff;
   border-color: red;
   transition: color 0.3s ease, background-color 0.3s ease;
+} */
+
+.likeButton {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: transparent;
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.likeButtonLiked {
+  color: red;
+  transition: color 0.3s ease;
+  background-color: rgba(255, 255, 255, 1);
+
 }
 
 .infoIcon {
@@ -378,18 +411,24 @@
 }
 
 .spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #000;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
+  border: 4px solid rgba(0, 0, 0, 0.1) !important;
+  border-left-color: #000 !important;
+  border-radius: 50% !important;
+  width: 20px !important;
+  height: 20px !important;
+  animation: spin 1s linear infinite !important;
+  /* margin-left: 10px */
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+.checkIcon {
+  margin-left: 10px;
+  color: green;
 }
 
 .copyNotification {
