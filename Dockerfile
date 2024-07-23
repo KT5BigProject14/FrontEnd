@@ -1,5 +1,5 @@
 # 베이스 이미지 설정
-FROM node:14 AS build
+FROM node:22.1 AS build
 
 # 작업 디렉토리 설정(docker에서 app이라는 디렉터리를 만듦)
 WORKDIR /app
