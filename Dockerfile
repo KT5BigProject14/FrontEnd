@@ -27,8 +27,11 @@ FROM nginx:alpine
 # 빌드된 파일들을 Nginx HTML 디렉토리로 복사
 COPY --from=build /app/dist /usr/share/nginx/html
 
+# public/images 디렉토리를 Nginx HTML 디렉토리로 복사
+COPY --from=build /app/public/images /usr/share/nginx/html/images
+
 # 사용자 정의 Nginx 설정 파일 복사
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # 포트 3000 노출
 EXPOSE 80
