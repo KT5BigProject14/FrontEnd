@@ -18,8 +18,9 @@ import ViewPost from './pages/ViewPost';
 import Chat from './pages/Chat_';
 import Storage from './pages/Storage';
 import Community from './pages/Commuinty';
-
-
+import NewCommunity from './pages/NewCommunity'
+import ViewCommunity from './pages/ViewCommunity'
+import EditCommunity from './pages/EditCommunity.jsx'
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -81,6 +82,9 @@ function App() {
         <Route path="/chat_" element={<Chat />} />
         <Route path="/storage" element={<Storage />} />
         <Route path="/Community" element={<Community />} />
+        <Route path="/new-community" element={<NewCommunity />} />
+        <Route path="/community/:community_id" element={<ViewCommunity />} />
+        <Route path="/edit-community/:community_id" element={<EditCommunity />} /> 
       </Routes>
     </Router>
   );

@@ -13,7 +13,7 @@ const Community = () => {
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        apiFetch(`${apiUrl}/retriever/qna/load/all/qna`, {
+        apiFetch(`${apiUrl}/retriever/community/load/all`, {
             method: 'GET',
             // headers: {
             //     'Authorization': `Bearer ${token}`,
@@ -24,7 +24,7 @@ const Community = () => {
             console.log(res);
 
             // Extract user_qna array from the data object
-            const userQnaList = res.data.user_qna || [];
+            const userQnaList = res.data || [];
 
             // Sort the user_qna array by created_at in descending order
             const sortedData = userQnaList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -67,7 +67,7 @@ const Community = () => {
                         <tr key={qna.qna_id}>
                             <td className="no-column">{indexOfFirstItem + index + 1}</td>
                             <td className="title-column">
-                                <Link to={`/qna/${qna.qna_id}`} state={{ email: qna.email }}>{qna.title}</Link>
+                                <Link to={`/community/${qna.community_id}`} state={{ email: qna.email }}>{qna.title}</Link>
                             </td>
                             <td>{qna.email}</td>
                             <td>{new Date(qna.created_at).toLocaleDateString()}</td>
@@ -82,7 +82,7 @@ const Community = () => {
                     </button>
                 ))}
             </div>
-            <button className="write-button" onClick={() => navigate('/new-post')}>
+            <button className="write-button" onClick={() => navigate('/new-community')}>
                 글쓰기
                 <img src={writeIcon} alt="Write Icon" className="write-icon" />
             </button>
