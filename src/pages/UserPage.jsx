@@ -31,6 +31,7 @@ const UserPage = () => {
     if (token) {
       // 토큰을 사용하여 서버에서 사용자 정보를 가져오는 함수 호출
       fetchUserInfo(token).then(data => {
+        if(data.user_keyword){
         setUserInfo({
           email: data.user_info.email,
           user_name: data.user_info.user_name,
@@ -40,6 +41,16 @@ const UserPage = () => {
           phone: formatPhoneNumber(data.user_info.phone),
           keyword: formatKeywords(data.user_keyword) // keyword를 포맷팅하여 설정
         });
+      }else{
+        setUserInfo({
+          email: data.user_info.email,
+          user_name: data.user_info.user_name,
+          corporation: data.user_info.corporation,
+          business_number: formatBusinessNumber(data.user_info.business_number),
+          position: data.user_info.position,
+          phone: formatPhoneNumber(data.user_info.phone),
+        }); 
+      }
       });
     }
   }, []);
