@@ -87,16 +87,18 @@ const ViewCommunity = () => {
 
     const handleDeleteComment = (commentId) => {
         const token = sessionStorage.getItem('token');
+        console.log("콘솔", commentId, comments)
         const commentToDelete = comments.find(comment => comment.community_comment_id === commentId);
+        console.log(commentToDelete)
         if (!commentToDelete) {
             console.error('Comment to delete not found');
             return;
         }
         const requestData = {
             community_id: community_id,
-            email: email,
+            email: commentToDelete.email,
             content: commentToDelete.content,
-            community_comment_id: commentId,
+            community_comment_id: commentToDelete.community_comment_id,
         };
         console.log(requestData);
 
@@ -113,8 +115,9 @@ const ViewCommunity = () => {
     const handleEditComment = (commentId) => {
         const commentToEdit = comments.find(comment => comment.community_comment_id === commentId);
         if (commentToEdit) {
-            setEditingCommentId(commentId);
+            setEditingCommentId(commentToEdit.community_comment_id);
             setEditingCommentContent(commentToEdit.content);
+            setEmail(commentToEdit.email)
         }
     };
 
@@ -149,9 +152,9 @@ const ViewCommunity = () => {
         <div className="view-post">
             <div className="view-post-container">
                 <div className="post-header">
-                    <h1 className="post-title">&lt;제목&gt; {post.title}</h1>
+                    <h1 className="post-title">{post.title}</h1>
                     <div className="post-meta">
-                        <p><strong>작성자:</strong> {post.email}</p>
+                        <p><strong>작성자:</strong> {post.corporation}</p>
                         <p><strong>작성일:</strong> {new Date(post.created_at).toLocaleString()}</p>
                     </div>
                 </div>
@@ -171,8 +174,8 @@ const ViewCommunity = () => {
                             comment && comment.community_comment_id && (
                                 <div key={comment.community_comment_id} className="comment">
                                     <div className="comment-header">
-                                        <p><strong>{comment.email}</strong> ({new Date(comment.created_at).toLocaleString()})</p>
-                                        {(comment.email === email || role !== 'user') && editingCommentId !== comment.community_comment_id ? (
+                                        <p><strong>{comment.corporation}</strong> ({new Date(comment.created_at).toLocaleString()})</p>
+                                        { comment.is_my_post == true || role == 'admin'  ? (
                                             <div className="comment-actions">
                                                 <button onClick={() => handleEditComment(comment.community_comment_id)}>수정</button>
                                                 <span>||</span>
@@ -197,11 +200,13 @@ const ViewCommunity = () => {
                             <button onClick={handleAddComment}>입력</button>
                         </div>
                     </div>
+                    {post.is_my_post == true || role == 'admin'  ? (
                     <div className="post-actions">
                         <button className="edit-button" onClick={handleEdit}>수정하기</button>
                         <button className="delete-button" onClick={handleDelete}>삭제하기</button>
                         <button className="back-to-list-button" onClick={handleBackToList}>목록보기</button>
                     </div>
+                    ) : null}
                 </div>
             </div>
         </div>

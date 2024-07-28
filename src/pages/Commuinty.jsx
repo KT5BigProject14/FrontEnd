@@ -64,12 +64,12 @@ const Community = () => {
                 </thead>
                 <tbody>
                     {currentItems.map((qna, index) => (
-                        <tr key={qna.qna_id}>
+                        <tr  key={qna.qna_id || index}>
                             <td className="no-column">{indexOfFirstItem + index + 1}</td>
                             <td className="title-column">
                                 <Link to={`/community/${qna.community_id}`} state={{ email: qna.email }}>{qna.title}</Link>
                             </td>
-                            <td>{qna.email}</td>
+                            <td>{qna.corporation}</td>
                             <td>{new Date(qna.created_at).toLocaleDateString()}</td>
                         </tr>
                     ))}

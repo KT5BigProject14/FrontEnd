@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LikePage.css';
 import apiFetch from '../api';
@@ -12,6 +12,35 @@ const LikePage = () => {
   const formRef = useRef(null);
 
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const token = sessionStorage.getItem('token');
+      try {
+        const response = await apiFetch(`${apiUrl}/retriever/info/keyword`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.status !== 200) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = response.data;  // 응답 데이터에서 data 추출
+        console.log('Fetched user info:', data);
+        setLikeyear(data.likeyear || '');
+        setLikecountry(data.likecountry || '');
+        setLikebusiness(data.likebusiness || '');
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [apiUrl]);
 
   const handleLikeyear = (e) => {
     setLikeyear(e.target.value);
@@ -33,14 +62,18 @@ const LikePage = () => {
     const token = sessionStorage.getItem('token');
 
     const requestData = {
-        likeyear: Likeyear,
-        likecountry: Likecountry,
-        likebusiness:Likebusiness,
+      likeyear: Likeyear,
+      likecountry: Likecountry,
+      likebusiness: Likebusiness,
     };
-    navigate('/profile');
+
     try {
       const response = await apiFetch(`${apiUrl}/retriever/info/keyword`, {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(requestData)
       });
 
@@ -51,7 +84,7 @@ const LikePage = () => {
       navigate('/profile'); // 지정 후 프로필 페이지로 이동
     } catch (error) {
       setError('지정 중 오류가 발생했습니다.');
-      
+      console.error('Error:', error);
     }
   };
 
@@ -61,15 +94,15 @@ const LikePage = () => {
       <form ref={formRef} onSubmit={handleSubmit} className="Like-form">
         <div className="Like-group">
           <label>년도</label>
-          <input type="Likeyear" value={Likeyear}  onChange={handleLikeyear}/>
+          <input type="text" value={Likeyear} onChange={handleLikeyear} />
         </div>
         <div className="Like-group">
           <label>국가</label>
-          <input type="Likecountry" value={Likecountry}  onChange={handleLikecountry}/>
+          <input type="text" value={Likecountry} onChange={handleLikecountry} />
         </div>
         <div className="Like-group">
           <label>사업종류</label>
-          <input type="Likebusiness" value={Likebusiness}  onChange={handleLikebusiness}/>
+          <input type="text" value={Likebusiness} onChange={handleLikebusiness} />
         </div>
         <div className="error-container">
           {error && <p className="error">{error}</p>}
