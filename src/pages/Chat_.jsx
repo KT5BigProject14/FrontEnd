@@ -289,44 +289,49 @@ const Chat = () => {
   };
 
   const formatTitleText = (data) => {
-
     if (typeof data === 'string') {
-      const elements = [];
-      const lines = data.split('\n');
-      lines.forEach((line) => {
-        // console.log(line)
-        // console.log('trim line', line.trim())
-        line = line.trim()
-        // console.log('source_key ? :', line.trim().startsWith('source_key'))
-        if (line.startsWith('q_key')) {
+      try {
+        // 문자열을 JSON 객체로 변환
+        const jsonData = JSON.parse(data);
+  
+        const elements = [];
+  
+        // q_key 처리
+        if (jsonData.q_key) {
           elements.push(
             <h2 key="q_key" style={{ margin: '20px 0', fontWeight: 'bold', fontSize: '24px' }}>
-              {line.split(':')[1].trim().replace(/["{},]/g, '')}
+              {jsonData.q_key}
             </h2>
           );
-        } else if (line.startsWith('sub_key')) {
+        }
+  
+        // sub_key, content_key, source_key를 동적으로 처리
+        let index = 1;
+        while (jsonData[`sub_key${index}`]) {
           elements.push(
-            <h3 key={line} style={{ margin: '10px 0', fontWeight: 'bold', fontSize: '18px' }}>
-              {line.split(':')[1].trim().replace(/["{},]/g, '')}
+            <h3 key={`sub_key${index}`} style={{ margin: '10px 0', fontWeight: 'bold', fontSize: '18px' }}>
+              {jsonData[`sub_key${index}`]}
             </h3>
           );
-        } else if (line.startsWith('content_key')) {
           elements.push(
-            <p key={line} style={{ margin: '10px 0', fontSize: '16px' }}>
-              {line.split(':')[1].trim().replace(/["{},]/g, '')}
+            <p key={`content_key${index}`} style={{ margin: '10px 0', fontSize: '16px' }}>
+              {jsonData[`content_key${index}`]}
             </p>
           );
-        } else if (line.startsWith('source_key')) {
-          const sourceText = line.replace(/^[^:]+:\s*/, '').trim().replace(/["{},]/g, '');
           elements.push(
-            <p key={line} style={{ margin: '10px 0', fontStyle: 'italic', color: 'gray', fontSize: '14px' }}>
-              Source: {sourceText}
+            <p key={`source_key${index}`} style={{ margin: '10px 0', fontStyle: 'italic', color: 'gray', fontSize: '14px' }}>
+              Source: {jsonData[`source_key${index}`]}
             </p>
           );
-        }
-      });
   
-      return elements;
+          index++;
+        }
+  
+        return elements;
+      } catch (error) {
+        console.error("JSON parsing error:", error);
+        return <p style={{ color: 'red' }}>Invalid JSON format</p>;
+      }
     }
   
     return null;
